@@ -1,0 +1,94 @@
+Hi All!
+
+
+steps for using git:
+
+
+
+first make sure that you have a clone of the online repository on your local machine. To do this go to the website for the repository: https://github.com/mjevans93308/NESH
+	
+In the right hand panel there should be a "Clone to Desktop" button. Click it.
+	
+After it finishes installing you should see the GitHub UI on your desktop. Go into it, make sure that you see the mjevans93308/NESH repository under the repository listing.
+	
+Go into the repository. Change your branch from "master" to "gh-pages".	This is because GitHub has a specific classification documents meant to be used as web-pages, that being that they need to go into a special branch called "gh-pages".
+	
+We will only being working in the gh-pages branch for the time being, so don't worry about moving between branches.
+
+================================================================================================================================================================================
+
+Adding files to github folder:
+
+To add files to be uploaded to git when you use the commands I state later, just save the files inside the local repository on your computer.
+
+So for me, if I wanted to create a new file for NESH.co, I would save the file (let's call it file.html, I'm not creative) into my Documents/GitHub/NESH folder.
+
+Then after the necessary commands, it would be added to the online repository when I add any other modifications I've been doing.
+
+================================================================================================================================================================================
+
+To start modifying and pushing the documents you have to the git repository, you need to first ensure that you are in the GitHub folder on your computer.
+
+Mine is set up in my Documents folder. I'm using cygwin (the program doesn't matter. I've never used the git UI but I'm sure it would work to), so I cd into my Documents/GitHub folder. From there if I do an ls I will see the repositories I have on my computer currently. I then cd into the one I want, this being NESH. From there I can start adding documents to be pushed to the git server.
+
+
+All commands start with the 'git' word.	So an example prompt with a valid git cmd would look like:
+
+mevans-> git cmd_to_execute
+
+=================================================================================================================================================================================
+
+Here is a list of all the git commands I've ever had to use
+	
+git add filename
+	This command is for notifying git that I have a file I want it to track. Since we're working with multiple files at once I always just use 'git add .' because it adds all files that have been modified since the last add.
+
+git pull
+	This command is for getting the most up-to-date version of the project from the online git servers.
+	
+SIDE NOTE:
+ALWAYS, ALWAYS, ALWAYS do a pull before pushing any changes you have made to anything, even if you're sure no one else has modified the code. This is because you always want to be working with the most current version of the code, so that you don't mistakenly push out-of-date code and erase someone's work. Also, pulling before pushing helps eliminate the risk of merge-conflicts, which come about when two people are working on the same section of code and try to push their versions. Git doesn't know which one to give precedence to, so it won't let you push until your code and the other person's code don't change the same things in different ways. It's also a pain to debug...
+
+git status
+	This command will tell you what the status of your repository is in comparison with the online repository. Are you behind(meaning you need to pull the current version), do you have files to commit, files to add, those kinda things.
+
+git branch
+	This command will give you a list of the branches in your repository along with an asterisk next to the branch you're in.
+	Yours should look like this:
+
+	*gh-pages
+	 master
+
+git commit
+	This command is for telling git that you're about to push the changes you've made. Think of committing as exactly what the word means. Once you commit a file that you've added with 'git add .' it means to git that you aren't going to make any more changes before pushing your changes to the online repo.
+
+	I usually use 'git commit -m 'your commit message here[branch]' ' instead of just 'git commit'. All commits need a commit message or else git won't let you commit it, so I just inline it instead of waiting for git to prompt me to add a commit message in an editor. The commit message is just a message detailing the changes you've made to others. I usually just tack on the branch I'm in for context's sake.
+
+example:	git commit -m 'added footer to index.html[gh-pages]'
+
+git push
+	This command is the command that will literally push your changes to the online repository. Once you enter this command, git will ask for your git username and password and then it will update the online repo to reflect your changes.
+
+=================================================================================================================================================================================
+
+My usual workflow inside git:
+
+Once I get into the git repo on my computer my git commands go like this:
+
+git status			/* I'm making sure I'm where I want to be and checking to see if I'm ahead or behind */
+
+git pull			/* making sure I have the most current version */
+
+Then I go about my work. Once I'm finished making changes to files I go through this process:
+
+git add .			/* adding the files I've changed to be tracked by git */
+
+git commit -m 'my message[current work branch]'		/* committing the files */
+
+git pull			/* GOD FORGIVE YOU IF YOU FORGET THIS STEP, BECAUSE THE REST OF THE TEAM WON'T. but seriously, always pull before you push */
+
+git push			/* lastly, push the changes. Then enter your name, password */
+
+git status			/* make sure my changes went through */
+
+git pull			/* doesn't hurt :) */
