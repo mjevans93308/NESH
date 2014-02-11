@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<script src="calcBMI.js" type="text/javascript"> </script>
+		<script src="analytics.js" type="text/javascript"> </script>
+		<meta charset="utf-8"/>
+		<title>BMI</title>
+	</head>
+
+	<body >
+		<h3>BMI Calculator</h3>
+		<form action="#">
+			<fieldset>
+				<legend> BMI </legend>
+
+				<p><label for="height">Height</label> <input type="text" id="height" name="height" size="12"/> </p>
+				<p>Height should be in Inches</p>
+				<p><label for="weight">Weight</label> <input type="text" id="weight" name="weight" size="12"/> </p>
+				<p>Weight should be in Pounds</p>
+				<p><input type="button" onclick="calcBMI(); track('calcBMI:{age=12, weight=13, sex=F}; calcW: {age=13}; calH: {age = 15}')" value="Calculate BMI"/></p>
+				<p> To get more information about BMI <a href = "http://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html"> click here</a></p>
+			</fieldset>	
+		</form>
+	</body>
+</html>
