@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include ("~/php/mysqli.php");
+	include ("../php/mysqli.php");
 ?>
 <html>
 <body>
