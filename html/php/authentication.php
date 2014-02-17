@@ -30,8 +30,8 @@ else if(isset($_GET['signup'])){
 
 else if(isset($_GET['logout'])){
 	unset($_SESSION['userid']);
+	logout();
 	echo "<script>window.location= 'http://nesh.co/index.html'</script>";
-
 }
 
 function add_member($uid1, $last1, $first1, $email1, $passwd1)
