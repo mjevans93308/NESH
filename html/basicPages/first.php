@@ -8,6 +8,6 @@
 
 <body>
 	<p> You are in!</p>
-    <a href="php/authentication.php?logout">Logout</a>
+    <a href="~/php/authentication.php?logout">Logout</a>
 </body>
 </html>
