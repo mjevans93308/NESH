@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	include ("mysqli.php");
+	include ("~/php/mysqli.php");
 ?>
 <html>
 <body>
@@ -9,7 +9,7 @@
 if(isset($_GET['login'])){
 	$login = authenticate($_POST["uid"], $_POST["password"]);
 	if($login == $_POST["uid"]){
-		echo "<script>window.location= 'http://nesh.co/first.php'</script>";
+		echo "<script>window.location= 'http://nesh.co/basicPages/first.php'</script>";
 		unset($_GET['login']);
 	}
 }
@@ -17,7 +17,7 @@ else if(isset($_GET['signup'])){
 	if($_POST["nPassword"] == $_POST["confPassword"]){
 		$flag = add_member($_POST["uid"], $_POST["last"], $_POST["first"], $_POST["email"], $_POST["nPassword"]);
 		if($flag == true){	
-			echo "<script>window.location= 'http://nesh.co/login.html'</script>";
+			echo "<script>window.location= 'http://nesh.co/basicPages/login.html'</script>";
 			unset($_GET['signup']);
 		}
 		else
