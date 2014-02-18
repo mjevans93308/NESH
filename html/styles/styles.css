@@ -3,7 +3,7 @@
 *{
 	margin: 0;
 	padding: 0;
-	
+
 }
 html, body{
 	/*outline: red solid 3px;*/
@@ -13,25 +13,160 @@ html, body{
 
 /*********WRAPPER DIV***********/
 #container{
-	/*outline: red solid 3px;*/
-	width: 960px;
+	/*outline: blue solid 3px;*/
+	width: 768px;
 	min-height: 100%;
 	height: auto;
 	background: #e6e2e2;
 	position: relative;
 	margin: 0 auto 0 auto;
 	overflow: hidden;
+
 }
+
+#logo{
+	/*outline: red solid 3px;*/
+	height: 236px;
+	width: 730px;
+	background-image:url("../images/logo.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	margin-left: auto;
+	   margin-right: auto;
+	   position: relative;
+	   margin-top: 30px;
+}
+
+#buttons{
+/*outline: blue solid 3px;*/
+height: 100px;
+width: 730px;
+position: relative;
+   margin-top: 40px;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+/*Buttons were made at http://www.cssbuttongenerator.com/
+Changes to the button was minimal so dont worry about making your changes*/
+.Sign-Up {
+	-moz-box-shadow:inset 0px 1px 0px -3px #d9fbbe;
+	-webkit-box-shadow:inset 0px 1px 0px -3px #d9fbbe;
+	box-shadow:inset 0px 1px 0px -3px #d9fbbe;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b8e356), color-stop(1, #a5cc52) );
+	background:-moz-linear-gradient( center top, #b8e356 5%, #a5cc52 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8e356', endColorstr='#a5cc52');
+	background-color:#b8e356;
+	-webkit-border-top-left-radius:21px;
+	-moz-border-radius-topleft:21px;
+	border-top-left-radius:21px;
+	-webkit-border-top-right-radius:21px;
+	-moz-border-radius-topright:21px;
+	border-top-right-radius:21px;
+	-webkit-border-bottom-right-radius:21px;
+	-moz-border-radius-bottomright:21px;
+	border-bottom-right-radius:21px;
+	-webkit-border-bottom-left-radius:21px;
+	-moz-border-radius-bottomleft:21px;
+	border-bottom-left-radius:21px;
+	text-indent:0;
+	border:1px solid #83c41a;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Comic Sans MS;
+	font-size:22px;
+	font-weight:bold;
+	font-style:normal;
+	height:65px;
+	line-height:65px;
+	width:300px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 2px 0px #86ae47;
+	margin-top: 15px;
+	margin-left: 30px;
+	margin-right: 30px;
+}
+.Sign-Up:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a5cc52), color-stop(1, #b8e356) );
+	background:-moz-linear-gradient( center top, #a5cc52 5%, #b8e356 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a5cc52', endColorstr='#b8e356');
+	background-color:#a5cc52;
+}
+.Sign-Up:active {
+	position:relative;
+	top:1px;
+}
+.Sign-In {
+	-moz-box-shadow:inset 0px 1px 0px -3px #d9fbbe;
+	-webkit-box-shadow:inset 0px 1px 0px -3px #d9fbbe;
+	box-shadow:inset 0px 1px 0px -3px #d9fbbe;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #b8e356), color-stop(1, #a5cc52) );
+	background:-moz-linear-gradient( center top, #b8e356 5%, #a5cc52 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#b8e356', endColorstr='#a5cc52');
+	background-color:#b8e356;
+	-webkit-border-top-left-radius:21px;
+	-moz-border-radius-topleft:21px;
+	border-top-left-radius:21px;
+	-webkit-border-top-right-radius:21px;
+	-moz-border-radius-topright:21px;
+	border-top-right-radius:21px;
+	-webkit-border-bottom-right-radius:21px;
+	-moz-border-radius-bottomright:21px;
+	border-bottom-right-radius:21px;
+	-webkit-border-bottom-left-radius:21px;
+	-moz-border-radius-bottomleft:21px;
+	border-bottom-left-radius:21px;
+	text-indent:0;
+	border:1px solid #83c41a;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Comic Sans MS;
+	font-size:22px;
+	font-weight:bold;
+	font-style:normal;
+	height:65px;
+	line-height:65px;
+	width:300px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 2px 0px #86ae47;
+	margin-left: 30px;
+}
+
+.Sign-In:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a5cc52), color-stop(1, #b8e356) );
+	background:-moz-linear-gradient( center top, #a5cc52 5%, #b8e356 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a5cc52', endColorstr='#b8e356');
+	background-color:#a5cc52;
+}
+
+.Sign-In:active {
+	position:relative;
+	top:1px;
+}
+
+#bginfo{
+	/*outline: green solid 3px;*/
+	height: 200px;
+	width: 730px;
+	position: relative;
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 
 #signup{
 	/*outline: red solid 3px;*/
-	margin: 10px;
-	padding: 10px;
-	width: 40%;
+	margin-top: 40px;
+	margin-left: auto;
+	margin-right:auto;
+	padding: 20px;
+	width: 70%;
 	border-style: solid;
 	border-width: 3px;
 	border-color:#000000;
-	float:right;
 }
 
 #signup p{
@@ -62,5 +197,6 @@ html, body{
 	padding: 5px;
 	
 	width : 150px;
-  	margin: 0;
+  	margin-left: auto;
+	margin-right: auto;
 }
