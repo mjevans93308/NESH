@@ -1,0 +1,24 @@
+/*checks dup uid*/
+INSERT INTO Members
+VALUES (001,Bryan,Silva,silva.bryan@gmail.com,558064bs);
+
+INSERT INTO Members
+VALUES (001,Bryan,Silva,bsilva1@scu.edu,558064bs);
+
+/*checks dup email*/
+INSERT INTO Members
+VALUES (001,Bryan,Silva,silva.bryan@gmail.com,558064bs);
+
+INSERT INTO Members
+VALUES (002,Bryan,Silva,silva.bryan@gmail.com,558064bs);
+
+/*checks checks exact dup names*/
+INSERT INTO Members
+VALUES (001,Bryan,Silva,silva.bryan@gmail.com,558064bs);
+
+INSERT INTO Members
+VALUES (002,Bryan,Silva,bsilva1@scu.edu,558064bs);
+
+/*Same Product Name*/
+
+/*Same Company Name*/

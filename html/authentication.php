@@ -1,15 +1,10 @@
-<<<<<<< HEAD
-=======
 <?php
 	session_start();
 	include ("mysqli.php");
 ?>
->>>>>>> 871ed688a557f4a358b5849510975f824db9577f
 <html>
 <body>
 <?php
-//session_start();
-include ("../php/mysqli.php");
 
 if(isset($_GET['login'])){
 	$login = authenticate($_POST["uid"], $_POST["password"]);
