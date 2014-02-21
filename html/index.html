@@ -2,25 +2,29 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>NESH.CO</title>
-    <link rel="stylesheet" type="text/css" href="styles/styles.css">
-</head>
 
-<body>
-    <div id="container">
-
-        <div id="logo">
-
-        </div>
-
-        <div id="buttons">
-            <a href="basicPages/signup.html" class="Sign-Up">Sign-Up</a>
-            <a href="basicPages/login.html" class="Sign-In">Sign-In</a>
-        </div>
-
-        <div id="bginfo">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam iaculis faucibus feugiat. Praesent luctus, nisl nec porttitor tincidunt, libero dolor mollis dolor, nec auctor nunc ante id nisi. Curabitur porttitor, justo nec tristique vehicula, enim enim dignissim ligula, at blandit libero odio id libero. Nulla posuere ut libero id congue. Fusce feugiat viverra blandit. In non justo molestie ante vulputate consectetur. Curabitur congue congue arcu, eu feugiat odio mollis quis. Phasellus facilisis ligula sit amet mauris porttitor consectetur. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut a dolor luctus, pellentesque lacus id, egestas libero. Aliquam erat volutpat. Mauris a fermentum lorem. Suspendisse non turpis feugiat, porttitor magna at, pulvinar erat.</p>
+<meta charset="UTF-8">
+<title>NESH</title>
+<link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head> 
+<body> 
+	<div id="container">
+    	<div id="signup">
+    		<form name="signup" action="php/authentication.php?signup" method="post">
+       			<p>First Name: <input type="text" name= "first" class="textarea"> </p>
+           	<p>Last Name: <input type="text" name="last" class="textarea"> </p>
+           	<p>Username: <input type="text" name="uid" class="textarea"></p>
+           	<p>email: <input type="email" name="email" class="textarea" ></p>
+           	<p>New Password: <input type="password" name="nPassword" class="textarea"></p>
+           	<p>Confirm Password: <input type="password" name="confPassword" class="textarea"></p>
+            	<div style="clear:both"></div>
+				<input type="submit" value="signup" class="button"><br/>
+               <a href="basicPages/login.html">Already a user? Login here!</a>              
+       		</form>
+		</div>
+        <div id="left">
+        	<img src="images/logo.png" width="476" height="348">
+>>>>>>> 8a5867046bf1ade7ac9500be03678b50b99bd9e6
         </div>
     </div>
 </body>
