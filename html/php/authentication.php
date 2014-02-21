@@ -1,7 +1,7 @@
 <html>
 <body>
 <?php
-//session_start();
+session_start();
 include ("../php/mysqli.php");
 
 if(isset($_GET['login'])){
@@ -80,8 +80,8 @@ function change_pw($uid, $oldpw, $newpw)
 }
 
 function logout(){
-killSession();
-echo "<script>window.location= 'http://nesh.co/index.html'</script>";
+	killSession();
+	echo "<script>window.location= 'http://nesh.co/index.html'</script>";
 }
 ?>
 </body>
