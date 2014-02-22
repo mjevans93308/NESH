@@ -30,7 +30,8 @@ else if(isset($_GET['signup'])){
 }
 
 else if(isset($_GET['logout'])){
-	unset($_SESSION['userid']);
+	logout();
+	//unset($_SESSION['userid']);
 	echo "<script>window.location= 'http://nesh.co/index.html'</script>";
 
 }
@@ -83,7 +84,8 @@ function change_pw($uid, $oldpw, $newpw)
 }
 
 function logout(){
-	killSession();
+	$_SESSION = array();
+	session_destroy();
 	echo "<script>window.location= 'http://nesh.co/index.html'</script>";
 }
 ?>
