@@ -1,12 +1,15 @@
+<?php
+	session_start();
+?>
 <html>
 <body>
 <?php
-session_start();
 include ("../php/mysqli.php");
 
 if(isset($_GET['login'])){
 	$login = authenticate($_POST["uid"], $_POST["password"]);
 	if($login == $_POST["uid"]){
+		//header("Location: basicpages/first.php");
 		echo "<script>window.location= 'http://nesh.co/basicPages/first.php'</script>";
 		unset($_GET['login']);
 	}
@@ -41,7 +44,7 @@ function add_member($uid1, $last1, $first1, $email1, $passwd1)
   $email=$db_obj->escape_string($email1);
   $pass=$db_obj->escape_string($passwd1);  // (B)
   
-  $query="INSERT INTO members VALUES ('$uid','$first',  
+  $query="INSERT INTO Members VALUES ('$uid','$first',  
              '$last', '$email', PASSWORD('$pass'))"; // (D)
   return ($db_obj->query($query));                    // (E)
 }
@@ -50,7 +53,7 @@ function authenticate($uid, $pass)
 {  global $db_obj;
    $userid=$db_obj->escape_string($uid);
    $passwd=$db_obj->escape_string($pass);
-   $query="SELECT * FROM members WHERE uid ='$userid'"
+   $query="SELECT * FROM Members WHERE uid ='$userid'"
      . " AND password = PASSWORD('$passwd')";            // (F)
 
    if ( ($result = $db_obj->query($query))           // (G)
@@ -71,7 +74,7 @@ function change_pw($uid, $oldpw, $newpw)
   $oldpw=$db_obj->escape_string($oldpw);
   $newps=$db_obj->escape_string($newpw);
   if ( authenticate($uid,$oldpw) )              // (I)
-  {  $query="UPDATE members " .                  // (II)
+  {  $query="UPDATE Members " .                  // (II)
             "SET passwd=PASSWORD('$newpw') " .
             "WHERE uid='$uid'";
      return ($db_obj->query($query));  // TRUE or FALSE
