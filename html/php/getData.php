@@ -3,7 +3,8 @@ session_start();
 
 include("mysqli.php");
 include("mysqli_verify.php");
-global $return_arr=array();
+
+$return_arr=array();
 
 if(isset($_POST['key'])){
 	$key = $_POST['key'];
@@ -61,33 +62,6 @@ function createEvent($h){
 			sendback(0);
 		}
 	}
-}
-
-// if( ! $_SERVER['HTTPS'] )
-//		return a 404 error with https suggestion
-
-//$regex = '/[:{}\s].?/'
-//$tokens = preg_split('/')
-
-// get data from POST
-	// break up into assoc array
-// verify client & project w/ db
-// 
-
-var s;
-function track(properties){	
-var regex = /([\w]+: \{.+\})/;
-var events = properties.split(regex);
-for(var i = 0; i < events.length; i++){
-alert(events[i]);
-}
-alert("bla");
-alert(properties);
-//var _POST = "www.nesh.co?"+ properties; //instead of www.nesh.co we will have the actual url.
-//alert(_POST); //then use the below function calls asynchronously.
-//	xmlhttp.open("POST","demo_get.asp",true);
-//	xmlhttp.send(_POST);
-return true;
 }
 
 ?>
