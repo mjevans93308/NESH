@@ -13,8 +13,9 @@ body, html {
 
 .boundary
 {
-    height: 400px;
+    height: 431px;
     width: 980px;
+    top: 20px;
     position: absolute;
     border-style: solid;
     border-color: blue;
@@ -24,8 +25,6 @@ body, html {
 {
     position: relative;
     left: 0px;
-    border-style: solid;
-    border-color: red;
     height: 348px;
     width: 476px;
 }
@@ -33,10 +32,12 @@ body, html {
 ul.tabs
 {
     position: relative;
+    float: right;
+    top: 0px;
     height:426px;
     width:400px;
-    border-style: solid;
-    border-color: green;
+    bottom: 420px;
+    top: auto;
 }
 
 
