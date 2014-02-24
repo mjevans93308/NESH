@@ -8,10 +8,10 @@ $return_arr=array();
 
 if(isset($_POST['key'])){
 	$key = $_POST['key'];
-	global $db_ver;
-	$hash = $db_ver->escape_string($key);
+	global $db_obj;
+	$hash = $db_obj->escape_string($key);
 	$query="SELECT * FROM Hash_Products WHERE hash = '$hash'";
-	if ( $result = $db_ver->query($query)){
+	if ( $result = $db_obj->query($query)){
 		if($result->num_rows == 1){
 			createEvent($hash);
 		}else{

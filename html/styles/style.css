@@ -109,3 +109,23 @@ ul.tabs
   -moz-animation-duration: 0.5s;
   animation-duration: 0.5s;
 }
+
+#newProject{
+	height: 348px;
+	width: 476px;
+	position: absolute;
+	top: 20px;
+	left: 200px;
+	outline: black solid 2px;
+	border-style: solid;
+   	border-color: blue;
+}
+
+#existingProjects{
+	height: 431px;
+    width: 400px;
+	float:right;
+	outline: black solid 2px;
+	border-style: solid;
+    border-color: blue;
+}
