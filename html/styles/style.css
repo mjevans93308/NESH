@@ -1,7 +1,9 @@
 /* Custom Stylesheet */
 body, html {
-    height: 100%;
-    margin: 0;
+    height: 768px;
+    width: 1024px;
+    margin-left: auto;
+    margin-right: auto;
     -webkit-font-smoothing: antialiased;
     font-weight: 100;
     background: #aadfeb;
@@ -9,25 +11,33 @@ body, html {
     font-family: helvetica;
 }
 
-#boundary
+.boundary
 {
-    max-height: 400px;
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    height: 431px;
+    width: 980px;
+    top: 20px;
+    position: absolute;
+    border-style: solid;
+    border-color: blue;
 }
 
-#left
+#image
 {
     position: relative;
-    background-image:url("images/logo.png" width="476" height="348");
     left: 0px;
+    height: 348px;
+    width: 476px;
 }
 
-#tabs
+ul.tabs
 {
     position: relative;
-
+    float: right;
+    top: 0px;
+    height:426px;
+    width:400px;
+    bottom: 420px;
+    top: auto;
 }
 
 
@@ -39,18 +49,17 @@ body, html {
     left: -9999px;
 }
 .tabs {
-  width: 650px;
-  float: none;
   list-style: none;
-  position: relative;
   padding: 0;
   margin: 75px auto;
+  position: relative;
 }
 .tabs li{
   float: left;
 }
 .tabs label {
     display: block;
+    position: relative;
     padding: 10px 20px;
     border-radius: 2px 2px 0 0;
     color: #08C;
@@ -99,4 +108,24 @@ body, html {
   -o-animation-duration: 0.5s;
   -moz-animation-duration: 0.5s;
   animation-duration: 0.5s;
+}
+
+#newProject{
+	height: 348px;
+	width: 476px;
+	position: absolute;
+	top: 20px;
+	left: 200px;
+	outline: black solid 2px;
+	border-style: solid;
+   	border-color: blue;
+}
+
+#existingProjects{
+	height: 431px;
+    width: 400px;
+	float:right;
+	outline: black solid 2px;
+	border-style: solid;
+    border-color: blue;
 }
