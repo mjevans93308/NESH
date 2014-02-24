@@ -77,7 +77,7 @@ function createEvent($h){
 			$add_row += "VALUES ('$hash','$session','error: invalid event_id: $event','$time');";
 		}
 		if( ! $result = $db_obj->query($add_row) ){
-			errlog("DB_WRITE_ERROR","error writing error msg to db",$event);
+			errlog("DB_WRITE_ERROR","error writing to db",$event);
 			errlog("DB_WRITE_ERROR_SQL",mysql_error(),mysql_errno());
 			sendback(-1);
 		}else{
