@@ -10,7 +10,23 @@ function track(properties){
 	alert("before post");
 	//alert(getTime());
 	alert(properties);
-	$.post("http://www.nesh.co/php/getData.php", {key: "1", time: "2014, 12, 12, 03, 23, 34", event_id: "properties"});
+	//$.post("http://www.nesh.co/php/getData.php", {key: "1", time: "2014, 12, 12, 03, 23, 34", event_id: "properties"});
+	$.ajax({
+		type: "POST", 
+		url:"http://www.nesh.co/php/getData.php", 
+		data: {key: "1", time: "2014, 12, 12, 03, 23, 34", event_id: "properties"},
+		crossDomain: true,
+		complete: function(response){
+                        if(response.status == 0 && response.statusText == "success")
+                        {
+                            alert("success");
+                        }
+                        else
+                        {
+                            alert("error");
+                        }
+                    }
+	});
 	alert("after post");
 	// _POST = "www.nesh.co?"+ properties; //instead of www.nesh.co we will have the actual url.
 	//alert(_POST); //then use the below function calls asynchronously.
