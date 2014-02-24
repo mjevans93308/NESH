@@ -31,6 +31,7 @@ if(isset($_POST['key'])){
 			createEvent($hash);
 		}else{
 			errlog("HASH_ERROR","invalid hash",$key);
+			errlog("HASH_ERROR_SQL",mysql_error(),mysql_errno());
 			sendback(-1);
 		}
 	}
@@ -66,12 +67,14 @@ function createEvent($h){
 			$add_row += "VALUES ('$hash','$session','$event','$time');";
 		}else{
 			// or log error message to DB & locally
-			errlog("EVENT_ID_ERROR","invalid event_id ".,$event);
+			errlog("EVENT_ID_ERROR","invalid event_id ",$event);
+			errlog("EVENT_ID_ERROR_SQL",mysql_error(),mysql_errno());
 			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp)";
 			$add_row += "VALUES ('$hash','$session','error: invalid event_id: $event','$time');";
 		}
 		if( ! $result = $db_obj->query($add_row) ){
 			errlog("DB_WRITE_ERROR","error writing error msg to db",$event);
+			errlog("DB_WRITE_ERROR_SQL",mysql_error(),mysql_errno());
 			sendback(-1);
 		}else{
 			sendback(0);
