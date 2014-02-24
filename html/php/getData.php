@@ -34,6 +34,10 @@ if(isset($_POST['key'])){
 			errlog("HASH_ERROR_SQL",mysql_error(),mysql_errno());
 			sendback(-1);
 		}
+	}else{
+		errlog("HASH_ERROR","invalid hash",$key);
+		errlog("HASH_ERROR_SQL",mysql_error(),mysql_errno());
+		sendback(-1);		
 	}
 }
 
@@ -79,6 +83,11 @@ function createEvent($h){
 		}else{
 			sendback(0);
 		}
+	}else{
+		// or log error message to DB & locally
+		errlog("EVENT_ID_ERROR","invalid event_id ",$event);
+		errlog("EVENT_ID_ERROR_SQL",mysql_error(),mysql_errno());
+		sendback(-1);
 	}
 }
 
