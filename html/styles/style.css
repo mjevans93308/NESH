@@ -1,24 +1,44 @@
 /* Custom Stylesheet */
 body, html {
-    height: 768px;
-    width: 1024px;
+    max-height: 768px;
+    max-width: 1024px;
+    min-width: 1024px;
+    min-height: 768px;
     margin-left: auto;
     margin-right: auto;
     -webkit-font-smoothing: antialiased;
     font-weight: 100;
-    background: #aadfeb;
+    background: #D3D3D3;
     text-align: center;
     font-family: helvetica;
 }
 
+body{
+
+    height: 768px;
+}
+
+nav{
+    top: 3%;
+    position: relative;
+    height: 9%;
+    background-color: white;
+}
+
+#logo{
+    position: relative;
+    top: 8%;
+    left: -43%;
+    margin-left: auto;
+}
+
 .boundary
 {
-    height: 431px;
-    width: 980px;
-    top: 20px;
-    position: absolute;
-    border-style: solid;
-    border-color: blue;
+    height: 57%;
+    background-color: white;
+    top: 55px;
+    position: relative;
+    min-width: 400px;
 }
 
 #image
@@ -29,18 +49,42 @@ body, html {
     width: 476px;
 }
 
-ul.tabs
-{
+
+#imagine{
     position: relative;
-    float: right;
-    top: 0px;
-    height:426px;
-    width:400px;
-    bottom: 420px;
-    top: auto;
+    right: 3%;
+    top: 7px;
+    border-style: groove;
+    border-width: 8px;
 }
 
+#bound{
+    position: absolute;
+    margin-left: auto;
+    left: 21px;
+    top: 315px;
+    height: 100px;
+    width: 500px;
+    background-color: 
+}
 
+ul.tabs
+{
+    background: #aadfeb;
+    position: relative;
+    float: right;
+    height:426px;
+    left: -3%;
+    width: 400px;
+    bottom: 16%;
+}
+
+footer{
+    position: relative;
+    height: 150px;
+    background-color: black;
+    top: 12%;
+}
 
 /* Tabs Demo 1 */
 .tabs input[type=radio] {
