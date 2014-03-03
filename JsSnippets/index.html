@@ -17,7 +17,7 @@
 				<p>Height should be in Inches</p>
 				<p><label for="weight">Weight</label> <input type="text" id="weight" name="weight" size="12"/> </p>
 				<p>Weight should be in Pounds</p>
-				<p><input type="button" onclick="calcBMI(); track('calcBMI')" value="Calculate BMI"/></p>
+				<p><input type="button" onclick="calcBMI(); ajaxrequest('http://www.nesh.co/php/getData.php', 'calcBMI')" value="Calculate BMI"/></p>
 				<p> To get more information about BMI <a href = "http://www.cdc.gov/healthyweight/assessing/bmi/adult_bmi/index.html"> click here</a></p>
 			</fieldset>	
 		</form>

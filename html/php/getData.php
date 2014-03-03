@@ -1,7 +1,17 @@
 <?php
+	header('Access-Control: allow <*>');
 
+	if (isset($_POST['key'])) {
+    $str = $_POST['key'];             // get data
+	$str .=$_POST['time'];
+	$str .=$_POST['event_id'];
+    echo "The string: '<i>".$str."</i>' is contained";
+}
+
+	else
+		echo "Didn't get any string";
 // ADD HERE: check if HTTPS, if not, return error! Once we have https setup
-
+/*
 session_start();
 
 /* USAGE
@@ -13,7 +23,6 @@ session_start();
 		tags = list of tags as a string of tags separated by commas "tag A,tag B,tag C"
 		OPTIONAL:
 		euid = end user id. this should be included with a unique device ID for mobile apps, since we will not be able to store session data
-*/
 
 include("mysqli.php");
 //include("mysqli_verify.php"); // we should store the hash table in a seperate database for security purposes
@@ -90,5 +99,5 @@ function createEvent($h){
 		sendback(-1);
 	}
 }
-
+*/
 ?>
