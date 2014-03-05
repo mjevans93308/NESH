@@ -15,17 +15,19 @@ if(isset($_GET['login'])){
 	}
 }
 else if(isset($_GET['signup'])){
-	if($_POST["nPassword"] == $_POST["confPassword"]){
-		$flag = add_member($_POST["uid"], $_POST["last"], $_POST["first"], $_POST["email"], $_POST["nPassword"]);
-		if($flag == true){	
-			echo "<script>window.location= 'http://nesh.co/basicPages/login.html'</script>";
-			unset($_GET['signup']);
+	if((!($_POST["uid"])==' ')&& (!($_POST["last"])==' ')&& (!($_POST["first"])== ' ') && (!($_POST["email"])== ' ') && (!($_POST["nPassword"])== ' ')&& (!($_POST["confPassword"]) == ' ')){
+		if($_POST["nPassword"] == $_POST["confPassword"]){
+			$flag = add_member($_POST["uid"], $_POST["last"], $_POST["first"], $_POST["email"], $_POST["nPassword"]);
+			if($flag == true){	
+				echo "<script>window.location= 'http://nesh.co/basicPages/login.html'</script>";
+				unset($_GET['signup']);
+			}
+			else
+				echo("error");
 		}
-		else
-			echo("error");
-	}
-	else{
-		echo '<p> "Passwords do not match!" </p>';
+		else{
+			echo '<p> "Passwords do not match!" </p>';
+		}
 	}
 }
 
