@@ -13,8 +13,6 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 body {
-  padding-top: 0px;
-  padding-bottom: 0px;
   margin: 0;
 }
 article,
@@ -3938,8 +3936,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #F8F8F8;
-  border-color: #E7E7E7;
+  background-color: #333333;
+  border-color: #222222;
 }
 .navbar-default .navbar-brand {
   color: #ffffff;
