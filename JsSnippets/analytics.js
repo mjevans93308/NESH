@@ -19,7 +19,7 @@ function getTitle(text) {
 }
 
 function track(string) {
-	var key = "event_id = '"+string+"'";
+	var key = "key=1&" + "event_id=" + string;
 	alert(key);
 	var url = 'http://nesh.co/php/getData.php';
   	var xhr = createCORSRequest('POST', url);
