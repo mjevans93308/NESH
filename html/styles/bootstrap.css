@@ -13,8 +13,6 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 body {
-  padding-top: 50px;
-  padding-bottom: 50px;
   margin: 0;
 }
 article,
@@ -1422,7 +1420,7 @@ th {
   padding: 8px;
   line-height: 1.42857143;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
 }
 .table > thead > tr > th {
   vertical-align: bottom;
