@@ -14,12 +14,12 @@ password varbinary(48) NOT NULL
 Create Table Products(
 product varchar(30) NOT NULL UNIQUE,
 uid int NOT NULL UNIQUE,
-pid int NOT NULL PRIMARY KEY UNIQUE AUTO_INCREMENT,
+pid int NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
 tag0 varchar(30),
 tag1 varchar(30),
 tag2 varchar(30),
 tag3 varchar(30),
-tag4 varchar(30),
+tag4 varchar(30)
 );
 
 ALTER TABLE Products
