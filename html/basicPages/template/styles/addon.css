@@ -1,0 +1,11 @@
+.basic-footer {
+	border-top: 1px solid #E5E5E5;
+	color:#777777;
+	margin-top: 50px;
+	padding-bottom: 30px;
+	padding-top: 30px;
+	text-align: center;
+	position: fixed;
+	bottom: 0px;
+	width: 100%
+}
