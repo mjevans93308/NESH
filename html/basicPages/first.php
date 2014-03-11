@@ -134,16 +134,16 @@
                 <a target="_blank" href="https://github.com"> github.</a>
             </p>
             <p>For questions, email
-                <a target="_blank" href="http://gmail.scu.edu"> mjevans@scu.edu,</a>
-                <a target="_blank" href="http://gmail.scu.edu"> mhowlesbanerji@scu.edu,</a>
-                <a target="_blank" href="http://gmail.scu.edu"> bsilva1@scu.edu,</a>
-                <a target="_blank" href="http://gmail.scu.edu"> anarra@scu.edu.</a>
+            		<a target="_blank" href="http://gmail.scu.edu"> anarra@scu.edu.</a>
+					<a target="_blank" href="http://gmail.scu.edu"> bsilva1@scu.edu,</a>
+                  <a target="_blank" href="http://gmail.scu.edu"> mhowlesbanerji@scu.edu,</a>
+                	<a target="_blank" href="http://gmail.scu.edu"> mjevans@scu.edu,</a>
             </p>
         </div>
     </footer>
 
-    <script src="scripts/jquery-1.11.0.js"></script>
-    <script src="scripts/bootstrap.js"></script>
+    <script src="../scripts/jquery-1.11.0.js"></script>
+    <script src="../scripts/bootstrap.js"></script>
 </body>
 
 </html>
