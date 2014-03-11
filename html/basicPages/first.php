@@ -13,6 +13,7 @@
 </head>
 
 <body>
+<h3>Welcome! <?php echo $_SESSION['userid'] ?> </h3>
 	<div id="container">
     	<div id="newProject">
         	<h2>Create a New Project!</h2>

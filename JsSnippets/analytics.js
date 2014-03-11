@@ -1,36 +1,42 @@
-var s;
-function track(properties){	
-	//var regex = /([\w]+: \{.+\})/;
-	//var events = properties.split(regex);
-	//for(var i = 0; i < events.length; i++){
-		//alert(events[i]);
-	//}
-	//alert("bla");
-	//alert(properties);
-	alert("before post");
-	//alert(getTime());
-	alert(properties);
-	//$.post("http://www.nesh.co/php/getData.php", {key: "1", time: "2014, 12, 12, 03, 23, 34", event_id: "properties"});
-	$.ajax({
-		type: "POST", 
-		url:"http://www.nesh.co/php/getData.php", 
-		data: {key: "1", time: "2014, 12, 12, 03, 23, 34", event_id: "properties"},
-		crossDomain: true,
-		complete: function(response){
-                        if(response.status == 0 && response.statusText == "success")
-                        {
-                            alert("success");
-                        }
-                        else
-                        {
-                            alert("error");
-                        }
-                    }
-	});
-	alert("after post");
-	// _POST = "www.nesh.co?"+ properties; //instead of www.nesh.co we will have the actual url.
-	//alert(_POST); //then use the below function calls asynchronously.
-	//xmlhttp.open("POST","demo_get.asp",true);
-	//xmlhttp.send(_POST);
-	return true;
+// JavaScript Document
+function createCORSRequest(method, url) {
+	var xhr = new XMLHttpRequest();
+  	if ("withCredentials" in xhr){
+    	xhr.open(method, url, true);
+  	} 
+	else if (typeof XDomainRequest != "undefined") {
+    	xhr = new XDomainRequest();
+    	xhr.open(method, url);
+  	} 
+	else {
+    	xhr = null;
+  	}
+  	return xhr;
+}
+
+function getTitle(text) {
+  return text.match('<title>(.*)?</title>')[1];
+}
+
+function track(string) {
+	var key = "key=1&" + "event_id=" + string;
+	alert(key);
+	var url = 'http://nesh.co/php/getData.php';
+  	var xhr = createCORSRequest('POST', url);
+  	if (!xhr) {
+    	alert('CORS not supported');
+    	return;
+  	}
+	xhr.onload = function() {
+    	var text = xhr.responseText;
+    	var title = getTitle(text);
+    	alert('Response from CORS request to ' + url + ': ' + title);
+	};
+
+	xhr.onerror = function() {
+		alert('Woops, there was an error making the request.');
+	};
+	alert('Gets here 1!');
+	xhr.send(key);
+	alert('Gets here 2!');
 }

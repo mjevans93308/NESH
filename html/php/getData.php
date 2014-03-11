@@ -1,9 +1,33 @@
 <?php
-
-// ADD HERE: check if HTTPS, if not, return error! Once we have https setup
-
-session_start();
-
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Credentials: true');
+		header('Content-Type: text/html; charset=utf-8');
+		if(isset($HTTP_RAW_POST_DATA)) {
+  			parse_str($HTTP_RAW_POST_DATA); // here you will get variables
+			
+			include("mysqli.php");
+			$hash = $db_obj->escape_string($key);
+			$event_id1 = $db_obj->escape_string($event_id);
+			$query="SELECT * FROM Hash_Products WHERE hash_number = '$hash'";
+			if ( $result = $db_obj->query($query)){
+				if($result->num_rows == 1){
+					$query1 = "INSERT INTO test VALUES('$hash', '$event_id1')";
+					$result1 = $db_obj->query($query1);
+					echo "<title> Got the data and inserted into the database!</title>";
+				}
+				else{
+					echo "<title> Not in the database!</title>";
+				}
+			}
+			else{
+					echo "<title> not able to query!</title>";	
+			}
+			
+  			//if($_POST['event_id'] == 'calcBmi') {
+    			
+  			//}
+		}
+		
 /* USAGE
 	- $_POST should include
 		key = hash key generated at project registration. unique to each project
@@ -13,7 +37,7 @@ session_start();
 		tags = list of tags as a string of tags separated by commas "tag A,tag B,tag C"
 		OPTIONAL:
 		euid = end user id. this should be included with a unique device ID for mobile apps, since we will not be able to store session data
-*/
+*
 
 include("mysqli.php");
 //include("mysqli_verify.php"); // we should store the hash table in a seperate database for security purposes
@@ -89,6 +113,6 @@ function createEvent($h){
 		errlog("EVENT_ID_ERROR_SQL",mysql_error(),mysql_errno());
 		sendback(-1);
 	}
-}
+*/
 
 ?>
