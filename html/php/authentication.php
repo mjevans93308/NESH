@@ -13,13 +13,16 @@ if(isset($_GET['login'])){
 		echo "<script>window.location= 'http://nesh.co/basicPages/first.php'</script>";
 		unset($_GET['login']);
 	}
+	else{
+		echo "<script>window.location= 'http://nesh.co/index.html'</script>";
+	}
 }
 else if(isset($_GET['signup'])){
 	if((!($_POST["uid"])==' ')&& (!($_POST["last"])==' ')&& (!($_POST["first"])== ' ') && (!($_POST["email"])== ' ') && (!($_POST["nPassword"])== ' ')&& (!($_POST["confPassword"]) == ' ')){
 		if($_POST["nPassword"] == $_POST["confPassword"]){
 			$flag = add_member($_POST["uid"], $_POST["last"], $_POST["first"], $_POST["email"], $_POST["nPassword"]);
 			if($flag == true){	
-				echo "<script>window.location= 'http://nesh.co/basicPages/login.html'</script>";
+				echo "<script>window.location= 'http://nesh.co/basicPages/index.html'</script>";
 				unset($_GET['signup']);
 			}
 			else
@@ -46,9 +49,9 @@ function add_member($uid1, $last1, $first1, $email1, $passwd1)
   $first=$db_obj->escape_string($first1);
   $email=$db_obj->escape_string($email1);
   $pass=$db_obj->escape_string($passwd1);  // (B)
-  
-  $query="INSERT INTO Members VALUES ('$uid','$first',  
-             '$last', '$email', PASSWORD('$pass'))"; // (D)
+ 
+  $query="INSERT INTO Members(first, last, email, username, password) VALUES('$first',  
+             '$last', '$email', '$uid', PASSWORD('$pass'))"; // (D)
   return ($db_obj->query($query));                    // (E)
 }
 
@@ -56,7 +59,7 @@ function authenticate($uid, $pass)
 {  global $db_obj;
    $userid=$db_obj->escape_string($uid);
    $passwd=$db_obj->escape_string($pass);
-   $query="SELECT * FROM Members WHERE uid ='$userid'"
+   $query="SELECT * FROM Members WHERE username ='$userid'"
      . " AND password = PASSWORD('$passwd')";            // (F)
 
    if ( ($result = $db_obj->query($query))           // (G)
