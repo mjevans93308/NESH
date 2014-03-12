@@ -33,18 +33,16 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Project NESH Overview</a></li>
-                    <li><a href="#">Who Are We?</a></li>
+                    <li><a href="../html/basicPages/signUp.html">Sign Up</a></li>
+                    <li><a href="#">About (dead)</a></li>
+                    <li><a href="#">Contact (dead)</a></li>
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="#">Try it Out!</a>
-                    </li>
-                    <li>
-                        <a href="#">Sign In</a>
-                    </li>
-                </ul>
+                <form class="navbar-form pull-right">
+                  <input class="span2" type="text" placeholder="Username">
+                  <input class="span2" type="password" placeholder="Password">
+                  <button class="btn btn-sm btn-primary" onClick="" type="submit">Sign In</button>
+                </form>   
             </div>
             <!-- /.navbar-collapse -->
         </div>
@@ -58,6 +56,7 @@
            	<img id="imagine" src="images/google_analytics_report.png">
       			<p id="bound">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut lobortis dui, et lacinia mauris. Aliquam a condimentum odio. Ut in dignissim arcu. Vivamus vitae feugiat risus. Proin nisi nunc, hendrerit sed lectus sit amet, congue faucibus ante. Etiam dapibus blandit auctor. Quisque rutrum et sem in convallis.</p>
            </div>
+           <!--
            <div class="col-xs-6">
            	<ul class="tabs">
        	 			<li>
@@ -95,11 +94,13 @@
           				</div>
         		</li>
         	</ul>
-           </div>
-        </div>
+          </div>
+          -->
+      </div>
+
    	</div>
     <!--footer--> 
-    <footer class="basic-footer" role="footerInfo">
+    <footer class="navbar navbar-fixed-bottom basic-footer" role="footerInfo">
         <div class="container">
             <p>Designed and styled using
                 <a target="_blank" href="http://getbootstrap.com"> bootstrap </a>
@@ -107,10 +108,10 @@
                 <a target="_blank" href="https://github.com"> github.</a>
             </p>
             <p>For questions, email
-            		<a target="_blank" href="http://gmail.scu.edu"> anarra@scu.edu.</a>
-					<a target="_blank" href="http://gmail.scu.edu"> bsilva1@scu.edu,</a>
-                  <a target="_blank" href="http://gmail.scu.edu"> mhowlesbanerji@scu.edu,</a>
-                	<a target="_blank" href="http://gmail.scu.edu"> mjevans@scu.edu,</a>
+            		<a target="_blank" href="http://gmail.scu.edu"> anarra@scu.edu,</a>
+					      <a target="_blank" href="http://gmail.scu.edu"> bsilva1@scu.edu,</a>
+                <a target="_blank" href="http://gmail.scu.edu"> mhowlesbanerji@scu.edu,</a>
+                <a target="_blank" href="http://gmail.scu.edu"> mjevans@scu.edu.</a>
             </p>
         </div>
     </footer>
