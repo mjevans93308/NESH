@@ -45,27 +45,28 @@ $email = "email";        // email address
 */
 
 // SIGNUP ERROR MESSAGES:
-$suERRpwm ="pwm=1" ; // Password Mismatch
-$suERRivu ="ivu=1" ; // Invalid Username: must be ASCII Alphanumberic (plus - and _), and contain between 6 and 20 characters.
-$suERRivn ="ivn=1" ; // Invalid Real Name: At least one name field (first or last) must contain UTF8 letters.
-$suERRivp ="ivp=1" ; // Invalid Password: must be between 8 and 20 characters
-$suERRive ="ive=1" ; // Invalid Email Address: must contain an @ and at least one . after the @.
-$suERRnuu ="nuu=1" ; // Non-Unique Username: Username already taken.
-$suERRnue ="nue=1" ; // Non-Unique Email: An Email address can only be registered once.
-$suERRdbe ="dbe=1" ; // Error Writing to DB
+$suERRpwm ="pwm" ; // Password Mismatch
+$suERRivu ="ivu" ; // Invalid Username: must be ASCII Alphanumberic (plus - and _), and contain between 6 and 20 characters.
+$suERRivn ="ivn" ; // Invalid Real Name: At least one name field (first or last) must contain UTF8 letters.
+$suERRivp ="ivp" ; // Invalid Password: must be between 8 and 20 characters
+$suERRive ="ive" ; // Invalid Email Address: must contain an @ and at least one . after the @.
+$suERRnuu ="nuu" ; // Non-Unique Username: Username already taken.
+$suERRnue ="nue" ; // Non-Unique Email: An Email address can only be registered once.
+$suERRdbe ="dbe" ; // Error Writing to DB
 
 // LOGIN ERROR MESSAGES
-$loginERR ="upf=1" ; // User/Pass Authenication Fail
+$loginERR ="upf" ; // User/Pass Authenication Fail
 
 // SUCCESS MESSAGES:
-$loginMSG ="lis=1" ; // Login Success
-$logoutMSG="los=1" ; // Logout Success
-$signupMSG="sus=1" ; // Sign Up Success
+$loginMSG ="login_ok" ; // Login Success
+$logoutMSG="logout_ok" ; // Logout Success
+$signupMSG="signup_ok" ; // Sign Up Success
 
 /* * * * * "Main" Form Processing * * * * */
 
 // LOGIN FORM
 if(isset($_GET['login'])){
+  unset($_GET['login']);
   // authenticate in DB
 	$login = authenticate($_POST["uid"], $_POST["password"]);
 	if($login == $_POST["uid"]){
@@ -76,16 +77,17 @@ if(isset($_GET['login'])){
     set_error($loginERR);
     write_url($errorTAIL,$errorMSG); 
 	}
-  unset($_GET['login']);
 }
 
 // SIGNUP FORM
 else if(isset($_GET['signup'])){
+  unset($_GET['signup']);
   // validate form entries
   if(verify_form($_POST["uid"], $_POST["last"], $_POST["first"], $_POST["email"], $_POST["nPassword"], $_POST["confPassword"])){
     // add user to DB
     if(add_member($_POST["uid"], $_POST["last"], $_POST["first"], $_POST["email"], $_POST["nPassword"])){
       // successfully added, automatically login
+      $_SESSION['userid']=$_POST["uid"];
       write_url($successTAIL,$signupMSG);
     }else{
       // Failed to add user
@@ -95,19 +97,21 @@ else if(isset($_GET['signup'])){
     // validation failed
 		write_url($errorTAIL,$errorMSG);
 	}
-  unset($_GET['signup']);
 }
 
 // LOGOUT REQUEST
 else if(isset($_GET['logout'])){
 	logout();
 }
+//header("Location: $rootURL");
+//die();
 
 /* Verify Form Function 
  * Input: USER, LASTNAME, FIRSTNAME, EMAIL, PASSWORD, CONFIRMPASSWORD
  * Return: Boolean: TRUE if form validates, else FALSE
  */
 function verify_form($un, $ln, $fn, $em, $p1, $p2){
+  global $suERRpwm, $suERRivu, $suERRivn, $suERRive, $suERRivp;
     $flag = true;
     // Username: alphanumeric-_ 6-20 chars
     $userx = "/^[A-Za-z0-9_\-]{6,20}$/";
@@ -153,7 +157,7 @@ function verify_form($un, $ln, $fn, $em, $p1, $p2){
  */
 function add_member($uid1, $last1, $first1, $email1, $passwd1)
 { 
-  global $db_obj;
+  global $db_obj, $suERRdbe, $suERRnuu, $suERRnue;
 
   // strip strings for security
   $uid=$db_obj->escape_string($uid1);      // (A)
@@ -186,13 +190,14 @@ function add_member($uid1, $last1, $first1, $email1, $passwd1)
              '$last', '$email', '$uid', PASSWORD('$pass'))"; // (D)
   $result = $db_obj->query($query);                    // (E)
 
-  if($result->num_rows==1)
+  if($result){
     // user added successfully, return the username
     return $result;
-
-  // failed to write to the DB, ERROR
-  set_error($suERRdbe);
-  return false;
+  }else{
+    // failed to write to the DB, ERROR
+    set_error($suERRdbe);
+    return false;
+  }
 }
 
 function authenticate($uid, $pass)
@@ -204,7 +209,7 @@ function authenticate($uid, $pass)
    if ( ($result = $db_obj->query($query))           // (G)
             && $result->num_rows == 1 ){  
 			// success!
-				$_SESSION['userid']=$uid;
+				$_SESSION['userid']=$userid;
 				
 				return $uid;  
 			}
@@ -228,7 +233,8 @@ function change_pw($uid, $oldpw, $newpw)
 }
 
 function set_error($e){
-  if($errorMSG=""){
+  global $errorMSG;
+  if($errorMSG==""){
     $errorMSG=$e;
     // backup form data for reuse
     if(isset($_GET['login'])){
@@ -246,18 +252,22 @@ function set_error($e){
         $_SESSION['email']=$_POST['email'];
     }
   }else
-    $errorMSG+="&".$e;
+    $errorMSG.="&".$e;
 }
 
 function write_url($u,$m){
+
+  global $rootURL;
   $finalURL = $rootURL . $u;
   if($m!="")
-    $finalURL += "?" . $m;
+    $finalURL .= "?" . $m;
   header("Location: $finalURL");
+  die();
   //echo "<script>window.location='$finalURL'</script>";
 }
 
 function logout(){
+  global $errorTAIL, $logoutMSG;
 	$_SESSION = array();
   $_GET = array();
   $_POST = array();
