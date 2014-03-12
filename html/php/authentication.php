@@ -18,7 +18,6 @@ if(isset($_GET['login'])){
 	}
 }
 else if(isset($_GET['signup'])){
-	if((!($_POST["uid"])==' ')&& (!($_POST["last"])==' ')&& (!($_POST["first"])== ' ') && (!($_POST["email"])== ' ') && (!($_POST["nPassword"])== ' ')&& (!($_POST["confPassword"]) == ' ')){
 		if($_POST["nPassword"] == $_POST["confPassword"]){
 			$flag = add_member($_POST["uid"], $_POST["last"], $_POST["first"], $_POST["email"], $_POST["nPassword"]);
 			if($flag == true){	
@@ -31,7 +30,6 @@ else if(isset($_GET['signup'])){
 		else{
 			echo '<p> "Passwords do not match!" </p>';
 		}
-	}
 }
 
 else if(isset($_GET['logout'])){
