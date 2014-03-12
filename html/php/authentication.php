@@ -154,29 +154,38 @@ function verify_form($un, $ln, $fn, $em, $p1, $p2){
 /* Add Member Function
  * Input: USERNAME, LASTNAME, FIRSTNAME, EMAIL, PASSWORD
  * Returns: Boolean: TRUE if added successfully to DB, else FALSE
- * Exceptions: 
+ * Exceptions: checks for unique username & email address, returns FALSE if not
  */
 function add_member($uid1, $last1, $first1, $email1, $passwd1)
 { 
   global $db_obj;
+
+  // strip strings for security
   $uid=$db_obj->escape_string($uid1);      // (A)
   $last=$db_obj->escape_string($last1);
   $first=$db_obj->escape_string($first1);
   $email=$db_obj->escape_string($email1);
   $pass=$db_obj->escape_string($passwd1);  // (B)
+  
+  // check for uniqueness of username
   $unique=true;
   $uniqueUser=$db_obj->query("SELECT * FROM Members WHERE username ='$uid'");
   if($uniqueUser->num_rows != 0){
     set_error($suERRnuu);
     $unique=false;
   }
+  
+  // check for uniqueness of email addr
   $uniqueEmail=$db_obj->query("SELECT * FROM Members WHERE email ='$email'");
   if($uniqueEmail->num_rows != 0){
     set_error($suERRnue);
     $unique=false;
   }
+
+  // kill with error if not unique
   if(!$unique)
     return false;
+  
   $query="INSERT INTO Members(first, last, email, username, password) VALUES('$first',  
              '$last', '$email', '$uid', PASSWORD('$pass'))"; // (D)
   $result = $db_obj->query($query);                    // (E)
@@ -249,6 +258,8 @@ function write_url($u,$m){
 
 function logout(){
 	$_SESSION = array();
+  $_GET = array();
+  $_POST = array();
 	session_destroy();
   write_url($errorTAIL,$logoutMSG);
 }
