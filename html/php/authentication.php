@@ -51,10 +51,10 @@ $email = "email";        // email address
 
 // SIGNUP ERROR MESSAGES:
 $suERRpwm ="pwm=1" ; // Password Mismatch
-$suERRivu ="ivu=1" ; // Invalid Username
-$suERRivn ="ivn=1" ; // Invalid Name
-$suERRivp ="ivp=1" ; // Invalid Password
-$suERRive ="ive=1" ; // Invalid Email Address
+$suERRivu ="ivu=1" ; // Invalid Username: must be ASCII Alphanumberic (plus - and _), and contain between 6 and 20 characters.
+$suERRivn ="ivn=1" ; // Invalid Real Name: At least one name field (first or last) must contain UTF8 letters.
+$suERRivp ="ivp=1" ; // Invalid Password: must be between 8 and 20 characters
+$suERRive ="ive=1" ; // Invalid Email Address: must contain an @ and at least one . after the @.
 $suERRdbe ="dbe=1" ; // Error Writing to DB
 
 // LOGIN ERROR MESSAGES
@@ -73,11 +73,11 @@ if(isset($_GET['login'])){
 	$login = authenticate($_POST["uid"], $_POST["password"]);
 	if($login == $_POST["uid"]){
     // login successful
-    write_url($successTAIL,$loginMSG); //echo "<script>window.location='$successURL?$loginMSG</script>";
+    write_url($successTAIL,$loginMSG); 
 	}else{
     // authentication failed - invalid user/password
     set_error($loginERR);
-    write_url($errorTAIL,$errorMSG); //echo "<script>window.location='$errorURL?$errorMSG'</script>";
+    write_url($errorTAIL,$errorMSG); 
 	}
   unset($_GET['login']);
 }
@@ -89,7 +89,7 @@ else if(isset($_GET['signup'])){
     // add user to DB
     if(add_member($_POST["uid"], $_POST["last"], $_POST["first"], $_POST["email"], $_POST["nPassword"])){
       // successfully added, automatically login
-      write_url($successTAIL,$signupMSG); //echo "<script>window.location='$successURL?$signupMSG'</script>";
+      write_url($successTAIL,$signupMSG);
     }else{
       // DB write failed - DB? double user? 
       set_error($suERRdbe);
@@ -103,9 +103,6 @@ else if(isset($_GET['signup'])){
 
 else if(isset($_GET['logout'])){
 	logout();
-	//unset($_SESSION['userid']);
-	//echo "<script>window.location= 'http://nesh.co/index.php'</script>";
-
 }
 
 function verify_form($un, $ln, $fn, $em, $p1, $p2){
@@ -113,32 +110,27 @@ function verify_form($un, $ln, $fn, $em, $p1, $p2){
     $userx = "/^[A-Za-z0-9_\-]{6,20}$/";
     $namex = "/^[A-Za-z\\p{L}]*$/u";
     $emailx = "/^[^@]+?@([^@\\.]+?)(\\.([^@\\.])+?)+$/";
-    $passx = "/^[a]{8,20}$/";
+    $passx = "/.{8,20}/"; //"/^[\w\d]{8,20}$/";
 
     if($p1 != $p2){
         $flag = false;
-        //echo '<p>Passwords do not match!</p>';
         set_error($suERRpwm);
     }
     if(!preg_match($userx,$un)){
         $flag = false;
         set_error($suERRivu);
-        //echo '<p>Invalid Username: must be ASCII Alphanumberic (plus - and _), and contain between 6 and 20 characters.</p>';
     }
     if(!preg_match($namex,$fn)&&!preg_match($namex, $ln)){
         $flag = false;
         set_error($suERRivn);
-        //echo '<p>Invalid Real Name: At least one name field (first or last) must contain UTF8 letters.</p>';
     }
     if(!preg_match($emailx,$em)){
         $flag = false;
         set_error($suERRive);
-        //echo '<p>Invalid Email Address: must contain an @ and at least one . after the @.</p>';
     }
     if(!preg_match($passx,$p1)){
         $flag = false;
         set_error($suERRivp);
-        //echo '<p>Invalid Email Address: must contain an @ and at least one . after the @.</p>';
     }
     return $flag;
 }
@@ -222,7 +214,6 @@ function write_url($u,$m){
 function logout(){
 	$_SESSION = array();
 	session_destroy();
-	//echo "<script>window.location= 'http://nesh.co/index.php'</script>";
   write_url($errorTAIL,$logoutMSG);
 }
 ?>
