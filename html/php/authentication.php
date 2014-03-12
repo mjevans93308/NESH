@@ -62,7 +62,7 @@ $loginERR ="upf=1" ; // User/Pass Authenication Fail
 
 // SUCCESS MESSAGES:
 $loginMSG ="lis=1" ; // Login Success
-$logoutMSG="los=1"
+$logoutMSG="los=1" ; // Logout Success
 $signupMSG="sus=1" ; // Sign Up Success
 
 /* * * * * "Main" Form Processing * * * * */
@@ -209,14 +209,14 @@ function set_error($e){
         $_SESSION['email']=$_POST['email'];
     }
   }else
-    $errorMSG+="&".$e
+    $errorMSG+="&".$e;
 }
 
 function write_url($u,$m){
   $finalURL = $rootURL . $u;
   if($m!='')
     $finalURL += "?" . $m;
-  echo "<script>window.location='$finalURL'</script>"
+  echo "<script>window.location='$finalURL'</script>";
 }
 
 function logout(){
