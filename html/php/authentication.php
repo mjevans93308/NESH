@@ -14,14 +14,14 @@ if(isset($_GET['login'])){
 		unset($_GET['login']);
 	}
 	else{
-		echo "<script>window.location= 'http://nesh.co/index.html'</script>";
+		echo "<script>window.location= 'http://nesh.co/index.php'</script>";
 	}
 }
 else if(isset($_GET['signup'])){
 		if($_POST["nPassword"] == $_POST["confPassword"]){
 			$flag = add_member($_POST["uid"], $_POST["last"], $_POST["first"], $_POST["email"], $_POST["nPassword"]);
 			if($flag == true){	
-				echo "<script>window.location= 'http://nesh.co/basicPages/index.html'</script>";
+				echo "<script>window.location= 'http://nesh.co/index.php'</script>";
 				unset($_GET['signup']);
 			}
 			else
@@ -35,7 +35,7 @@ else if(isset($_GET['signup'])){
 else if(isset($_GET['logout'])){
 	logout();
 	//unset($_SESSION['userid']);
-	echo "<script>window.location= 'http://nesh.co/index.html'</script>";
+	echo "<script>window.location= 'http://nesh.co/index.php'</script>";
 
 }
 
@@ -89,7 +89,7 @@ function change_pw($uid, $oldpw, $newpw)
 function logout(){
 	$_SESSION = array();
 	session_destroy();
-	echo "<script>window.location= 'http://nesh.co/index.html'</script>";
+	echo "<script>window.location= 'http://nesh.co/index.php'</script>";
 }
 ?>
 </body>
