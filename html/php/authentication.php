@@ -1,11 +1,6 @@
 <?php
 session_start();
 include ("../php/mysqli.php");
-?>
-
-<html>
-<body>
-<?php
 
 /*
  * File: authentication.php
@@ -182,15 +177,20 @@ function add_member($uid1, $last1, $first1, $email1, $passwd1)
     $unique=false;
   }
 
-  // kill with error if not unique
   if(!$unique)
+    // if not unique, ERROR
     return false;
   
+  // insert new user into the DB
   $query="INSERT INTO Members(first, last, email, username, password) VALUES('$first',  
              '$last', '$email', '$uid', PASSWORD('$pass'))"; // (D)
   $result = $db_obj->query($query);                    // (E)
+
   if($result->num_rows==1)
+    // user added successfully, return the username
     return $result;
+
+  // failed to write to the DB, ERROR
   set_error($suERRdbe);
   return false;
 }
@@ -253,7 +253,8 @@ function write_url($u,$m){
   $finalURL = $rootURL . $u;
   if($m!="")
     $finalURL += "?" . $m;
-  echo "<script>window.location='$finalURL'</script>";
+  header("Location: $finalURL");
+  //echo "<script>window.location='$finalURL'</script>";
 }
 
 function logout(){
