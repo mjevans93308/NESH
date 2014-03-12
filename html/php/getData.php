@@ -4,8 +4,8 @@
 		key = hash key generated at project registration. unique to each project
 		time = timestamp local to user
 		event = event_id
-		// tags coming soon
-		tags = list of tags as a string of tags separated by commas "tag A,tag B,tag C"
+		tags = list of tags as a string of tags separated by commas "tag A,tag B,tag C"??
+		// euid coming soon
 		OPTIONAL:
 		euid = end user id. this should be included with a unique device ID for mobile apps, since we will not be able to store session data
 */
@@ -20,7 +20,7 @@ if(isset($HTTP_RAW_POST_DATA)) {
 	parse_str($HTTP_RAW_POST_DATA,$_SET); // here you will get variables
 	foreach ($_SET as $k => $value) {
 		$_CLEAN[$k] = htmlentities($value, ENT_QUOTES | ENT_SUBSTITUTE | ENT_DISALLOWED);
-	}
+	}unset($k);unset($value);
 
 	$event = ""; $time = ""; $hash = ""; $tags = array();
 	// verify needed data & clean for DB
@@ -30,11 +30,19 @@ if(isset($HTTP_RAW_POST_DATA)) {
 	else 							errlog("EVENT_ERROR","no event");
 	if(isset($_CLEAN['time']))		$time = $db_obj->escape_string($_CLEAN['time']);
 	else 							errlog("TIMESTAMP_ERROR","no timestamp");
-	/*if(isset($_CLEAN['tags'])){
-		if(count(($_CLEAN['tags'])>0){
-			// build tag set
+	if(isset($_CLEAN['tags'])){
+		$tags = explode($_CLEAN['tags']);
+		foreach($tags as $tag)
+			$tag = $db_obj->escape_string($tag);
+		}unset($tag);
+		$numtags = count($tags);
+		$availtags = tagcount($hash,$numtags);
+		if($availtags < $numtags){
+			errlog("TAG_ERROR","too many tags","sent: $numtags > avail: $availtags");
+			for($i=$availtags; $i<$numtags; $i++)
+				unset($tags[$i]);
 		}
-	}*/
+	}
 	
 	
 	//include("mysqli_verify.php"); // we should store the hash table in a seperate database for security purposes
@@ -101,6 +109,25 @@ function sendback($rval){
 	}
 }
 
+function tagcount($h,$c){
+	global $db_obj;
+	$tags = 0;
+	$queryH = "SELECT * FROM Hash_Products WHERE hash_number = '$h'";
+	if($resultH = $db_obj->query($queryH)){
+		if($rowH = mysqli_fetch_array($resultH)){
+			$queryP = "SELECT * FROM Products WHERE pid = '{$rowH['pid']}'";
+			if($resultP = $db_obj->query($queryP)){
+				if($rowQ = mysqli_fetch_array($resultP)){
+					for($i=0;$i<$c;$i++)
+						if($rowQ['tag'.$i])
+							$tags++;
+				}
+			}
+		}
+	}
+	return $tags;
+}
+
 function createEvent($h,$e,$t,$ta = array()){
 	global $db_obj;
 	$session = $db_obj->escape_string(session_id());
@@ -110,17 +137,26 @@ function createEvent($h,$e,$t,$ta = array()){
 	if ( $result = $db_obj->query($query) ){
 		$add_row="";
 		$ret_val=1;
+
+		// build tag strings
+		$tagnums="";
+		$tagvals="";
+		for($i=0;$i<count($ta);$i++){
+			$tagnums .= ",tag".$i;
+			$tagvals .= ",'".$ta[$i]."'";
+		}
+
 		if( $result->num_rows == 1 ){
 			// Add new row to session tbl
-			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp)";
-			$add_row += "VALUES ('$h','$session','$e','$t');";
+			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp$tagnums)";
+			$add_row .= "VALUES ('$h','$session','$e','$t'$tagvals);";
 			$ret_val = 0;
 		}else{
 			// or log error message to DB & locally
 			errlog("EVENT_ID_ERROR","invalid event_id ",$event);
 			errlog("EVENT_ID_ERROR_SQL",mysql_error(),mysql_errno());
-			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp,error_log)";
-			$add_row += "VALUES ('$h','$session','ERROR','$t','invalid event_id: $e');";
+			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp$tagnums,error_log)";
+			$add_row .= "VALUES ('$h','$session','ERROR','$t'$tagvals,'invalid event_id: $e');";
 			$ret_val = -1;
 		}
 		if( ! $result = $db_obj->query($add_row) ){
