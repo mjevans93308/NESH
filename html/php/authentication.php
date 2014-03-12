@@ -55,6 +55,8 @@ $suERRivu ="ivu=1" ; // Invalid Username: must be ASCII Alphanumberic (plus - an
 $suERRivn ="ivn=1" ; // Invalid Real Name: At least one name field (first or last) must contain UTF8 letters.
 $suERRivp ="ivp=1" ; // Invalid Password: must be between 8 and 20 characters
 $suERRive ="ive=1" ; // Invalid Email Address: must contain an @ and at least one . after the @.
+$suERRnuu ="nuu=1" ; // Non-Unique Username: Username already taken.
+$suERRnue ="nue=1" ; // Non-Unique Email: An Email address can only be registered once.
 $suERRdbe ="dbe=1" ; // Error Writing to DB
 
 // LOGIN ERROR MESSAGES
@@ -91,43 +93,57 @@ else if(isset($_GET['signup'])){
       // successfully added, automatically login
       write_url($successTAIL,$signupMSG);
     }else{
-      // DB write failed - DB? double user? 
-      set_error($suERRdbe);
+      // Failed to add user
       write_url($errorTAIL,$errorMSG);
     }
 	}else{
+    // validation failed
 		write_url($errorTAIL,$errorMSG);
 	}
   unset($_GET['signup']);
 }
 
+// LOGOUT REQUEST
 else if(isset($_GET['logout'])){
 	logout();
 }
 
+/* Verify Form Function 
+ * Input: USER, LASTNAME, FIRSTNAME, EMAIL, PASSWORD, CONFIRMPASSWORD
+ * Return: Boolean: TRUE if form validates, else FALSE
+ */
 function verify_form($un, $ln, $fn, $em, $p1, $p2){
     $flag = true;
+    // Username: alphanumeric-_ 6-20 chars
     $userx = "/^[A-Za-z0-9_\-]{6,20}$/";
-    $namex = "/^[A-Za-z\\p{L}]*$/u";
+    // Name: one or more ASCII or UTF-8 letters
+    $namex = "/^[A-Za-z\\p{L}]+$/u";
+    // Email: contains an @ with at least one . following it: [any]@[any].[any]
     $emailx = "/^[^@]+?@([^@\\.]+?)(\\.([^@\\.])+?)+$/";
-    $passx = "/.{8,20}/"; //"/^[\w\d]{8,20}$/";
+    // Password: 8-20 characters, any chars
+    $passx = "/[^\\n]{8,20}/"; //"/^[\w\d]{8,20}$/";
 
+    // Check for Password Mismatch
     if($p1 != $p2){
         $flag = false;
         set_error($suERRpwm);
     }
+    // Check valid username
     if(!preg_match($userx,$un)){
         $flag = false;
         set_error($suERRivu);
     }
-    if(!preg_match($namex,$fn)&&!preg_match($namex, $ln)){
+    // Check valid name: need at least one name
+    if(!(preg_match($namex,$fn)||preg_match($namex, $ln))){
         $flag = false;
-        set_error($suERRivn);
+        set_error($suERRivn); // 
     }
+    // check valid email
     if(!preg_match($emailx,$em)){
         $flag = false;
         set_error($suERRive);
     }
+    // check valid password length
     if(!preg_match($passx,$p1)){
         $flag = false;
         set_error($suERRivp);
@@ -135,6 +151,11 @@ function verify_form($un, $ln, $fn, $em, $p1, $p2){
     return $flag;
 }
 
+/* Add Member Function
+ * Input: USERNAME, LASTNAME, FIRSTNAME, EMAIL, PASSWORD
+ * Returns: Boolean: TRUE if added successfully to DB, else FALSE
+ * Exceptions: 
+ */
 function add_member($uid1, $last1, $first1, $email1, $passwd1)
 { 
   global $db_obj;
@@ -143,18 +164,33 @@ function add_member($uid1, $last1, $first1, $email1, $passwd1)
   $first=$db_obj->escape_string($first1);
   $email=$db_obj->escape_string($email1);
   $pass=$db_obj->escape_string($passwd1);  // (B)
- 
+  $unique=true;
+  $uniqueUser=$db_obj->query("SELECT * FROM Members WHERE username ='$uid'");
+  if($uniqueUser->num_rows != 0){
+    set_error($suERRnuu);
+    $unique=false;
+  }
+  $uniqueEmail=$db_obj->query("SELECT * FROM Members WHERE email ='$email'");
+  if($uniqueEmail->num_rows != 0){
+    set_error($suERRnue);
+    $unique=false;
+  }
+  if(!$unique)
+    return false;
   $query="INSERT INTO Members(first, last, email, username, password) VALUES('$first',  
              '$last', '$email', '$uid', PASSWORD('$pass'))"; // (D)
-  return ($db_obj->query($query));                    // (E)
+  $result = $db_obj->query($query);                    // (E)
+  if($result->num_rows==1)
+    return $result;
+  set_error($suERRdbe);
+  return false;
 }
 
 function authenticate($uid, $pass)
 {  global $db_obj;
    $userid=$db_obj->escape_string($uid);
    $passwd=$db_obj->escape_string($pass);
-   $query="SELECT * FROM Members WHERE username ='$userid'"
-     . " AND password = PASSWORD('$passwd')";            // (F)
+   $query="SELECT * FROM Members WHERE username ='$userid' AND password = PASSWORD('$passwd')";            // (F)
 
    if ( ($result = $db_obj->query($query))           // (G)
             && $result->num_rows == 1 ){  
@@ -206,7 +242,7 @@ function set_error($e){
 
 function write_url($u,$m){
   $finalURL = $rootURL . $u;
-  if($m!='')
+  if($m!="")
     $finalURL += "?" . $m;
   echo "<script>window.location='$finalURL'</script>";
 }
