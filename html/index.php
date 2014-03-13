@@ -17,6 +17,40 @@
 </head>
 
 <body>
+	<?php
+		if(isset($_GET["pvm"])){
+			echo "<script>alert('The paasword did not match! Please enter them again');</script>";
+			unset($_GET["pvm"]);
+		}
+		else if(isset($_GET["ivu"])){
+			echo "<script>alert('Invalid user name! Please enter again');</script>";
+			unset($_GET["ivu"]);
+		}
+		else if(isset($_GET["ivn"])){
+			echo "<script>alert('Please enter your name!');</script>";
+			unset($_GET["ivn"]);
+		}
+		else if(isset($_GET["ivp"])){
+			echo "<script>alert('Invalid password! Password must be atleast 8 characters');</script>";
+			unset($_GET["ivp"]);
+		}
+		else if(isset($_GET["ive"])){
+			echo "<script>alert('Invalid email address! Please enter again');</script>";
+			unset($_GET["ive"]);
+		}
+		else if(isset($_GET["nuu"])){
+			echo "alert('Username already taken, Please enter a different username!')";
+			unset($_GET["nuu"]);
+		}
+		else if(isset($_GET["nue"])){
+			echo "<script>alert('There is an account already associated with this email!');</script>";
+			unset($_GET["nue"]);
+		}
+		else if(isset($_GET["dbe"])){
+			echo "<script>alert('Error writing to the database!');</script>";
+			unset($_GET["dbe"]);
+		}
+	?>
     <nav class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -33,14 +67,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="../html/basicPages/signUp.html">Sign Up</a></li>
+                    <li><a href="../basicPages/signUp.html">Sign Up</a></li>
                     <li><a href="#">About (dead)</a></li>
                     <li><a href="#">Contact (dead)</a></li>
                 </ul>
 
-                <form class="navbar-form pull-right">
-                  <input class="span2" type="text" placeholder="Username">
-                  <input class="span2" type="password" placeholder="Password">
+                <form class="navbar-form pull-right" name="login" action="php/authentication.php?login" method="post">
+                  <input class="span2" type="text" name="uid" placeholder="Username">
+                  <input class="span2" type="password" name="password" placeholder="Password">
                   <button class="btn btn-sm btn-primary" onClick="" type="submit">Sign In</button>
                 </form>   
             </div>
@@ -56,51 +90,58 @@
            	<img id="imagine" src="images/google_analytics_report.png">
       			<p id="bound">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut lobortis dui, et lacinia mauris. Aliquam a condimentum odio. Ut in dignissim arcu. Vivamus vitae feugiat risus. Proin nisi nunc, hendrerit sed lectus sit amet, congue faucibus ante. Etiam dapibus blandit auctor. Quisque rutrum et sem in convallis.</p>
            </div>
-           <!--
            <div class="col-xs-6">
-           	<ul class="tabs">
-       	 			<li>
-          				<input type="radio" checked name="tabs" id="tab1">
-          				<label for="tab1">Sign-Up</label>
-          					<div id="tab-content1" class="tab-content animated fadeIn">
-            					<form name="signup" action="php/authentication.php?signup" method="post">
-       	    						<p>First Name: <input type="text" name= "first" class="textarea"> </p>
-           						<p>Last Name: <input type="text" name="last" class="textarea"> </p>
-           						<p>Username: <input type="text" name="uid" class="textarea"></p>
-           						<p>E-Mail: <input type="email" name="email" class="textarea" ></p>
-           						<p>New Password: <input type="password" name="nPassword" class="textarea"></p>
-           						<p>Confirm Password: <input type="password" name="confPassword" class="textarea"></p>
-            						<div style="clear:both"></div>
-									<input type="submit" value="signup" class="button"><br/>              
-       							</form>
-          					</div>
-        		</li>
-        		<li>
-          			<input type="radio" name="tabs" id="tab2">
-          			<label for="tab2">Log-In</label>
-          				<div id="tab-content2" class="tab-content animated fadeIn">
-              				<form name="login" action="php/authentication.php?login" method="post">
-              					<p>Username:
-              					<input type="text" name="uid" class="textarea">
-              					</p>
-              					<p>Password:
-              					<input type="password" name="password" class="textarea">
-              					</p>
-             					 <div style="clear:both"></div>
-              					<input type="submit" value="login" class="button">
-             					 <br/>
-              					<a href="#">Forgot Password?</a>
-              				</form>
-          				</div>
-        		</li>
-        	</ul>
+           	<div class="page-header">
+            		<h2>Sign Up</h2>
+            		<p>Just fill out the below information and you'll be good to go.</p>
+        		</div>
+        		<form class="signup form-horizontal" action="php/authentication.php?signup" method="post">
+                   <div class="form-group"> 
+                   	<label for="first" class="col-sm-2 control-label">First Name:</label>
+                    	<div class="col-sm-8">
+            				<input class="form-control" name="first" type="text" placeholder="First Name">
+                     	</div>
+                   </div>
+                   <div class="form-group"> 
+                   	<label for="last" class="col-sm-2 control-label">Last Name:</label>
+                    	<div class="col-sm-8">
+            				<input class="form-control" name="last" type="text" placeholder="Last Name">
+            			</div>
+                 	</div>
+                  <div class="form-group"> 
+                   	<label for="uid" class="col-sm-2 control-label">User Name:</label>
+                    	<div class="col-sm-8">
+            				<input class="form-control" name="uid" type="text" placeholder="Username">
+            			</div>
+                	</div>
+                  <div class="form-group"> 
+                   	<label for="email" class="col-sm-2 control-label">Email:</label>
+            			<div class="col-sm-8">
+                       	<input class="form-control" name="email" type="email" placeholder="Email Address">
+            			</div>
+                	</div>
+                  <div class="form-group"> 
+                   	<label for="nPassword" class="col-sm-2 control-label">Password:</label>
+                    	<div class="col-sm-8">
+            				<input class="form-control" name="nPassword" type="password" placeholder="Password">
+                   	</div>
+            		</div>
+                  <div class="form-group"> 
+                   	<label for="confPassowrd" class="col-sm-2 control-label">Confirm Password:</label>
+                    	<div class="col-sm-8">
+            				<input class="form-control" name="confPassword" type="password" placeholder="Confirm Password">
+                     	</div>
+            		</div>
+                   <div style="text-align:center">
+            			<button class="btn btn-large btn-primary" type="submit">Sign Up</button>
+                   </div>
+        		</form>
           </div>
-          -->
       </div>
 
    	</div>
     <!--footer--> 
-    <footer class="navbar navbar-fixed-bottom basic-footer" role="footerInfo">
+    <footer class="basic-footer" role="footerInfo">
         <div class="container">
             <p>Designed and styled using
                 <a target="_blank" href="http://getbootstrap.com"> bootstrap </a>
