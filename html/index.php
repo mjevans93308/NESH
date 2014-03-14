@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">NESH</a>
+                <a class="navbar-brand" href="../html/index.php">Nesh</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
