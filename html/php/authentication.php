@@ -263,7 +263,7 @@ function write_url($u,$m){
     $finalURL .= "?" . $m;
   header("Location: $finalURL");
   die();
-  //echo "<script>window.location='$finalURL'</script>";
+  //echo "<script>window.location='$finalURL';
 }
 
 function logout(){
