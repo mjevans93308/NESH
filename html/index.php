@@ -67,7 +67,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="../basicPages/signUp.html">Sign Up</a></li>
+                    <!-- <li><a href="../basicPages/signUp.html">Sign Up</a></li> -->
                     <li><a href="#">About (dead)</a></li>
                     <li><a href="#">Contact (dead)</a></li>
                 </ul>
@@ -141,7 +141,7 @@
 
    	</div>
     <!--footer--> 
-    <footer class="basic-footer" role="footerInfo">
+    <footer class="navbar navbar-fixed-bottom basic-footer" role="footerInfo">
         <div class="container">
             <p>Designed and styled using
                 <a target="_blank" href="http://getbootstrap.com"> bootstrap </a>
