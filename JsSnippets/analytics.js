@@ -19,7 +19,8 @@ function getTitle(text) {
 }
 
 function track(string) {
-	var key = "key=1&" + "event_id=" + string;
+  var time_stamp = Math.round(+new Date()/1000); // JS gets time in microsec, PHP uses sec
+	var key = "key=2052&event=1&time="+time_stamp+"&tags=United%20States,Safari";// + string;
 	alert(key);
 	var url = 'http://nesh.co/php/getData.php';
   	var xhr = createCORSRequest('POST', url);
