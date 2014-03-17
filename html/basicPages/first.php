@@ -144,7 +144,7 @@
         						if ( ($result1 = $db_obj->query($query1)) && ($result1->num_rows != 0) ){
         				 			while ($row1 = $result1->fetch_assoc()) {
         								$st .= "<tr><td>";
-        								$st .= $row1['product']. "<span class='glyphicon glyphicon-chevron-right pull-right' a href='#'></span></td></tr>";
+        								$st .= $row1['product']. "<span class='glyphicon glyphicon-chevron-right pull-right' a href='../basicPages/newProj.php'></span></td></tr>";
             					}
         							echo $st;
         						}
