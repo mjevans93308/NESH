@@ -132,13 +132,19 @@
 						include ("../php/mysqli.php");
 						global $db_obj;
 				
-						$query = "SELECT * FROM Products WHERE uid = '". $_SESSION['userid']."'";
-				
+						$query = "SELECT * FROM Members WHERE username = '". $_SESSION['userid']."'";
+						
 						if ( ($result = $db_obj->query($query)) && ($result->num_rows != 0) ){  // success!
+							while($row = $result->fetch_assoc()){
+								$uid = $row['uid'];
+							}
+						}
+						$query1 = "SELECT * FROM Products WHERE uid = '" .$uid."'";
 							$st = "";
-				 			while ($row = $result->fetch_assoc()) {
+						if ( ($result1 = $db_obj->query($query1)) && ($result1->num_rows != 0) ){
+				 			while ($row1 = $result1->fetch_assoc()) {
 								$st .= "<tr><td>";
-								$st .= $row['product']. "<span class='glyphicon glyphicon-chevron-right pull-right'></span></td></tr>";
+								$st .= $row1['product']. "<span class='glyphicon glyphicon-chevron-right pull-right'></span></td></tr>";
     						}
 							echo $st;
 						}
