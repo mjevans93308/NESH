@@ -128,9 +128,17 @@ function tagcount($h,$c){
 	return $tags;
 }
 
+// hash, user, event, time, tags, error
 function createEvent($h,$e,$t,$ta = array()){
 	global $db_obj;
 	$session = $db_obj->escape_string(session_id());
+	if(!$t){
+		if(isset($_SERVER['REQUEST_TIME']))
+			$t=$_SERVER['REQUEST_TIME'];
+		else
+			$t=time();
+	}
+	$tf = date("Y-m-d H:i:s",$t); // timestamp formatted to SQL
 	
 	// check Events tbl to verify event_id
 	$query = "SELECT * FROM Events WHERE event_id = '$e'";
@@ -155,7 +163,7 @@ function createEvent($h,$e,$t,$ta = array()){
 			// or log error message to DB & locally
 			errlog("EVENT_ID_ERROR","invalid event_id ",$event);
 			errlog("EVENT_ID_ERROR_SQL",mysql_error(),mysql_errno());
-			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp$tagnums,error_log)";
+			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp$tagnums,errors)";
 			$add_row .= "VALUES ('$h','$session','ERROR','$t'$tagvals,'invalid event_id: $e');";
 			$ret_val = -1;
 		}
