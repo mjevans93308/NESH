@@ -83,35 +83,40 @@
                
         		<div class="page-header"><h4>Please fill out the appropriate information:</h4></div>
         			<form name="newproj" class="form-horizontal" action="../php/projMgmt.php?newproj" method="post">
-						<div class="form-group">
-                        	<label for="projectName" class="col-sm-2 control-label">Project Name:</label>
-                    		<div class="col-sm-8">
-                            <input class="form-control" type="projectName" autofocus required="" placeholder="Project Name"> 
+						<div class="form-group col-sm-9">
+                        	<label for="projectName" class="col-sm-3 control-label">Project Name:</label>
+                    		<div class="col-sm-7">
+                            <input class="form-control" name="projectName" autofocus required="" placeholder="Project Name"> 
                       	</div>
-                      </div>            
+                      </div> 
+                      <div style="clear:both"></div>           
                 		<div class="page-header">
                         <h4>Tags:	<button type="button" class="btn btn-info"><span class="glyphicon glyphicon-question-sign"></span></button></h4>
                       </div>	
                       <div id="dynamicTags">
-                      	<div class="form-group">
-                      		<label for="tag1" class="col-sm-2 control-label">Tag:</label>
-                      		<div class="col-sm-8">
-                    				<input class="form-control" type="tag1" placeholder="Tag Name">
+                      	<div class="form-group col-sm-9">
+                      		<label for="tag1" class="col-sm-3 control-label">Tag:</label>
+                      		<div class="col-sm-7">
+                    				<input class="form-control" name="tag1" id="tag1" placeholder="Tag Name">
                         		</div>
                        	</div>
                   	</div>
-                      <button type="button" onClick="addTags('dynamicTags')" style="float:left;"><span class="glyphicon glyphicon-plus-sign"></span></button>
-                      
+                    	<div class="col-sm-1">
+                     		 <button type="button" onClick="addTags('dynamicTags')" style="float:left;"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                      </div>
+                      <div style="clear:both"></div> 
                       <div class="page-header"><h4>Events:</h4></div>
                       <div id="dynamicEvents"> 
-                      	<div class="form-group"> 
-                				<label for="eventName1" class="col-sm-2 control-label">Event Name:</label>
-                         		<div class="col-sm-8">
-                             	<input class="form-control" type="event1" placeholder="Event Name">
+                      	<div class="form-group col-sm-9"> 
+                				<label for="eventName1" class="col-sm-3 control-label">Event Name:</label>
+                         		<div class="col-sm-7">
+                             	<input class="form-control" name="event1" id="event1" placeholder="Event Name">
                         		</div>
                          	</div>
                       </div>
-                      <button type="button" onClick="addEvents('dynamicEvents')" style="float:left;"><span class= "glyphicon glyphicon-plus-sign" ></span></button>
+                      <div class="col-sm-1">
+                      	<button type="button" onClick="addEvents('dynamicEvents')" style="float:left;"><span class= "glyphicon glyphicon-plus-sign" ></span></button>
+                       </div>
                       <div style="clear:both;"></div>
                       <br />
                       <button class="btn btn-sm btn-primary" type="submit">Create Project</button>
@@ -166,13 +171,15 @@
     <script src="../scripts/jquery-1.11.0.js"></script>
     <script src="../scripts/bootstrap.js"></script>
     <script>
-		var totTags = 1;
-		var totEvents = 1;
+		var totTags = 2;
+		var totEvents = 2;
+		
 		function addTags(tableID) {
-			totTags = totTags + 1;
+			
 			var table = document.getElementById(tableID);
 			if(totTags < 6){  
-				table.innerHTML = table.innerHTML + "<div class=\"form-group\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag:</label><div class=\"col-sm-8\"><input class=\"form-control\" type=\"tag1\" placeholder=\"Tag Name\"></div></div>";                          // limit the user from creating fields more than your limits
+				table.innerHTML = table.innerHTML + "<div class=\"form-group col-sm-9\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-3 control-label\">Tag:</label><div class=\"col-sm-7\"><input class=\"form-control\" name=\"tag"+totTags+"\" placeholder=\"Tag Name\"></div><button type=\"button\" class=\"close\" onClick=\"deleteTags('tag"+totTags+"')\">&times;</button></div>";                          // limit the user from creating fields more than your limits
+			totTags = totTags + 1;
 			}
 			else{
 		 		alert("Maximum number of tags allowed are 5!");		   
@@ -180,29 +187,22 @@
 		}
 	
 		function addEvents(tableID) {
-			totEvents = totEvents + 1;
+			
 			var table = document.getElementById(tableID);
  			
-			table.innerHTML = table.innerHTML + "<div class=\"form-group\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-2 control-label\">Event Name:</label><div class=\"col-sm-8\"><input class=\"form-control\" type=\"event1\" placeholder=\"Event Name\"></div></div>";                          // limit the user from creating fields more than your limits
-
+			table.innerHTML = table.innerHTML + "<div class=\"form-group col-sm-9\" id=\"event"+totEvents+"\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-3 control-label\">Event Name:</label><div class=\"col-sm-7\"><input class=\"form-control\" name=\"event"+totEvents+"\" placeholder=\"Event Name\"></div><button type=\"button\" class=\"close\" onClick=\"deleteEvents('event"+totEvents+"')\">&times;</button></div>";                          // limit the user from creating fields more than your limits
+			totEvents = totEvents + 1;
 		}
 		
-		function deleteRow(tableID) {
-			var table = document.getElementById(tableID);
-			var rowCount = table.rows.length;
-			for(var i=0; i<rowCount; i++) {
-				var row = table.rows[i];
-				var chkbox = row.cells[0].childNodes[0];
-				if(null != chkbox && true == chkbox.checked) {
-					if(rowCount <= 1) {               // limit the user from removing all the fields
-						alert("Cannot Remove all the Passenger.");
-						break;
-					}
-					table.deleteRow(i);
-					rowCount--;
-					i--;
-				}
-			}
+		function deleteTags(tableID) {
+			totTags = totTags - 1;
+			var row = document.getElementById(tableID);
+			row.parentNode.removeChild(row);
+		}
+		function deleteEvents(tableID) {
+			totEvents = totEvents - 1;
+			var row = document.getElementById(tableID);
+			row.parentNode.removeChild(row);
 		}
 	</script>
 </body>
