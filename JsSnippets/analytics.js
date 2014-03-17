@@ -22,20 +22,23 @@ function track(string) {
   var time_stamp = Math.round(+new Date()/1000); // JS gets time in microsec, PHP uses sec
 	var key = "key=2052&event=1&time="+time_stamp+"&tags=United%20States,Safari";// + string;
 	alert(key);
-	var url = 'http://nesh.co/php/getData.php';
+	var url = 'http://nesh.co/php/getData_tested.php';
   	var xhr = createCORSRequest('POST', url);
   	if (!xhr) {
     	alert('CORS not supported');
     	return;
   	}
 	xhr.onload = function() {
-    	var text = xhr.responseText;
-    	var title = getTitle(text);
-    	alert('Response from CORS request to ' + url + ': ' + title);
+    	//var text = xhr.responseText;
+    	//var title = getTitle(text);
+    	alert('Success: Response from CORS request:' + xhr.responseText);
 	};
 
 	xhr.onerror = function() {
-		alert('Woops, there was an error making the request.');
+		//alert('Woops, there was an error making the request.');
+    //  var text = xhr.responseText;
+    //  var title = getTitle(text);
+      alert('Failure: Response from CORS request:' + xhr.responseText);
 	};
 	alert('Gets here 1!');
 	xhr.send(key);
