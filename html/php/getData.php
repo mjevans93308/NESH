@@ -13,6 +13,9 @@ session_start();
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Credentials: true');
 header('Content-Type: text/html; charset=utf-8');
+?>
+<html>
+<?php
 if(isset($HTTP_RAW_POST_DATA)) {
 	global $db_obj;
 
@@ -157,14 +160,14 @@ function createEvent($h,$e,$t,$ta = array()){
 		if( $result->num_rows == 1 ){
 			// Add new row to session tbl
 			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp$tagnums)";
-			$add_row .= "VALUES ('$h','$session','$e','$t'$tagvals);";
+			$add_row .= " VALUES ('$h','$session','$e','$t'$tagvals);";
 			$ret_val = 0;
 		}else{
 			// or log error message to DB & locally
 			errlog("EVENT_ID_ERROR","invalid event_id ",$event);
 			errlog("EVENT_ID_ERROR_SQL",mysql_error(),mysql_errno());
 			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp$tagnums,errors)";
-			$add_row .= "VALUES ('$h','$session','ERROR','$t'$tagvals,'invalid event_id: $e');";
+			$add_row .= " VALUES ('$h','$session','ERROR','$t'$tagvals,'invalid event_id: $e');";
 			$ret_val = -1;
 		}
 		if( ! $result = $db_obj->query($add_row) ){
@@ -183,3 +186,4 @@ function createEvent($h,$e,$t,$ta = array()){
 
 
 ?>
+</html>
