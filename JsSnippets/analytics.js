@@ -20,7 +20,7 @@ function getTitle(text) {
 
 function track(string) {
   var time_stamp = Math.round(+new Date()/1000); // JS gets time in microsec, PHP uses sec
-	var key = "key=2052&event=1&time="+time_stamp+"&tags=United%20States,Safari";// + string;
+	var key = "key=722&event=1&time="+time_stamp+"&tags=United%20States,Safari";// + string;
 	alert(key);
 	var url = 'http://nesh.co/php/getData_tested.php';
   	var xhr = createCORSRequest('POST', url);
