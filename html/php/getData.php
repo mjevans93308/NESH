@@ -15,6 +15,7 @@ header('Access-Control-Allow-Credentials: true');
 header('Content-Type: text/html; charset=utf-8');
 ?>
 <?php
+include("mysqli.php");
 if(isset($HTTP_RAW_POST_DATA)) {
 	global $db_obj;
 
@@ -26,8 +27,9 @@ if(isset($HTTP_RAW_POST_DATA)) {
 
 	$event = ""; $time = ""; $hash = ""; $tags = array();
 	// verify needed data & clean for DB
-	if(isset($_CLEAN['key'])) 		
+	if(isset($_CLEAN['key'])){
 		$hash = $db_obj->escape_string($_CLEAN[key]);
+	}
 	else 				
 		errlog("HASH_ERROR","no hash");
 	if(isset($_CLEAN['event']))		
@@ -39,7 +41,7 @@ if(isset($HTTP_RAW_POST_DATA)) {
 	else 							
 		errlog("TIMESTAMP_ERROR","no timestamp");
 	if(isset($_CLEAN['tags'])){
-		$tags = explode($_CLEAN['tags']);
+		$tags = explode(',', $_CLEAN['tags']);
 		foreach($tags as $tag){
 			$tag = $db_obj->escape_string($tag);
 		}unset($tag);
