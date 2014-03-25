@@ -104,6 +104,7 @@ else{
 // this block would use $db_ver when mysqli_verify.php is implemented & a seperate table is created for hash key
 
 function errlog($errid, $errdesc="", $errval=""){
+	global $return_arr;
 	$return_arr[$errid]="";
 	if($errdesc)
 		$return_arr[$errid]=$errdesc; 
@@ -112,6 +113,7 @@ function errlog($errid, $errdesc="", $errval=""){
 }
 
 function sendback($rval){
+	global $return_arr;
 	if($rval == 0){
 		$return_arr["STATUS"]="SUCCESS";
 	}
