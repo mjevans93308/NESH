@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../styles/addon.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 </head>
 
 <body>
@@ -78,47 +78,62 @@
         	<div class="col-xs-6">
             	<div class="page-header">
             		<h2>Create a New Project</h2>
-            		<!--<p>Create a new project using whatever user-triggered event you wish and compare between your site's versions.</p>-->
+    <!--<p>Create a new project using whatever user-triggered event you wish and compare between your site's versions.</p>-->
         		</div>
                
         		<div class="page-header"><h4>Please fill out the appropriate information:</h4></div>
-        			<form name="newproj" class="form-horizontal" action="../php/projMgmt.php?newproj" method="post">
-						<div class="form-group col-sm-9">
-                        	<label for="projectName" class="col-sm-3 control-label">Project Name:</label>
-                    		<div class="col-sm-7">
-                            <input class="form-control" name="projectName" autofocus required="" placeholder="Project Name"> 
-                      	</div>
-                      </div> 
-                      <div style="clear:both"></div>           
+        			<form name="newproj" class="form-horizontal" role="form" action="../php/projMgmt.php?newproj" method="post">
+						<div class="form-group">
+                        	<label for="projectName" class="col-sm-2 control-label">Project Name:</label>
+                    		<div class="col-sm-9">
+                      	<input class="form-control" name="projectName" autofocus required="" placeholder="Project Name"> 
+                     		</div>
+                      </div>
+                      <div style="clear:both"></div>   
+                      
+                     <!--**********************************************************************************
+                     *                     This is the section for Tags                                   *
+                     ***********************************************************************************-->    
                 		<div class="page-header">
-                        <h4>Tags:	<button type="button" class="btn btn-info"><span class="glyphicon glyphicon-question-sign"></span></button></h4>
+                        <h4>Tags	<a href="#" class="tip" data-toggle="tooltip" data-placement="right" title="" data-original-title="These are tags universal to the Project! Only 5 Tags are allowed.">
+<span class="glyphicon glyphicon-question-sign"/>
+</a>
+							:</h4>
                       </div>	
-                      <div id="dynamicTags">
-                      	<div class="form-group col-sm-9">
-                      		<label for="tag1" class="col-sm-3 control-label">Tag:</label>
-                      		<div class="col-sm-7">
+                      <div id="dynamicTags" >
+                      	<div class="form-group" id="tag1">
+                      		<label for="tag1" class="col-sm-2 control-label">Tag:</label>
+                        		<div class="col-sm-9">
                     				<input class="form-control" name="tag1" id="tag1" placeholder="Tag Name">
-                        		</div>
-                       	</div>
-                  	</div>
-                    	<div class="col-sm-1">
-                     		 <button type="button" onClick="addTags('dynamicTags')" style="float:left;"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                         		</div>
+                         		<div class="col-sm-1">
+                        			<button type="button" class="close" onClick="addTags('dynamicTags')">&#43;</button>
+                      		</div>
+                      	</div>
                       </div>
                       <div style="clear:both"></div> 
+                      
+                      
+                       <!--**********************************************************************************
+                       *                     This is the section for Events                                 *
+                       ************************************************************************************--> 
                       <div class="page-header"><h4>Events:</h4></div>
-                      <div id="dynamicEvents"> 
-                      	<div class="form-group col-sm-9"> 
-                				<label for="eventName1" class="col-sm-3 control-label">Event Name:</label>
-                         		<div class="col-sm-7">
-                             	<input class="form-control" name="event1" id="event1" placeholder="Event Name">
+                      <div id="dynamicEvents">
+                      	<div class="form-group" id="event1"> 
+                				<label for="eventName1" class="col-sm-2 control-label">Event Name:</label>
+                       		<div class="col-sm-9">
+                            		<input class="form-control" name="event1" id="event1" placeholder="Event Name">
                         		</div>
+                        		<div class="col-sm-1">
+                         			<button type="button" class="close" onClick="addEvents('dynamicEvents')">&#43;</button>
+                      		</div>
                          	</div>
                       </div>
-                      <div class="col-sm-1">
-                      	<button type="button" onClick="addEvents('dynamicEvents')" style="float:left;"><span class= "glyphicon glyphicon-plus-sign" ></span></button>
-                       </div>
                       <div style="clear:both;"></div>
-                      <br />
+                      
+                      <!--**********************************************************************************
+                       *              This is the section for Create Project Button                        *
+                       ************************************************************************************--> 
                       <button class="btn btn-sm btn-primary" type="submit">Create Project</button>
         			</form>
 			</div>
@@ -174,8 +189,11 @@
         </div>
     </footer>
 
-    <script src="../scripts/jquery-1.11.0.js"></script>
-    <script src="../scripts/bootstrap.js"></script>
+    <script src="../scripts/jquery-1.11.0.js" type="text/javascript"></script>
+    <script src="../scripts/bootstrap.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    	$("[data-toggle=tooltip").tooltip();
+	</script>
     <script>
 		var totTags = 2;
 		var totEvents = 2;
@@ -184,7 +202,7 @@
 			
 			var table = document.getElementById(tableID);
 			if(totTags < 6){  
-				table.innerHTML = table.innerHTML + "<div class=\"form-group col-sm-9\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-3 control-label\">Tag:</label><div class=\"col-sm-7\"><input class=\"form-control\" name=\"tag"+totTags+"\" placeholder=\"Tag Name\"></div><button type=\"button\" class=\"close\" onClick=\"deleteTags('tag"+totTags+"')\">&times;</button></div>";                          // limit the user from creating fields more than your limits
+				table.innerHTML =  table.innerHTML + "<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"tag"+totTags+"\" placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags('tag"+totTags+"')\">&times;</button></div></div></div>";                         // limit the user from creating fields more than your limits
 			totTags = totTags + 1;
 			}
 			else{
@@ -196,7 +214,7 @@
 			
 			var table = document.getElementById(tableID);
  			
-			table.innerHTML = table.innerHTML + "<div class=\"form-group col-sm-9\" id=\"event"+totEvents+"\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-3 control-label\">Event Name:</label><div class=\"col-sm-7\"><input class=\"form-control\" name=\"event"+totEvents+"\" placeholder=\"Event Name\"></div><button type=\"button\" class=\"close\" onClick=\"deleteEvents('event"+totEvents+"')\">&times;</button></div>";                          // limit the user from creating fields more than your limits
+			table.innerHTML = table.innerHTML + "<div class = \"form-group\" id=\"event"+totEvents+"\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-2 control-label\">Event Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"event"+totEvents+"\" placeholder=\"Event Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteEvents('event"+totEvents+"')\">&times;</button></div></div></div>";                       
 			totEvents = totEvents + 1;
 		}
 		
