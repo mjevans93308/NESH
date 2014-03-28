@@ -18,33 +18,44 @@ header('Content-Type: text/html; charset=utf-8');
 include("mysqli.php");
 if(isset($HTTP_RAW_POST_DATA)) {
 	global $db_obj;
+	$return_arr=array();
 
 	// clean input data
 	parse_str($HTTP_RAW_POST_DATA,$_SET); // here you will get variables
+	// verified _SET variables transmitted properly (JS)
 	foreach ($_SET as $k => $value) {
 		$_CLEAN[$k] = htmlentities($value, ENT_QUOTES | ENT_SUBSTITUTE | ENT_DISALLOWED);
-	}unset($k);unset($value);
+		unset($k);
+		unset($value);
+	}
+	// verified _CLEAN variables properly interpreted (JS)
 
 	$event = ""; $time = ""; $hash = ""; $tags = array();
 	// verify needed data & clean for DB
 	if(isset($_CLEAN['key'])){
 		$hash = $db_obj->escape_string($_CLEAN[key]);
+		$return_arr['hash_esc']=$hash;
 	}
 	else 				
 		errlog("HASH_ERROR","no hash");
-	if(isset($_CLEAN['event']))		
-		$event = $db_obj->escape_string($_CLEAN['event_id']);
-	else 							
+	if(isset($_CLEAN['event'])){
+		$event = $db_obj->escape_string($_CLEAN['event']);
+		$return_arr['event_esc']=$event;
+	}else 							
 		errlog("EVENT_ERROR","no event");
-	if(isset($_CLEAN['time']))		
+	if(isset($_CLEAN['time'])){
 		$time = $db_obj->escape_string($_CLEAN['time']);
-	else 							
+		$return_arr['time_esc']=$time;
+	}else 							
 		errlog("TIMESTAMP_ERROR","no timestamp");
 	if(isset($_CLEAN['tags'])){
 		$tags = explode(',', $_CLEAN['tags']);
+		$x=0;
 		foreach($tags as $tag){
 			$tag = $db_obj->escape_string($tag);
-		}unset($tag);
+			$return_arr["esc_tag$x"]=$tag;
+			$x++;
+		}//unset($tag);
 		$numtags = count($tags);
 		$availtags = tagcount($hash,$numtags);
 		if($availtags < $numtags){
@@ -56,7 +67,6 @@ if(isset($HTTP_RAW_POST_DATA)) {
 	
 	
 	//include("mysqli_verify.php"); // we should store the hash table in a seperate database for security purposes
-	$return_arr=array();
 
 	if($hash){
 		
@@ -151,13 +161,16 @@ function tagcount($h,$c){
 function createEvent($h,$e,$t,$ta = array()){
 	global $db_obj;
 	$session = $db_obj->escape_string(session_id());
+	$return_arr['time_t_precheck']=$t;
 	if(!$t){
 		if(isset($_SERVER['REQUEST_TIME']))
 			$t=$_SERVER['REQUEST_TIME'];
 		else
 			$t=time();
 	}
+	$return_arr['time_t_postcheck']=$t;
 	$tf = date("Y-m-d H:i:s",$t); // timestamp formatted to SQL
+	$return_arr['time_tf']=$tf;
 	
 	// check Events tbl to verify event_id
 	$query = "SELECT * FROM Events WHERE event_id = '$e'";
