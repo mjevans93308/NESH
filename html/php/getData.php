@@ -13,6 +13,13 @@ session_start();
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Credentials: true');
 header('Content-Type: text/html; charset=utf-8');
+
+//header('Access-Control-Allow-Credentials: true');
+header("Access-Control-Allow-Headers: Authorization, Content-Type");
+//header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST');//, GET, OPTIONS'); 
+header('Access-Control-Max-Age: 2419200');
+//header('content-type: application/json; charset=utf-8;');
 ?>
 <?php
 include("mysqli.php");
@@ -76,16 +83,15 @@ if(isset($HTTP_RAW_POST_DATA)) {
 				createEvent($hash,$event,$time,$tags);
 			}
 			else{
-				//error(3); // invalid hash in db (too many)
+				//error(3); // invalid hash in db (too many or not exist)
 				errlog("HASH_ERROR","invalid hash",$hash);
 				errlog("HASH_ERROR_SQL",mysql_error(),mysql_errno());
 				sendback(-1);
 			}
 		}
 		else{
-			//error(3); // invalid hash: not in db
-			errlog("QUERY_ERROR","query error with hash",$hash);
-			errlog("QUERY_ERROR_SQL",mysql_error(),mysql_errno());
+			errlog("HASH_QUERY_ERROR","query error with hash",$hash);
+			errlog("HASH_QUERY_ERROR_SQL",mysql_error(),mysql_errno());
 			sendback(-1);		
 		}
 	}
@@ -199,8 +205,8 @@ function createEvent($h,$e,$t,$ta = array()){
 	}
 	else{
 		// or log error message to DB & locally
-		errlog("EVENT_ID_ERROR","invalid event_id",$event);
-		errlog("EVENT_ID_ERROR_SQL",mysql_error(),mysql_errno());
+		errlog("EVENT_QUERY_ERROR","query error with event_id",$event);
+		errlog("EVENT_QUERY_ERROR_SQL",mysql_error(),mysql_errno());
 		sendback(-1);
 	}
 
