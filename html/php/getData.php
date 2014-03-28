@@ -181,14 +181,14 @@ function createEvent($h,$e,$t,$ta = array()){
 		}
 		else{
 			// or log error message to DB & locally
-			errlog("EVENT_ID_ERROR","invalid event_id ",$event);
+			errlog("EVENT_ID_ERROR","invalid event_id ",$e);
 			errlog("EVENT_ID_ERROR_SQL",mysql_error(),mysql_errno());
 			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp$tagnums,errors)";
 			$add_row .= " VALUES ('$h','$session','ERROR','$t'$tagvals,'invalid event_id: $e');";
 			$ret_val = -1;
 		}
 		if( ! $result = $db_obj->query($add_row) ){
-			errlog("DB_WRITE_ERROR","error writing to db",$event);
+			errlog("DB_WRITE_ERROR","error writing to db",$e);
 			errlog("DB_WRITE_ERROR_SQL",mysql_error(),mysql_errno());
 			sendback(-1);
 		}
