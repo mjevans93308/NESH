@@ -159,7 +159,7 @@ function tagcount($h,$c){
 
 // hash, user, event, time, tags, error
 function createEvent($h,$e,$t,$ta = array()){
-	global $db_obj;
+	global $db_obj, $return_arr;
 	$session = $db_obj->escape_string(session_id());
 	$return_arr['time_t_precheck']=$t;
 	if(!$t){
