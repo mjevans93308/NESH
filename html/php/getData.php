@@ -25,8 +25,8 @@ if(isset($HTTP_RAW_POST_DATA)) {
 	// verified _SET variables transmitted properly (JS)
 	foreach ($_SET as $k => $value) {
 		$_CLEAN[$k] = htmlentities($value, ENT_QUOTES | ENT_SUBSTITUTE | ENT_DISALLOWED);
-		unset($k);
-		unset($value);
+		//unset($_SET[$k]);
+		//unset($value);
 	}
 	// verified _CLEAN variables properly interpreted (JS)
 
@@ -34,18 +34,18 @@ if(isset($HTTP_RAW_POST_DATA)) {
 	// verify needed data & clean for DB
 	if(isset($_CLEAN['key'])){
 		$hash = $db_obj->escape_string($_CLEAN[key]);
-		//$return_arr['hash_esc']=$hash; // DEBUG FEEDBACK
+		//errlog('hash_esc',$hash); // DEBUG FEEDBACK
 	}
 	else 				
 		errlog("HASH_ERROR","no hash");
 	if(isset($_CLEAN['event'])){
 		$event = $db_obj->escape_string($_CLEAN['event']);
-		//$return_arr['event_esc']=$event; // DEBUG FEEDBACK
+		//errlog('event_esc',$event); // DEBUG FEEDBACK
 	}else 							
 		errlog("EVENT_ERROR","no event");
 	if(isset($_CLEAN['time'])){
 		$time = $db_obj->escape_string($_CLEAN['time']);
-		//$return_arr['time_esc']=$time; // DEBUG FEEDBACK
+		//errlog('time_esc',$time); // DEBUG FEEDBACK
 	}else 							
 		errlog("TIMESTAMP_ERROR","no timestamp");
 	if(isset($_CLEAN['tags'])){
@@ -53,7 +53,7 @@ if(isset($HTTP_RAW_POST_DATA)) {
 		//$x=0; // DEBUG FEEDBACK
 		foreach($tags as $tag){
 			$tag = $db_obj->escape_string($tag);
-			//$return_arr["esc_tag$x"]=$tag; // DEBUG FEEDBACK
+			//errlog("esc_tag$x",$tag); // DEBUG FEEDBACK
 			//$x++; // DEBUG FEEDBACK
 		}//unset($tag);
 		$numtags = count($tags);
@@ -76,16 +76,16 @@ if(isset($HTTP_RAW_POST_DATA)) {
 				createEvent($hash,$event,$time,$tags);
 			}
 			else{
-				error(3); // invalid hash in db (too many)
+				//error(3); // invalid hash in db (too many)
 				errlog("HASH_ERROR","invalid hash",$hash);
 				errlog("HASH_ERROR_SQL",mysql_error(),mysql_errno());
 				sendback(-1);
 			}
 		}
 		else{
-			error(3); // invalid hash: not in db
-			errlog("HASH_ERROR","invalid hash",$hash);
-			errlog("HASH_ERROR_SQL",mysql_error(),mysql_errno());
+			//error(3); // invalid hash: not in db
+			errlog("QUERY_ERROR","query error with hash",$hash);
+			errlog("QUERY_ERROR_SQL",mysql_error(),mysql_errno());
 			sendback(-1);		
 		}
 	}
@@ -98,28 +98,13 @@ else{
 	sendback(-1);
 }
 
-	//				$query1 = "INSERT INTO test VALUES('$hash', '$event_id1')";
-	//				$result1 = $db_obj->query($query1);
-	//				echo "<title> Got the data and inserted into the database!</title>";
-	//			}
-	//			else{
-	//				echo "<title> Not in the database!</title>";
-	//			}
-	//		}
-	//		else{
-	//				echo "<title> not able to query!</title>";	
-	//		}
-	//	}
-
-// this block would use $db_ver when mysqli_verify.php is implemented & a seperate table is created for hash key
-
 function errlog($errid, $errdesc="", $errval=""){
 	global $return_arr;
 	$return_arr[$errid]="";
 	if($errdesc)
 		$return_arr[$errid]=$errdesc; 
 	if($errval)
-		$return_arr[$errid]=$errdesc.": ".$errval; 
+		$return_arr[$errid].=": ".$errval; 
 }
 
 function sendback($rval){
@@ -130,7 +115,6 @@ function sendback($rval){
 	else{
 		$return_arr["STATUS"]="FAILURE";
 	}
-	//echo json_encode($return_arr);
 	foreach($return_arr as $tag => $str){
 		echo "<$tag>$str</$tag>\n";
 	}
@@ -161,16 +145,16 @@ function tagcount($h,$c){
 function createEvent($h,$e,$t,$ta = array()){
 	global $db_obj, $return_arr;
 	$session = $db_obj->escape_string(session_id());
-	//$return_arr['time_t_precheck']=$t; // DEBUG FEEDBACK
+	//errlog('time_t_precheck',$t); // DEBUG FEEDBACK
 	if(!$t){
 		if(isset($_SERVER['REQUEST_TIME']))
 			$t=$_SERVER['REQUEST_TIME'];
 		else
 			$t=time();
 	}
-	$return_arr['time_t_postcheck']=$t; // DEBUG FEEDBACK
+	//errlog('time_t_postcheck',$t); // DEBUG FEEDBACK
 	$tf = date("Y-m-d H:i:s",$t); // timestamp formatted to SQL
-	$return_arr['time_tf']=$tf; // DEBUG FEEDBACK
+	//errlog('time_tf',$tf); // DEBUG FEEDBACK
 	
 	// check Events tbl to verify event_id
 	$query = "SELECT * FROM Events WHERE event_id = '$e'";
@@ -191,14 +175,18 @@ function createEvent($h,$e,$t,$ta = array()){
 			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp$tagnums)";
 			$add_row .= " VALUES ('$h','$session','$e','$tf'$tagvals);";
 			$ret_val = 0;
+			// reporting
+			errlog('key',$h);errlog('session',$session);errlog('event_id',$e);errlog('time',$tf);errlog('tags',$tagvals);
 		}
 		else{
 			// or log error message to DB & locally
-			errlog("EVENT_ID_ERROR","invalid event_id ",$e);
+			errlog("EVENT_ID_ERROR","invalid event_id",$e);
 			errlog("EVENT_ID_ERROR_SQL",mysql_error(),mysql_errno());
 			$add_row = "INSERT INTO Session (hash_number,usession_id,event_id,c_timestamp$tagnums,errors)";
 			$add_row .= " VALUES ('$h','$session','ERROR','$tf'$tagvals,'invalid event_id: $e');";
 			$ret_val = -1;
+			//reporting
+			errlog('key',$h);errlog('session',$session);errlog('event_id',$e);errlog('time',$tf);errlog('tags',$tagvals);
 		}
 		if( ! $result = $db_obj->query($add_row) ){
 			errlog("DB_WRITE_ERROR","error writing to db",$e);
@@ -211,7 +199,7 @@ function createEvent($h,$e,$t,$ta = array()){
 	}
 	else{
 		// or log error message to DB & locally
-		errlog("EVENT_ID_ERROR","invalid event_id ",$event);
+		errlog("EVENT_ID_ERROR","invalid event_id",$event);
 		errlog("EVENT_ID_ERROR_SQL",mysql_error(),mysql_errno());
 		sendback(-1);
 	}
