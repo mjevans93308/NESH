@@ -34,27 +34,27 @@ if(isset($HTTP_RAW_POST_DATA)) {
 	// verify needed data & clean for DB
 	if(isset($_CLEAN['key'])){
 		$hash = $db_obj->escape_string($_CLEAN[key]);
-		$return_arr['hash_esc']=$hash;
+		//$return_arr['hash_esc']=$hash; // DEBUG FEEDBACK
 	}
 	else 				
 		errlog("HASH_ERROR","no hash");
 	if(isset($_CLEAN['event'])){
 		$event = $db_obj->escape_string($_CLEAN['event']);
-		$return_arr['event_esc']=$event;
+		//$return_arr['event_esc']=$event; // DEBUG FEEDBACK
 	}else 							
 		errlog("EVENT_ERROR","no event");
 	if(isset($_CLEAN['time'])){
 		$time = $db_obj->escape_string($_CLEAN['time']);
-		$return_arr['time_esc']=$time;
+		//$return_arr['time_esc']=$time; // DEBUG FEEDBACK
 	}else 							
 		errlog("TIMESTAMP_ERROR","no timestamp");
 	if(isset($_CLEAN['tags'])){
 		$tags = explode(',', $_CLEAN['tags']);
-		$x=0;
+		//$x=0; // DEBUG FEEDBACK
 		foreach($tags as $tag){
 			$tag = $db_obj->escape_string($tag);
-			$return_arr["esc_tag$x"]=$tag;
-			$x++;
+			//$return_arr["esc_tag$x"]=$tag; // DEBUG FEEDBACK
+			//$x++; // DEBUG FEEDBACK
 		}//unset($tag);
 		$numtags = count($tags);
 		$availtags = tagcount($hash,$numtags);
@@ -161,16 +161,16 @@ function tagcount($h,$c){
 function createEvent($h,$e,$t,$ta = array()){
 	global $db_obj, $return_arr;
 	$session = $db_obj->escape_string(session_id());
-	$return_arr['time_t_precheck']=$t;
+	//$return_arr['time_t_precheck']=$t; // DEBUG FEEDBACK
 	if(!$t){
 		if(isset($_SERVER['REQUEST_TIME']))
 			$t=$_SERVER['REQUEST_TIME'];
 		else
 			$t=time();
 	}
-	$return_arr['time_t_postcheck']=$t;
+	$return_arr['time_t_postcheck']=$t; // DEBUG FEEDBACK
 	$tf = date("Y-m-d H:i:s",$t); // timestamp formatted to SQL
-	$return_arr['time_tf']=$tf;
+	$return_arr['time_tf']=$tf; // DEBUG FEEDBACK
 	
 	// check Events tbl to verify event_id
 	$query = "SELECT * FROM Events WHERE event_id = '$e'";
