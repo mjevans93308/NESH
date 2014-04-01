@@ -13,7 +13,7 @@ password varbinary(48) NOT NULL
 /*Product name is linked with uid*/
 Create Table Products(
 product varchar(30) NOT NULL UNIQUE,
-uid int NOT NULL UNIQUE,
+uid int NOT NULL,
 pid int NOT NULL UNIQUE PRIMARY KEY AUTO_INCREMENT,
 tag0 varchar(30),
 tag1 varchar(30),
@@ -49,6 +49,7 @@ tag1 varchar(30),
 tag2 varchar(30),
 tag3 varchar(30),
 tag4 varchar(30),
+errors varchar(30),
 event_id int NOT NULL,
 c_timestamp TIMESTAMP NOT NULL
 );

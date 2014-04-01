@@ -102,7 +102,7 @@
 			}
 			
 			if($regComplete){
-				 header("Location: http://nesh.co/basicPages/first.php");
+				echo "<script>window.location= 'http://nesh.co/basicPages/first.php'</script>";
 			}
 		}
 		
