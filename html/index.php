@@ -19,7 +19,7 @@
 <body>
 	<?php
 		if(isset($_GET["pvm"])){
-			echo "<script>alert('The paasword did not match! Please enter them again');</script>";
+			echo "<script>alert('The password did not match! Please enter them again');</script>";
 			unset($_GET["pvm"]);
 		}
 		else if(isset($_GET["ivu"])){
