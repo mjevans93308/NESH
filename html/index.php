@@ -19,15 +19,15 @@
 <body>
 	<?php
 		if(isset($_GET["pvm"])){
-			echo "<script>alert('The paasword did not match! Please enter them again');</script>";
+			echo "<script type='text/javascript'>alert('The paasword did not match! Please enter them again');</script>";
 			unset($_GET["pvm"]);
 		}
 		else if(isset($_GET["ivu"])){
-			echo "<script>alert('Invalid user name! Please enter again');</script>";
+			echo "<script type='text/javascript'>alert('Invalid user name! Please enter again');</script>";
 			unset($_GET["ivu"]);
 		}
 		else if(isset($_GET["ivn"])){
-			echo "<script>alert('Please enter your name!');</script>";
+			echo "<script type='text/javascript'>alert('Please enter your name!');</script>";
 			unset($_GET["ivn"]);
 		}
 		else if(isset($_GET["ivp"])){
@@ -35,19 +35,19 @@
 			unset($_GET["ivp"]);
 		}
 		else if(isset($_GET["ive"])){
-			echo "<script>alert('Invalid email address! Please enter again');</script>";
+			echo "<script type='text/javascript'>alert('Invalid email address! Please enter again');</script>";
 			unset($_GET["ive"]);
 		}
 		else if(isset($_GET["nuu"])){
-			echo "alert('Username already taken, Please enter a different username!')";
+			echo "<script type='text/javascript'>alert('Username already taken, Please enter a different username!');</script>";
 			unset($_GET["nuu"]);
 		}
 		else if(isset($_GET["nue"])){
-			echo "<script>alert('There is an account already associated with this email!');</script>";
+			echo "<script type='text/javascript'>alert('There is an account already associated with this email!');</script>";
 			unset($_GET["nue"]);
 		}
 		else if(isset($_GET["dbe"])){
-			echo "<script>alert('Error writing to the database!');</script>";
+			echo "<script type='text/javascript'>alert('Error writing to the database!');</script>";
 			unset($_GET["dbe"]);
 		}
 	?>
@@ -88,7 +88,7 @@
 		<div class="row">
         	<div class="col-xs-6">
            	<img id="imagine" src="images/google_analytics_report.png">
-      			<p id="bound">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut lobortis dui, et lacinia mauris. Aliquam a condimentum odio. Ut in dignissim arcu. Vivamus vitae feugiat risus. Proin nisi nunc, hendrerit sed lectus sit amet, congue faucibus ante. Etiam dapibus blandit auctor. Quisque rutrum et sem in convallis.</p>
+      			<p id="bound">To improve developer-user feedback interaction, we have developed a web-based, event-driven analytic and A/B testing system. Event triggered snippets, embedded in clients? websites or mobile apps, send usage data to the cloud, where clients can observe trends in customizable graphs.</p>
            </div>
            <div class="col-xs-6">
            	<div class="page-header">
@@ -141,7 +141,7 @@
 
    	</div>
     <!--footer--> 
-    <footer class="navbar navbar-fixed-bottom basic-footer" role="footerInfo">
+    <footer class="navbar basic-footer" role="footerInfo">
         <div class="container">
             <p>Designed and styled using
                 <a target="_blank" href="http://getbootstrap.com"> bootstrap </a>
