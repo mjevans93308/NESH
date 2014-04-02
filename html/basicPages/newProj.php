@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <?php 
+    <!--<?php
         include ("../php/mysqli.php");
         global $db_obj;
 
@@ -32,7 +32,7 @@
             echo $st;
         }
     ?>
-
+    -->
     <link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../styles/addon.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -95,9 +95,31 @@
         <!-- /.container-fluid -->
     </nav>
     <div class="container-fluid">
-        
-
-
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active">
+                        <a href="#">Project Name</a>
+                    </li>
+                    <li>
+                        <a href="#">Registered Events</a>
+                    </li>
+                    <li>
+                        <a href="#">Registered Tags</a>
+                    </li>
+                    <li>
+                        <a href="#">Analytics</a>
+                    </li>
+                    <li>
+                        <a href="#">Trends</a>
+                    </li>
+                    <li>
+                        <a href="#">Code Snippets</a>
+                    </li>
+                </ul>
+            </div>
+        </div>  
+        <!--container-fluid-->
     </div>
 
     <!--footer--> 
