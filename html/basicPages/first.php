@@ -194,12 +194,23 @@
     	$("[data-toggle=tooltip").tooltip();
 	</script>
     <script>
-		var totTags = 2;
+		var totTags = 1;
 		var totEvents = 2;
 		
 		function addTags(tableID) {
 			
 			var table = document.getElementById(tableID);
+/*
+      if(totTags < 6){
+        totTags++;
+        var ttag = '<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"tag"+totTags+"\" placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags('tag"+totTags+"')\">&times;</button></div></div></div>' ; 
+        jQuery('#dynamicTags').append(ttag);
+      }
+      else{
+        alert("Maximum number of tags allowed are 5!");      
+      }
+*/
+      
 			if(totTags < 6){  
 				table.innerHTML =  table.innerHTML + "<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"tag"+totTags+"\" placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags('tag"+totTags+"')\">&times;</button></div></div></div>";                         // limit the user from creating fields more than your limits
 			totTags = totTags + 1;
@@ -207,6 +218,7 @@
 			else{
 		 		alert("Maximum number of tags allowed are 5!");		   
 			}
+      
 		}
 	
 		function addEvents(tableID) {
@@ -221,6 +233,7 @@
 			totTags = totTags - 1;
 			var row = document.getElementById(tableID);
 			row.parentNode.removeChild(row);
+      /*jQuery('#tag'+totTags).remove();*/
 		}
 		function deleteEvents(tableID) {
 			totEvents = totEvents - 1;
