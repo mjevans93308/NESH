@@ -9,34 +9,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!--<?php
-        include ("../php/mysqli.php");
-        global $db_obj;
-
-        $query = "SELECT * FROM Members WHERE username = '". $_SESSION['userid']."'";
-        
-        if ( ($result = $db_obj->query($query)) && ($result->num_rows != 0) ){  // success!
-            while($row = $result->fetch_assoc()){
-                $uid = $row['uid'];
-            }
-        }
-        $query1 = "SELECT * FROM Products WHERE uid = '" .$uid."'";
-            $st = "";
-        if ( ($result1 = $db_obj->query($query1)) && ($result1->num_rows != 0) ){
-            while ($row1 = $result1->fetch_assoc()) {
-                //$st .= "<tr><td>";
-                //$st .= $row1['product']. "<span class='glyphicon glyphicon-chevron-right pull-right' a href='#'></span></td></tr>";
-                //$st .= "<title>".$row1['product']."</title>";
-                $st .= "<title>Test</title>";
-        }
-            echo $st;
-        }
-    ?>
-    -->
+    <title>New Project Page</title>
     <link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../styles/addon.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -117,6 +93,25 @@
                         <a href="#">Code Snippets</a>
                     </li>
                 </ul>
+            <!--sidebar-->
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <!--<div class="container" style="border: 1px solid #EEEEEE;">-->
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Event:<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Event 1</li>
+                                <li class="divider"></li>
+                                <li><a href="#">Event 3</li>
+                                <li class="divider"></li>
+                                <li><a href="#">Event 2</li>
+                                <li class="divider"></li>
+                            </ul>
+                        </div>
+                        <input type="text" class="form-control">
+                    </div>
+                <!--</div>-->
             </div>
         </div>  
         <!--container-fluid-->
@@ -126,9 +121,9 @@
     <footer class="navbar navbar-fixed-bottom basic-footer" role="footerInfo">
         <div class="container">
             <p>Designed and styled using
-                <a target="_blank" href="http://getbootstrap.com"> bootstrap </a>
+                <a href="http://getbootstrap.com"> bootstrap </a>
                 and
-                <a target="_blank" href="https://github.com"> github.</a>
+                <a href="https://github.com"> github.</a>
             </p>
             <p>For questions, email
             		<a target="_blank" href="http://gmail.scu.edu"> anarra@scu.edu,</a>
