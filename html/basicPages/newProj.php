@@ -96,7 +96,7 @@
             <!--sidebar-->
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <!--<div class="container" style="border: 1px solid #EEEEEE;">-->
+                <div class="container" style="border: 1px solid #EEEEEE;">
                     <div class="input-group">
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Event:<span class="caret"></span></button>
@@ -111,23 +111,23 @@
                         </div>
                         <input type="text" class="form-control">
                     </div>
-                <!--</div>-->
+                </div>
             </div>
         </div>  
         <!--container-fluid-->
     </div>
 
     <!--footer--> 
-    <footer class="navbar navbar-fixed-bottom basic-footer" role="footerInfo">
+    <footer class="navbar-fixed-bottom basic-footer" role="footerInfo">
         <div class="container">
             <p>Designed and styled using
-                <a href="http://getbootstrap.com"> bootstrap </a>
+                <a target="_blank" href="http://getbootstrap.com"> bootstrap </a>
                 and
-                <a href="https://github.com"> github.</a>
+                <a target="_blank" href="https://github.com"> github.</a>
             </p>
             <p>For questions, email
             		<a target="_blank" href="http://gmail.scu.edu"> anarra@scu.edu,</a>
-					      <a target="_blank" href="http://gmail.scu.edu"> bsilva1@scu.edu,</a>
+					<a target="_blank" href="http://gmail.scu.edu"> bsilva1@scu.edu,</a>
                 <a target="_blank" href="http://gmail.scu.edu"> mhowlesbanerji@scu.edu,</a>
                 <a target="_blank" href="http://gmail.scu.edu"> mjevans@scu.edu.</a>
             </p>

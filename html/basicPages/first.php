@@ -172,7 +172,7 @@
     </div>
       
     <!--footer--> 
-    <footer class="basic-footer" role="footerInfo">
+    <footer class="navbar-fixed-bottom basic-footer" role="footerInfo">
         <div class="container">
             <p>Designed and styled using
                 <a target="_blank" href="http://getbootstrap.com"> bootstrap </a>
@@ -192,7 +192,7 @@
     <script src="../scripts/bootstrap.js" type="text/javascript"></script>
     <script type="text/javascript">
     	$("[data-toggle=tooltip").tooltip();
-	</script>
+	  </script>
     <script>
 		var totTags = 1;
 		var totEvents = 2;
