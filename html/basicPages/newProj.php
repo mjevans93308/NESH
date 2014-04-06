@@ -15,6 +15,12 @@
     <link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../styles/addon.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+    <script src="scripts/jquery-1.11.0.js"></script>
+    <script src="scripts/bootstrap.js"></script>
+    <script src="scripts/raphael.js"></script>
+    <script src="scripts/graphael.js"></script>
+    <script src="scripts/g.bar.js"></script>
 </head>
 
 <body>
@@ -22,7 +28,7 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-loggedout">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -32,7 +38,7 @@
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse" id="navbar-loggedout">
                 <ul class="nav navbar-nav">
                     <li><a href="#">Create a New Project</a></li>
                     <li class="dropdown">
