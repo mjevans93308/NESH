@@ -172,7 +172,7 @@
     </div>
       
     <!--footer--> 
-    <footer class="navbar-fixed-bottom basic-footer" role="footerInfo">
+    <footer class="basic-footer" role="footerInfo">
         <div class="container">
             <p>Designed and styled using
                 <a target="_blank" href="http://getbootstrap.com"> bootstrap </a>
@@ -194,14 +194,16 @@
     	$("[data-toggle=tooltip").tooltip();
 	  </script>
     <script>
-		var totTags = 0;
-		var totEvents = 0;
+		var totTags = 1;
+		var totTagCount = 1;
+		var totEvents = 1;
 		
 		function addTags(form) {
-      		if(totTags < 6){
-        		totTags++;
+      		if(totTagCount < 5){
+        		totTags = totTags + 1;
+				totTagCount = totTagCount + 1;
        			var ttag = "<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" type=\"text\" name=\"tagArr[]\" value='"+form.tag.value+"' placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags("+totTags+");\">&times;</button></div></div></div>" ; 
-        		jQuery('#dynamicTags').append(ttag);
+        		jQuery('#dynamicTags').before(ttag);
       			form.tag.value='';
 			}
       		else{
@@ -210,13 +212,14 @@
 		}
       
 	  	function addEvents(eventForm) {
-			totEvents++;
+			totEvents = totEvents + 1;
 			var eventsVar = "<div class = \"form-group\" id=\"event"+totEvents+"\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-2 control-label\">Event Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"eventArr[]\" value='"+eventForm.events.value+"' placeholder=\"Event Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteEvents("+totEvents+")\">&times;</button></div></div></div>";                       
-			jQuery('#dynamicEvents').append(eventsVar);
+			jQuery('#dynamicEvents').before(eventsVar);
 			eventForm.events.value='';
 		}
 		
 		function deleteTags(tNum) {
+			totTagCount = totTagCount - 1;
       		jQuery('#tag'+tNum).remove();
 		}
 		function deleteEvents(eNum) {
