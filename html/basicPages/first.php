@@ -103,10 +103,10 @@
                       	<div class="form-group" id="tag1">
                       		<label for="tag1" class="col-sm-2 control-label">Tag:</label>
                         		<div class="col-sm-9">
-                    				<input class="form-control" name="tag1" id="tag1" placeholder="Tag Name">
+                    				<input class="form-control" type='text' name="tag" placeholder="Tag Name">
                          		</div>
                          		<div class="col-sm-1">
-                        			<button type="button" class="close" onClick="addTags('dynamicTags')">&#43;</button>
+                        			<button type="button" class="close" onClick="addTags(this.form);">&#43;</button>
                       		</div>
                       	</div>
                       </div>
@@ -121,10 +121,10 @@
                       	<div class="form-group" id="event1"> 
                 				<label for="eventName1" class="col-sm-2 control-label">Event Name:</label>
                        		<div class="col-sm-9">
-                            		<input class="form-control" name="event1" id="event1" placeholder="Event Name">
+                            		<input class="form-control" type='text' name="events" placeholder="Event Name">
                         		</div>
                         		<div class="col-sm-1">
-                         			<button type="button" class="close" onClick="addEvents('dynamicEvents')">&#43;</button>
+                         			<button type="button" class="close" onClick="addEvents(this.form)">&#43;</button>
                       		</div>
                          	</div>
                       </div>
@@ -194,51 +194,33 @@
     	$("[data-toggle=tooltip").tooltip();
 	  </script>
     <script>
-		var totTags = 1;
-		var totEvents = 2;
+		var totTags = 0;
+		var totEvents = 0;
 		
-		function addTags(tableID) {
-			
-			var table = document.getElementById(tableID);
-/*
-      if(totTags < 6){
-        totTags++;
-        var ttag = '<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"tag"+totTags+"\" placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags('tag"+totTags+"')\">&times;</button></div></div></div>' ; 
-        jQuery('#dynamicTags').append(ttag);
-      }
-      else{
-        alert("Maximum number of tags allowed are 5!");      
-      }
-*/
-      
-			if(totTags < 6){  
-				table.innerHTML =  table.innerHTML + "<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"tag"+totTags+"\" placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags('tag"+totTags+"')\">&times;</button></div></div></div>";                         // limit the user from creating fields more than your limits
-			totTags = totTags + 1;
+		function addTags(form) {
+      		if(totTags < 6){
+        		totTags++;
+       			var ttag = "<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" type=\"text\" name=\"tagArr[]\" value='"+form.tag.value+"' placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags("+totTags+");\">&times;</button></div></div></div>" ; 
+        		jQuery('#dynamicTags').append(ttag);
+      			form.tag.value='';
 			}
-			else{
-		 		alert("Maximum number of tags allowed are 5!");		   
-			}
-      
+      		else{
+        		alert("Maximum number of tags allowed are 5!");      
+      		}
 		}
-	
-		function addEvents(tableID) {
-			
-			var table = document.getElementById(tableID);
- 			
-			table.innerHTML = table.innerHTML + "<div class = \"form-group\" id=\"event"+totEvents+"\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-2 control-label\">Event Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"event"+totEvents+"\" placeholder=\"Event Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteEvents('event"+totEvents+"')\">&times;</button></div></div></div>";                       
-			totEvents = totEvents + 1;
+      
+	  	function addEvents(eventForm) {
+			totEvents++;
+			var eventsVar = "<div class = \"form-group\" id=\"event"+totEvents+"\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-2 control-label\">Event Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"eventArr[]\" value='"+eventForm.events.value+"' placeholder=\"Event Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteEvents("+totEvents+")\">&times;</button></div></div></div>";                       
+			jQuery('#dynamicEvents').append(eventsVar);
+			eventForm.events.value='';
 		}
 		
-		function deleteTags(tableID) {
-			totTags = totTags - 1;
-			var row = document.getElementById(tableID);
-			row.parentNode.removeChild(row);
-      /*jQuery('#tag'+totTags).remove();*/
+		function deleteTags(tNum) {
+      		jQuery('#tag'+tNum).remove();
 		}
-		function deleteEvents(tableID) {
-			totEvents = totEvents - 1;
-			var row = document.getElementById(tableID);
-			row.parentNode.removeChild(row);
+		function deleteEvents(eNum) {
+			jQuery('#event'+eNum).remove();
 		}
 	</script>
 </body>
