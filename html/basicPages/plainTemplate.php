@@ -15,8 +15,13 @@
     <link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../styles/addon.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    
     <script src="../scripts/jquery-1.11.0.js" type="text/javascript"></script>
     <script src="../scripts/bootstrap.js" type="text/javascript"></script>
+
+    <script src="scripts/raphael.js"></script>
+    <script src="scripts/graphael.js"></script>
+    <script src="scripts/g.bar.js"></script>
 </head>
 
 <body>
@@ -74,6 +79,34 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active">
+                        <a href="#">Project Name</a>
+                    </li>
+                    <li>
+                        <a href="#">Registered Events</a>
+                    </li>
+                    <li>
+                        <a href="#">Registered Tags</a>
+                    </li>
+                    <li>
+                        <a href="#">Analytics</a>
+                    </li>
+                    <li>
+                        <a href="#">Trends</a>
+                    </li>
+                    <li>
+                        <a href="#">Code Snippets</a>
+                    </li>
+                </ul>
+            <!--sidebar-->
+            </div>
+        </div>
+    </div>
 
     <!--footer--> 
     <footer class="navbar-fixed-bottom basic-footer" role="footerInfo">

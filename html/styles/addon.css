@@ -12,7 +12,7 @@
 .sidebar {
 	background-color: #F5F5F5;
     border-right: 1px solid #EEEEEE;
-    margin-bottom: 119px;
+    margin-bottom: 125px;
     bottom: 0;
     display: block;
     left: 0;
@@ -21,5 +21,4 @@
     padding: 20px;
     position: fixed;
     top: 45px;
-    z-index: 1000;
 }
