@@ -21,9 +21,9 @@
 				}
 			}
 			
-			echo $userIdNum;
+			//echo $userIdNum;
 			$product = $db_obj->escape_string($_POST['projectName']);
-			echo $product;
+			//echo $product;
 			
 			
 			
@@ -31,13 +31,15 @@
 			$totalEvents = 0;
 			
 			while($totalTags < 5){
-				$k = "tag" .($totalTags + 1);
-				if(isset($_POST[$k])){
-					${'tag_id' . $totalTags} = $_POST[$k];
+				foreach($_POST['tagArr'] as $cnt => $tagArr){
+					if($tagArr != NULL){
+						${'tag_id' . $totalTags} = $tagArr;
+						$totalTags = $totalTags + 1;
+					}
 				}
-				else
-					break;
+				${'tag_id' . $totalTags} = $_POST['tag'];
 				$totalTags = $totalTags + 1;
+				break;
 			}
 			
 			if($totalTags != 4){ //assigning null to the total tags that not have been set yes
@@ -48,16 +50,16 @@
 			}
 			
 			$query2 = "INSERT INTO Products (product, uid, tag0, tag1, tag2, tag3, tag4) VALUES('$product', '$userIdNum', '$tag_id0', '$tag_id1', '$tag_id2', '$tag_id3', '$tag_id4')";
-			echo $query2;
+			//echo $query2;
 			if ( ($result2 = $db_obj->query($query2))){
 				$insertProd = true;
 				$regComplete = true;
-				echo "Inserted into Prodcuts";
+				//echo "Inserted into Prodcuts";
 			}
 			else{
 				$insertProd = false;
 				$regComplete = false;
-				echo "Error inserting into products";
+				//echo "Error inserting into products";
 			}
 			
 			if($insertProd){
@@ -68,35 +70,34 @@
 						$prodIdNum = $row3['pid'];
 					}
 				}
-				echo $prodIdNum;
+				//echo $prodIdNum;
 				$hash_Num = hashGenerate($userIdNum, $prodIdNum);
 				$query5 = "INSERT into Hash_Products (pid, hash_number) VALUES ('$prodIdNum', '$hash_Num')";
 				if ( ($result5 = $db_obj->query($query5))){
 					$regComplete = true;
-					echo "Inserted into Hash_Prodcuts";
+					//echo "Inserted into Hash_Prodcuts";
 				}
 				else{
 					$regComplete = false;
-					echo "Error inserting into Hash_products";
+					//echo "Error inserting into Hash_products";
 				}
 			
 			
-			while($totalEvents >= 0){
-				$l = "event" .($totalEvents + 1);
-				if(isset($_POST[$l])){
-					${'event_id' . $totalEvents} = $_POST[$l];
+			foreach($_POST['eventArr'] as $cnt => $eventArr){
+				if($eventArr != NULL){
+					${'event_id' . $totalEvents} = $eventArr;
+					$totalEvents = $totalEvents + 1;
 				}
-				else
-					break;
-				$totalEvents = $totalEvents + 1;
 			}
+			${'event_id' . $totalEvents} = $_POST['events'];
+			$totalEvents = $totalEvents + 1;
 			
 			for($i = 0; $i < $totalEvents; $i++){
 				$eventNum = $db_obj->escape_string(${'event_id' . $i});
 				$query1 = "INSERT INTO Events (hash_number, description) VALUES('$hash_Num', '$eventNum')";
 				if($db_obj->query($query1)){
 					$regComplete = true;
-					echo "Inserted into events";
+					//echo "Inserted into events";
 				}
 			}
 			}
