@@ -6,18 +6,19 @@
         }
 ?>
 
-
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>New Project Page</title>
+    <title>Template Test</title>
     <link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../styles/addon.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    
+    <script src="../scripts/jquery-1.11.0.js" type="text/javascript"></script>
+    <script src="../scripts/bootstrap.js" type="text/javascript"></script>
 
-    <script src="scripts/jquery-1.11.0.js"></script>
-    <script src="scripts/bootstrap.js"></script>
     <script src="scripts/raphael.js"></script>
     <script src="scripts/graphael.js"></script>
     <script src="scripts/g.bar.js"></script>
@@ -42,7 +43,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="#">Create a New Project</a></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Review Existing Projects
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Review Existing Projects
                             <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
@@ -78,7 +79,8 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-    <div class="container-fluid">
+
+    <div class="container">
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
@@ -120,12 +122,11 @@
                     </div>
                 </div>
             </div>
-        </div>  
-        <!--container-fluid-->
+        </div>
     </div>
 
     <!--footer--> 
-    <footer class="navbar navbar-fixed-bottom basic-footer">
+    <footer class="navbar-fixed-bottom basic-footer" role="footerInfo">
         <div class="container">
             <p>Designed and styled using
                 <a target="_blank" href="http://getbootstrap.com"> bootstrap </a>
@@ -133,19 +134,13 @@
                 <a target="_blank" href="https://github.com"> github.</a>
             </p>
             <p>For questions, email
-            		<a target="_blank" href="http://gmail.scu.edu"> anarra@scu.edu,</a>
-					<a target="_blank" href="http://gmail.scu.edu"> bsilva1@scu.edu,</a>
-                <a target="_blank" href="http://gmail.scu.edu"> mhowlesbanerji@scu.edu,</a>
-                <a target="_blank" href="http://gmail.scu.edu"> mjevans@scu.edu.</a>
+                    <a target="_blank" href="http://gmail.scu.edu"> anarra@scu.edu.</a>
+                    <a target="_blank" href="http://gmail.scu.edu"> bsilva1@scu.edu,</a>
+                  <a target="_blank" href="http://gmail.scu.edu"> mhowlesbanerji@scu.edu,</a>
+                    <a target="_blank" href="http://gmail.scu.edu"> mjevans@scu.edu,</a>
             </p>
         </div>
     </footer>
-
-    <script src="scripts/jquery-1.11.0.js"></script>
-    <script src="scripts/bootstrap.js"></script>
-    <script src="scripts/raphael.js"></script>
-    <script src="scripts/graphael.js"></script>
-    <script src="scripts/g.bar.js"></script>
 </body>
 
 </html>
