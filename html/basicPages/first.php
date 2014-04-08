@@ -141,7 +141,7 @@
             		<h2>View Existing Projects</h2>
             		<!--<p>View you existing projects here!</p>-->
         		</div>
-            	<table class="table table-hover">
+            	<div class="list-group">
                 	<?php 
         						include ("../php/mysqli.php");
         						global $db_obj;
@@ -157,16 +157,15 @@
         							$st = "";
         						if ( ($result1 = $db_obj->query($query1)) && ($result1->num_rows != 0) ){
         				 			while ($row1 = $result1->fetch_assoc()) {
-        								$st .= "<tr><td>";
-        								$st .= "<a href=\"newProj.php\">".$row1['product']. "<span class='glyphicon glyphicon-chevron-right pull-right'></span></a></td></tr>";
+        								$st .= "<a href=\"newProj.php\" class=\"list-group-item\">".$row1['product']. "<span class=\"pull-right\"><span class='glyphicon glyphicon-chevron-right'></span></span></a>";
             					}
         							echo $st;
         						}
         						else{
-        			 				echo "<tr><td>No Projects so far!</td></tr>";
+        			 				echo "<div class=\"list-group-item-info\">No Projects so far!</div>";
         						}
         					?>
-              	</table>
+              	</div>
            </div>
         </div>
     </div>
