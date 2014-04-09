@@ -11,7 +11,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Template Test</title>
+    <title>Project Review</title>
     <link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../styles/addon.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -83,36 +83,34 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
-                <div class="btn-group-vertical">    
-                    <button class="btn btn-default">Project Name</button>
-                    <button class="btn btn-default">Registered Events</button>
-                    <button class="btn btn-default">Registered Tags</button>
-                    <button class="btn btn-default">Analytics</button>
-                    <button class="btn btn-default">Trends</button>
-                    <button class="btn btn-default">Code Snippets</button>
-                    <!--<ul class="nav nav-sidebar">
-                        <li class="active">
-                            <a href="#">Project Name</a>
-                        </li>
-                        <li>
-                            <a href="#">Registered Events</a>
-                        </li>
-                        <li>
-                            <a href="#">Registered Tags</a>
-                        </li>
-                        <li>
-                            <a href="#">Analytics</a>
-                        </li>
-                        <li>
-                            <a href="#">Trends</a>
-                        </li>
-                        <li>
-                            <a href="#">Code Snippets</a>
-                        </li>
-                    </ul>
-                    -->
-                </div>
+                <ul class="nav nav-sidebar">
+                    <li class="active">
+                        <a href="#">Project Name</a>
+                    </li>
+                    <li>
+                        <a href="#">Registered Events</a>
+                    </li>
+                    <li>
+                        <a href="#">Registered Tags</a>
+                    </li>
+                    <li>
+                        <a href="#">Analytics</a>
+                    </li>
+                    <li>
+                        <a href="#">Trends</a>
+                    </li>
+                    <li>
+                        <a href="#">Code Snippets</a>
+                    </li>
+                </ul>
             <!--sidebar-->
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h2 class="page-header">Project Review</h1>
+                <div class="container-fluid">
+                    <!-- Dropdowns and javascript here -->
+                </div>
+                <!-- Graph display here -->
             </div>
         </div>
     </div>
