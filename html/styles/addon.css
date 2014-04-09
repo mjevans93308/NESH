@@ -1,18 +1,19 @@
 .basic-footer {
 	border-top: 1px solid #E5E5E5;
 	color:#777777;
-	margin-top: 50px;
+	/*margin-top: 50px;
 	padding-bottom: 30px;
 	padding-top: 30px;
 	text-align: center;
 	width: 100%;
 	position: fixed;
+	*/
+	height: 60px;
 }
 
 .sidebar {
 	background-color: #F5F5F5;
     border-right: 1px solid #EEEEEE;
-    margin-bottom: 125px;
     bottom: 0;
     display: block;
     left: 0;
@@ -21,4 +22,12 @@
     padding: 20px;
     position: fixed;
     top: 45px;
+}
+
+#wrap {
+	min-height:100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -60px;
+	padding: 0 0 60px;
 }

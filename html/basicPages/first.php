@@ -71,108 +71,109 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-	
-    <div class="container-fluid">
-    	<div class="row">
-        	<div class="col-xs-6">
-            	<div class="page-header">
-            		<h2>Create a New Project</h2>
-    <!--<p>Create a new project using whatever user-triggered event you wish and compare between your site's versions.</p>-->
-        		</div>
-               
-        		<div class="page-header"><h4>Please fill out the appropriate information:</h4></div>
-        			<form name="newproj" class="form-horizontal" role="form" action="../php/projMgmt.php?newproj" method="post">
-						<div class="form-group">
-                        	<label for="projectName" class="col-sm-2 control-label">Project Name:</label>
-                    		<div class="col-sm-9">
-                      	<input class="form-control" name="projectName" autofocus required="" placeholder="Project Name"> 
-                     		</div>
-                      </div>
-                      <div style="clear:both"></div>   
-                      
-                     <!--**********************************************************************************
-                     *                     This is the section for Tags                                   *
-                     ***********************************************************************************-->    
-                		<div class="page-header">
-                        <h4>Tags	<a href="#" class="tip" data-toggle="tooltip" data-placement="right" title="" data-original-title="These are tags universal to the Project! Only 5 Tags are allowed.">
-<span class="glyphicon glyphicon-question-sign"/>
-</a>
-							:</h4>
-                      </div>	
-                      <div id="dynamicTags" >
-                      	<div class="form-group" id="tag1">
-                      		<label for="tag1" class="col-sm-2 control-label">Tag:</label>
-                        		<div class="col-sm-9">
-                    				<input class="form-control" type='text' name="tag" placeholder="Tag Name">
-                         		</div>
-                         		<div class="col-sm-1">
-                        			<button type="button" class="close" onClick="addTags(this.form);">&#43;</button>
-                      		</div>
-                      	</div>
-                      </div>
-                      <div style="clear:both"></div> 
-                      
-                      
+	  <div id="wrap">
+      <div class="container-fluid">
+      	<div class="row">
+          	<div class="col-xs-6">
+              	<div class="page-header">
+              		<h2>Create a New Project</h2>
+      <!--<p>Create a new project using whatever user-triggered event you wish and compare between your site's versions.</p>-->
+          		</div>
+                 
+          		<div class="page-header"><h4>Please fill out the appropriate information:</h4></div>
+          			<form name="newproj" class="form-horizontal" role="form" action="../php/projMgmt.php?newproj" method="post">
+  						<div class="form-group">
+                          	<label for="projectName" class="col-sm-2 control-label">Project Name:</label>
+                      		<div class="col-sm-9">
+                        	<input class="form-control" name="projectName" autofocus required="" placeholder="Project Name"> 
+                       		</div>
+                        </div>
+                        <div style="clear:both"></div>   
+                        
                        <!--**********************************************************************************
-                       *                     This is the section for Events                                 *
-                       ************************************************************************************--> 
-                      <div class="page-header"><h4>Events:</h4></div>
-                      <div id="dynamicEvents">
-                      	<div class="form-group" id="event1"> 
-                				<label for="eventName1" class="col-sm-2 control-label">Event Name:</label>
-                       		<div class="col-sm-9">
-                            		<input class="form-control" type='text' name="events" placeholder="Event Name">
+                       *                     This is the section for Tags                                   *
+                       ***********************************************************************************-->    
+                  		<div class="page-header">
+                          <h4>Tags	<a href="#" class="tip" data-toggle="tooltip" data-placement="right" title="" data-original-title="These are tags universal to the Project! Only 5 Tags are allowed.">
+  <span class="glyphicon glyphicon-question-sign"/>
+  </a>
+  							:</h4>
+                        </div>	
+                        <div id="dynamicTags" >
+                        	<div class="form-group" id="tag1">
+                        		<label for="tag1" class="col-sm-2 control-label">Tag:</label>
+                          		<div class="col-sm-9">
+                      				<input class="form-control" type='text' name="tag" placeholder="Tag Name">
+                           		</div>
+                           		<div class="col-sm-1">
+                          			<button type="button" class="close" onClick="addTags(this.form);">&#43;</button>
                         		</div>
-                        		<div class="col-sm-1">
-                         			<button type="button" class="close" onClick="addEvents(this.form)">&#43;</button>
-                      		</div>
-                         	</div>
-                      </div>
-                      <div style="clear:both;"></div>
-                      
-                      <!--**********************************************************************************
-                       *              This is the section for Create Project Button                        *
-                       ************************************************************************************--> 
-                      <button class="btn btn-sm btn-primary" type="submit">Create Project</button>
-        			</form>
-			</div>
-           <div class="col-xs-6">
-           	<div class="page-header">
-            		<h2>View Existing Projects</h2>
-            		<!--<p>View you existing projects here!</p>-->
-        		</div>
-            	<table class="table table-hover">
-                	<?php 
-        						include ("../php/mysqli.php");
-        						global $db_obj;
-        				
-        						$query = "SELECT * FROM Members WHERE username = '". $_SESSION['userid']."'";
-        						
-        						if ( ($result = $db_obj->query($query)) && ($result->num_rows != 0) ){  // success!
-        							while($row = $result->fetch_assoc()){
-        								$uid = $row['uid'];
-        							}
-        						}
-        						$query1 = "SELECT * FROM Products WHERE uid = '" .$uid."'";
-        							$st = "";
-        						if ( ($result1 = $db_obj->query($query1)) && ($result1->num_rows != 0) ){
-        				 			while ($row1 = $result1->fetch_assoc()) {
-        								$st .= "<tr><td>";
-        								$st .= "<a href=\"newProj.php\">".$row1['product']. "<span class='glyphicon glyphicon-chevron-right pull-right'></span></a></td></tr>";
-            					}
-        							echo $st;
-        						}
-        						else{
-        			 				echo "<tr><td>No Projects so far!</td></tr>";
-        						}
-        					?>
-              	</table>
-           </div>
-        </div>
+                        	</div>
+                        </div>
+                        <div style="clear:both"></div> 
+                        
+                        
+                         <!--**********************************************************************************
+                         *                     This is the section for Events                                 *
+                         ************************************************************************************--> 
+                        <div class="page-header"><h4>Events:</h4></div>
+                        <div id="dynamicEvents">
+                        	<div class="form-group" id="event1"> 
+                  				<label for="eventName1" class="col-sm-2 control-label">Event Name:</label>
+                         		<div class="col-sm-9">
+                              		<input class="form-control" type='text' name="events" placeholder="Event Name">
+                          		</div>
+                          		<div class="col-sm-1">
+                           			<button type="button" class="close" onClick="addEvents(this.form)">&#43;</button>
+                        		</div>
+                           	</div>
+                        </div>
+                        <div style="clear:both;"></div>
+                        
+                        <!--**********************************************************************************
+                         *              This is the section for Create Project Button                        *
+                         ************************************************************************************--> 
+                        <button class="btn btn-sm btn-primary" type="submit">Create Project</button>
+          			</form>
+  			</div>
+             <div class="col-xs-6">
+             	<div class="page-header">
+              		<h2>View Existing Projects</h2>
+              		<!--<p>View you existing projects here!</p>-->
+          		</div>
+              	<table class="table table-hover">
+                  	<?php 
+          						include ("../php/mysqli.php");
+          						global $db_obj;
+          				
+          						$query = "SELECT * FROM Members WHERE username = '". $_SESSION['userid']."'";
+          						
+          						if ( ($result = $db_obj->query($query)) && ($result->num_rows != 0) ){  // success!
+          							while($row = $result->fetch_assoc()){
+          								$uid = $row['uid'];
+          							}
+          						}
+          						$query1 = "SELECT * FROM Products WHERE uid = '" .$uid."'";
+          							$st = "";
+          						if ( ($result1 = $db_obj->query($query1)) && ($result1->num_rows != 0) ){
+          				 			while ($row1 = $result1->fetch_assoc()) {
+          								$st .= "<tr><td>";
+          								$st .= "<a href=\"newProj.php\">".$row1['product']. "<span class='glyphicon glyphicon-chevron-right pull-right'></span></a></td></tr>";
+              					}
+          							echo $st;
+          						}
+          						else{
+          			 				echo "<tr><td>No Projects so far!</td></tr>";
+          						}
+          					?>
+                	</table>
+             </div>
+          </div>
+      </div>
     </div>
-      
-    <!--footer--> 
-    <footer class="navbar-fixed-bottom basic-footer" role="footerInfo">
+
+    <!--footer
+    <footer class="navbar nav basic-footer" role="footerInfo">
         <div class="container">
             <p>Designed and styled using
                 <a target="_blank" href="http://getbootstrap.com"> bootstrap </a>
@@ -186,7 +187,7 @@
                 	<a target="_blank" href="http://gmail.scu.edu"> mjevans@scu.edu,</a>
             </p>
         </div>
-    </footer>
+    </footer> -->
 
     <script src="../scripts/jquery-1.11.0.js" type="text/javascript"></script>
     <script src="../scripts/bootstrap.js" type="text/javascript"></script>
