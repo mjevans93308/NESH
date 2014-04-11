@@ -108,7 +108,6 @@
                            		<div class="col-sm-1">
                           			<button type="button" class="close" onClick="addTags(this.form);">&#43;</button>
                         		</div>
-<<<<<<< HEAD
                         	</div>
                         </div>
                         <div style="clear:both"></div> 
