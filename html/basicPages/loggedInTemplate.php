@@ -40,7 +40,8 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-loggedout">
-                <ul class="nav navbar-nav">
+                
+                <ul class="nav nav-tabs navbar-left">
                     <li><a href="#">Create a New Project</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Review Existing Projects
@@ -55,10 +56,31 @@
                                 <a href="#">Project 2</a>
                             </li>
                         </ul>
+
+
                     </li>
                 </ul>
+                <!--
+                <div class="nav navbar-nav">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default">Create a New Project</button>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Action <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                          </ul>
+                        </div>
+                    </div>
+                </div>
+                -->
 
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav nav-tabs navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Options
                             <b class="caret"></b>
@@ -90,27 +112,6 @@
                     <button class="btn btn-default">Analytics</button>
                     <button class="btn btn-default">Trends</button>
                     <button class="btn btn-default">Code Snippets</button>
-                    <!--<ul class="nav nav-sidebar">
-                        <li class="active">
-                            <a href="#">Project Name</a>
-                        </li>
-                        <li>
-                            <a href="#">Registered Events</a>
-                        </li>
-                        <li>
-                            <a href="#">Registered Tags</a>
-                        </li>
-                        <li>
-                            <a href="#">Analytics</a>
-                        </li>
-                        <li>
-                            <a href="#">Trends</a>
-                        </li>
-                        <li>
-                            <a href="#">Code Snippets</a>
-                        </li>
-                    </ul>
-                    -->
                 </div>
             <!--sidebar-->
             </div>
