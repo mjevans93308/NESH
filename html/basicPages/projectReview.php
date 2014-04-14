@@ -79,9 +79,9 @@
         <!-- /.container-fluid -->
     </nav>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="col-sm-3 col-md-2 span2 sidebar">
                 <ul class="nav nav-sidebar">
                     <li class="active">
                         <a href="#">Project Name</a>
@@ -102,17 +102,187 @@
                         <a href="#">Code Snippets</a>
                     </li>
                 </ul>
-            <!--sidebar-->
             </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <div class="container-fluid">
-                    <!-- Dropdowns and javascript here -->
+            <!--sidebar-->
 
-                </div>
-                <!-- Graph display here -->
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                    <div class="container">
+                        <!-- Dropdowns and javascript here -->
+                        <div class="row">
+
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        
+                                        <div class="page-header">
+                                            <h4>Event Selection</h4>
+                                        </div>
+                                        <form name="currProj" role="form"><!--class, action, method? -->
+                                            <div class="btn-group">
+                                                <button type="button" style="width: 150px;" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                                    <span data-bind="label">Event Name Here </span>&nbsp;<span class="caret"></span>                                         
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu">
+                                                    <li><a href="#">Event 1</a></li>
+                                                    <li><a href="#">Event 2</a></li>
+                                                    <li><a href="#">Event 3</a></li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="page-header">
+                                                <h4>Tag Selection</h4>
+                                            </div>
+                                            <div id="dynTags">
+                                                <div class="form-group" id="form1">
+                                                    <div class="btn-group">
+                                                        <button type="button" style="width: 150px;" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                                            <span data-bind="label">Account Type </span>&nbsp;<span class="caret"></span>                                         
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="#">Event 1</a></li>
+                                                            <li><a href="#">Event 2</a></li>
+                                                            <li><a href="#">Event 3</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    ===============
+                                                    <div class="btn-group">
+                                                        <button type="button" style="width: 150px;" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                                            <span data-bind="label">By </span>&nbsp;<span class="caret"></span>                                         
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="#">Event 1</a></li>
+                                                            <li><a href="#">Event 2</a></li>
+                                                            <li><a href="#">Event 3</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button" style="width: 150px;" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                                            <span data-bind="label">Number of Results </span>&nbsp;<span class="caret"></span>                                         
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="#">Event 1</a></li>
+                                                            <li><a href="#">Event 2</a></li>
+                                                            <li><a href="#">Event 3</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <br />
+                                                    ||
+                                                    <br />
+                                                    ================================
+                                                    <div class="btn-group">
+                                                        <button type="button" style="width: 150px;" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                                            <span data-bind="label">Contains </span>&nbsp;<span class="caret"></span>                                         
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="#">Event 1</a></li>
+                                                            <li><a href="#">Event 2</a></li>
+                                                            <li><a href="#">Event 3</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <button type="button" style="width: 150px;" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+                                                            <span data-bind="label">Enterprise </span>&nbsp;<span class="caret"></span>                                         
+                                                        </button>
+                                                        <ul class="dropdown-menu" role="menu">
+                                                            <li><a href="#">Event 1</a></li>
+                                                            <li><a href="#">Event 2</a></li>
+                                                            <li><a href="#">Event 3</a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <button type="button" class="close" onClick="addForm(this.form)">&#43;</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+                    <!-- Graph display here -->
             </div>
         </div>
     </div>
+
+<script>
+    var totalForms =  1;
+    var totalFormCount = 1;
+
+    function addForm(form){
+        if(totalFormCount < 5){
+            totalForms++;
+            totalFormCount++;
+
+            var newForm = "
+                            <div class=\"form-group\" id=\"tag"+totalForms+"\">
+                                <div class=\"btn-group\">
+                                    <button type=\"button\" style=\"width: 150px;\" class=\"btn btn-default dropdown-toggle form-control\" data-toggle=\"dropdown\">
+                                        <span data-bind=\"label\">Account Type </span>&nbsp;<span class=\"caret\"></span>                                         
+                                    </button>
+                                    <ul class=\"dropdown-menu\" role=\"menu\">
+                                        <li><a href=\"#\">Event 1</a></li>
+                                        <li><a href=\"#\">Event 2</a></li>
+                                        <li><a href=\"#\">Event 3</a></li>
+                                    </ul>
+                                </div>
+                                ===============
+                                <div class=\"btn-group\">
+                                    <button type=\"button\" style=\"width: 150px;\" class=\"btn btn-default dropdown-toggle form-control\" data-toggle=\"dropdown\">
+                                        <span data-bind=\"label\">By </span>&nbsp;<span class=\"caret\"></span>                                         
+                                    </button>
+                                    <ul class=\"dropdown-menu\" role=\"menu\">
+                                        <li><a href=\"#\">Event 1</a></li>
+                                        <li><a href=\"#\">Event 2</a></li>
+                                        <li><a href=\"#\">Event 3</a></li>
+                                    </ul>
+                                </div>
+                                <div class=\"btn-group\">
+                                    <button type=\"button\" style=\"width: 150px;\" class=\"btn btn-default dropdown-toggle form-control\" data-toggle=\"dropdown\">
+                                        <span data-bind=\"label\">Number of Results </span>&nbsp;<span class=\"caret\"></span>                                         
+                                    </button>
+                                    <ul class=\"dropdown-menu\" role=\"menu\">
+                                        <li><a href=\"#\">Event 1</a></li>
+                                        <li><a href=\"#\">Event 2</a></li>
+                                        <li><a href=\"#\">Event 3</a></li>
+                                    </ul>
+                                </div>
+                                <br />
+                                ||
+                                <br />
+                                ================================
+                                <div class=\"btn-group\">
+                                    <button type=\"button\" style=\"width: 150px;\" class=\"btn btn-default dropdown-toggle form-control\" data-toggle=\"dropdown\">
+                                        <span data-bind=\"label\">Contains </span>&nbsp;<span class=\"caret\"></span>                                         
+                                    </button>
+                                    <ul class=\"dropdown-menu\" role=\"menu\">
+                                        <li><a href=\"#\">Event 1</a></li>
+                                        <li><a href=\"#\">Event 2</a></li>
+                                        <li><a href=\"#\">Event 3</a></li>
+                                    </ul>
+                                </div>
+                                <div class=\"btn-group\">
+                                    <button type=\"button\" style=\"width: 150px;\" class=\"btn btn-default dropdown-toggle form-control\" data-toggle=\"dropdown\">
+                                        <span data-bind=\"label\">Enterprise </span>&nbsp;<span class=\"caret\"></span>                                         
+                                    </button>
+                                    <ul class=\"dropdown-menu\" role=\"menu\">
+                                        <li><a href=\"#\">Event 1</a></li>
+                                        <li><a href=\"#\">Event 2</a></li>
+                                        <li><a href=\"#\">Event 3</a></li>
+                                    </ul>
+                                </div>
+                                <button type=\"button\" class=\"close\" onClick=\"deleteForm("+totalForms+");\">&times;</button>
+                            </div>";
+            jQuery('#dynTags').before(newForm);
+            /*form.tag.value='';*/
+        }
+        else {
+            alert("Maximum number of tags allowed is 5.");
+        }
+    }
+
+    function deleteForm(formNum){
+        totalFormCount--;
+        jQuery('#tag'+formNum).remove();
+    }
+</script>
 
 </body>
 
