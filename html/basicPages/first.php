@@ -82,10 +82,10 @@
                  
           		<div class="page-header"><h4>Please fill out the appropriate information:</h4></div>
           			<form name="newproj" class="form-horizontal" role="form" action="../php/projMgmt.php?newproj" method="post">
-  						<div class="form-group">
+  						          <div class="form-group">
                           	<label for="projectName" class="col-sm-2 control-label">Project Name:</label>
                       		<div class="col-sm-9">
-                        	<input class="form-control" name="projectName" autofocus required="" placeholder="Project Name"> 
+                        	   <input class="form-control" name="projectName" autofocus required="" placeholder="Project Name"> 
                        		</div>
                         </div>
                         <div style="clear:both"></div>   
@@ -110,12 +110,12 @@
                         		</div>
                         	</div>
                         </div>
-                        <div style="clear:both"></div> 
+                        <div style="clear:both"></div>
                         
                         
                          <!--**********************************************************************************
                          *                     This is the section for Events                                 *
-                         ************************************************************************************--> 
+                         ************************************************************************************-->
                         <div class="page-header"><h4>Events:</h4></div>
                         <div id="dynamicEvents">
                         	<div class="form-group" id="event1"> 
@@ -203,13 +203,22 @@
 		function addTags(form) {
       		if(totTagCount < 5){
         		totTags = totTags + 1;
-				totTagCount = totTagCount + 1;
-       			var ttag = "<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" type=\"text\" name=\"tagArr[]\" value='"+form.tag.value+"' placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags("+totTags+");\">&times;</button></div></div></div>" ; 
+				    totTagCount = totTagCount + 1;
+       			var ttag = "<div class = \"form-group\" id=\"tag"+totTags+"\">
+                          <label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label>
+                          <div class=\"col-sm-9\">
+                            <input class=\"form-control\" type=\"text\" name=\"tagArr[]\" value='"+form.tag.value+"' placeholder=\"Tag Name\">
+                          </div>
+                          <div class = \"col-sm-1\">
+                            <button type=\"button\" class=\"close\" onClick=\"deleteTags("+totTags+");\">&times;</button>
+                          </div>
+                        </div>" ; 
+                        /* deleted one </div> tag that was unmatched */
         		jQuery('#dynamicTags').before(ttag);
       			form.tag.value='';
-			}
+			    }
       		else{
-        		alert("Maximum number of tags allowed are 5!");      
+        		alert("Maximum number of tags allowed is 5.");      
       		}
 		}
       
