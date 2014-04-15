@@ -103,7 +103,6 @@
         <div id="page-content-wrapper">
             <!-- Keep all page content within the page-content inset div! -->
             <div class="page-content inset">
-            	               <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="well">

@@ -1,3 +1,7 @@
+.nav-bar{
+	padding: 0px;
+	margin: 0px;
+}
 .basic-footer {
 	border-top: 1px solid #E5E5E5;
 	color:#777777;
@@ -34,27 +38,14 @@
 	padding: 0 0 60px;
 }
 
-.box{
-	border:solid;
-	border-color:#B0ACAC;
-	border-width:thin;
-  	left:225px;
-  	margin:10px;
-  	padding:10px;
-  	position:relative;
-  	width:80.7%;
+#box{
+  	padding:0px;
 }
 
 .graph{
-	border:solid;
-	border-color:#B0ACAC;
-	border-width:thin;
-	margin: 10px;
-  	left:225px;
-  	position:relative;
-  	width:80.7%;
-	padding-left:0px;
-	padding-right:0px;
+	border:thin solid #B0ACAC;
+  	margin:10px;
+  	width:98%;
 }
 
 .sub-box{
@@ -66,4 +57,126 @@
 	padding:7px;
 	margin:0px;
 	padding-right: 21px;
+}
+
+
+/*********************************************/
+#wrapper {
+  padding-left: 250px;
+  transition: all 0.4s ease 0s;
+}
+
+#sidebar-wrapper {
+  margin-left: -250px;
+  left: 250px;
+  width: 250px;
+  background: #F5F5F5;
+  border-right: 1px solid #EEEEEE;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
+}
+
+#page-content-wrapper {
+  width: 100%;
+}
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-nav li {
+  line-height: 40px;
+  text-indent: 20px;
+}
+
+.sidebar-nav li a {
+  color: #000000;
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:hover {
+  color: #CFCBCB;
+  background: #222222;
+  text-decoration: none;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  line-height: 60px;
+  font-size: 18px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #FFFFFF;
+  background: #8D8686;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #8D8686;
+  background: none;
+}
+
+.content-header {
+  height: 65px;
+  line-height: 65px;
+}
+
+.content-header h1 {
+  margin: 0;
+  margin-left: 20px;
+  line-height: 65px;
+  display: inline-block;
+}
+
+#menu-toggle {
+  display: none;
+}
+
+.inset {
+  padding: 20px;
+}
+
+@media (max-width:767px) {
+
+#wrapper {
+  padding-left: 0;
+}
+
+#sidebar-wrapper {
+  left: 0;
+}
+
+#wrapper.active {
+  position: relative;
+  left: 250px;
+}
+
+#wrapper.active #sidebar-wrapper {
+  left: 250px;
+  width: 250px;
+  transition: all 0.4s ease 0s;
+}
+
+#menu-toggle {
+  display: inline-block;
+}
+
+.inset {
+  padding: 15px;
+}
+
 }
