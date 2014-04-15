@@ -202,17 +202,8 @@
 		function addTags(form) {
       		if(totTagCount < 5){
         		totTags = totTags + 1;
-				    totTagCount = totTagCount + 1;
-       			var ttag = "<div class = \"form-group\" id=\"tag"+totTags+"\">
-                          <label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label>
-                          <div class=\"col-sm-9\">
-                            <input class=\"form-control\" type=\"text\" name=\"tagArr[]\" value='"+form.tag.value+"' placeholder=\"Tag Name\">
-                          </div>
-                          <div class = \"col-sm-1\">
-                            <button type=\"button\" class=\"close\" onClick=\"deleteTags("+totTags+");\">&times;</button>
-                          </div>
-                        </div>" ; 
-                        /* deleted one </div> tag that was unmatched */
+				totTagCount = totTagCount + 1;
+      			var ttag = "<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" type=\"text\" name=\"tagArr[]\" value='"+form.tag.value+"' placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags("+totTags+");\">&times;</button></div></div>" ; 
         		jQuery('#dynamicTags').before(ttag);
       			form.tag.value='';
 			    }
@@ -223,7 +214,7 @@
       
 	  	function addEvents(eventForm) {
 			totEvents = totEvents + 1;
-			var eventsVar = "<div class = \"form-group\" id=\"event"+totEvents+"\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-2 control-label\">Event Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"eventArr[]\" value='"+eventForm.events.value+"' placeholder=\"Event Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteEvents("+totEvents+")\">&times;</button></div></div></div>";                       
+			var eventsVar = "<div class = \"form-group\" id=\"event"+totEvents+"\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-2 control-label\">Event Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"eventArr[]\" value='"+eventForm.events.value+"' placeholder=\"Event Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteEvents("+totEvents+")\">&times;</button></div></div>";                       
 			jQuery('#dynamicEvents').before(eventsVar);
 			eventForm.events.value='';
 		}
