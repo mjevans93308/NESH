@@ -115,6 +115,31 @@
 	<!-- Graph display here -->
 	<div class="graph col-sm-10">
     	<div class="sub-box">
+        	<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<div class="col-sm-2">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Unique User <span class="caret"/>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li> <a href="#">Event 1</a></li>
+								<li><a href="#">Event 2</a></li>
+							</ul>
+						</div>
+					</div> 
+                  <div class="pull-right">
+						<div class="btn-group">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Bar Graph <span class="caret"/>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li> <a href="#">Event 1</a></li>
+								<li><a href="#">Event 2</a></li>
+							</ul>
+						</div>
+					</div> 
+
+				</div>
+			</form> 
         </div>
         <div class="col-sm-10">
          <p>Graphs go here!</p>
