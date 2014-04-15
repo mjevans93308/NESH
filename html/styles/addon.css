@@ -12,6 +12,8 @@
 }
 
 .sidebar {
+	width: 220px;
+	height: auto;
 	background-color: #F5F5F5;
     border-right: 1px solid #EEEEEE;
     bottom: 0;
@@ -30,4 +32,37 @@
 	height: 100%;
 	margin: 0 auto -60px;
 	padding: 0 0 60px;
+}
+
+.box{
+	border:solid;
+	border-color:#B0ACAC;
+	border-width:thin;
+  	left:225px;
+  	margin:10px;
+  	padding:10px;
+  	position:relative;
+  	width:80.7%;
+}
+
+.graph{
+	border:solid;
+	border-color:#B0ACAC;
+	border-width:thin;
+	margin: 10px;
+  	left:225px;
+  	position:relative;
+  	width:80.7%;
+	padding-left:0px;
+	padding-right:0px;
+}
+
+.sub-box{
+	background-color: #F5F5F5;
+	border-bottom:solid;
+	border-bottom-color:#B0ACAC;
+	border-bottom-width:thin;
+	height: 50px;
+	padding:0px;
+	margin:0px;
 }
