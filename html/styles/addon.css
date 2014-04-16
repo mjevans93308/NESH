@@ -71,7 +71,6 @@
   left: 250px;
   width: 250px;
   background: #F5F5F5;
-  border-right: 1px solid #EEEEEE;
   position: fixed;
   height: 100%;
   overflow-y: auto;
@@ -108,9 +107,16 @@
   background: #222222;
   text-decoration: none;
 }
-
+.sidebaractive{
+	color: #000000;
+  	background: #ffffff;
+  	text-decoration: none;
+	border-right-color:#FFFFFF;
+}
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
+  color: #CFCBCB;
+  background: #222222;
   text-decoration: none;
 }
 

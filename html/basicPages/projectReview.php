@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Starter Template for Bootstrap</title>
+    <title>Reveiw Project Analytics</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
@@ -90,7 +90,7 @@
                 </li>
                 <li><a href="#">Registered Tags</a>
                 </li>
-                <li><a href="#">Analytics</a>
+                <li class="sidebaractive"><a href="projectReview.php">Analytics</a>
                 </li>
                 <li><a href="#">Trends</a>
                 </li>
