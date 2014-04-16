@@ -25,145 +25,15 @@
 </head>
 
 <body>
-	    <nav class="navbar navbar-default navbar-static-top nav-bar" role="navigation">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-loggedout">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="http://nesh.co/basicPages/first.php">NESH</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="navbar-loggedout">
-                <ul class="nav navbar-nav">
-                    <li><a href="#">Create a New Project</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Review Existing Projects
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#">Project 1</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="#">Project 2</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Options
-                            <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#">Setting</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a href="../php/authentication.php?logout">Sign Out</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-
  <div id="wrapper">
         <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li class="sidebar-brand"><a href="#">Project Name</a>
-                </li>
-                <li><a href="#">Registered Events</a>
-                </li>
-                <li><a href="#">Registered Tags</a>
-                </li>
-                <li><a href="#">Analytics</a>
-                </li>
-                <li><a href="#">Trends</a>
-                </li>
-                <li><a href="#">Code Snippets</a>
-                </li>
-            </ul>
-        </div>
-
-        <!-- Page content -->
-        <div id="page-content-wrapper">
-            <!-- Keep all page content within the page-content inset div! -->
-            <div class="page-content inset">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="well">
-                        		<form class="form-horizontal" role="form">
-									<div class="form-group">
-										<label for="events" class="control-label col-sm-1">Events:</label>
-										<div class="col-sm-2">
-											<div class="btn-group">
-												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Select an Event <span class="caret"/>
-												</button>
-											<ul class="dropdown-menu" role="menu">
-												<li> <a href="#">Event 1</a></li>
-												<li><a href="#">Event 2</a></li>
-											</ul>
-											</div>
-										</div>  
-										<div class="col-sm-1">
-											<button type="button" class="close" onClick="addTags(this.form);">&#43;</button>
-										</div>
-									</div>
-								</form> 
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="well" id="box">
-                        		<div class="sub-box">
-        							<form class="form-horizontal" role="form">
-									<div class="form-group">
-										<div class="col-sm-2">
-											<div class="btn-group">
-												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Unique User <span class="caret"/>
-												</button>
-												<ul class="dropdown-menu" role="menu">
-													<li> <a href="#">Event 1</a></li>
-													<li><a href="#">Event 2</a></li>
-												</ul>
-											</div>
-										</div> 
-                  					<div class="pull-right">
-										<div class="btn-group">
-											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Bar Graph <span class="caret"/>
-											</button>
-											<ul class="dropdown-menu" role="menu">
-												<li> <a href="#">Event 1</a></li>
-												<li><a href="#">Event 2</a></li>
-											</ul>
-										</div>
-										</div> 
-									</div>
-									</form> 
-       				 			</div>
-                             <div class="graph">
-                             	Graphs go here!
-                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+		<script>
+		window.onload = function(){
+			var r = Raphael(225, 225, 640, 480);
+			r.piechart(320, 240, 100, [55, 20, 13, 32, 5, 1, 2]);
+		}
+		</script>
+</div>
 
     <!-- JavaScript -->
     <script src="../scripts/jquery-1.11.0.js" type="text/javascript"></script>
@@ -172,6 +42,7 @@
     <script src="../scripts/raphael.js"></script>
     <script src="../scripts/graphael.js"></script>
     <script src="../scripts/g.bar.js"></script>
+    <script src="../scripts/g.pie.js"></script>
 
     <!-- Custom JavaScript for the Menu Toggle -->
     <script>

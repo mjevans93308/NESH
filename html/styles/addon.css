@@ -42,7 +42,7 @@
   	padding:0px;
 }
 
-.graph{
+#graph{
 	border:thin solid #B0ACAC;
   	margin:10px;
   	width:98%;
@@ -72,6 +72,7 @@
   width: 250px;
   background: #F5F5F5;
   position: fixed;
+  top:45px;
   height: 100%;
   overflow-y: auto;
   z-index: 1000;
@@ -80,6 +81,8 @@
 
 #page-content-wrapper {
   width: 100%;
+  position:relative;
+  top:45px;
 }
 
 .sidebar-nav {

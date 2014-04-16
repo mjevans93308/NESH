@@ -25,7 +25,7 @@
 </head>
 
 <body>
-	    <nav class="navbar navbar-default navbar-static-top nav-bar" role="navigation">
+	    <nav class="navbar navbar-default navbar-fixed-top nav-bar" role="navigation">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -110,9 +110,12 @@
                         		<form class="form-horizontal" role="form">
 									<div class="form-group">
 										<label for="events" class="control-label col-sm-1">Events:</label>
-										<div class="col-sm-2">
+										<div class="col-sm-3">
 											<div class="btn-group">
-												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Select an Event <span class="caret"/>
+                                            <button type = "button" class="btn btn-default">Select an Event</button>
+												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"/>
+													 <span class="sr-only">Toggle Dropdown</span>
 												</button>
 											<ul class="dropdown-menu" role="menu">
 												<li> <a href="#">Event 1</a></li>
@@ -132,9 +135,12 @@
                         		<div class="sub-box">
         							<form class="form-horizontal" role="form">
 									<div class="form-group">
-										<div class="col-sm-2">
+										<div class="col-sm-3">
 											<div class="btn-group">
-												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Unique User <span class="caret"/>
+                                            <button type="button" class="btn btn-default">Unique User</button>
+												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"/>
+													  <span class="sr-only">Toggle Dropdown</span>
 												</button>
 												<ul class="dropdown-menu" role="menu">
 													<li> <a href="#">Event 1</a></li>
@@ -144,8 +150,11 @@
 										</div> 
                   					<div class="pull-right">
 										<div class="btn-group">
-											<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">Bar Graph <span class="caret"/>
-											</button>
+											<button type="button" class="btn btn-default">Bar Graph</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                                <span class="caret"/>
+													  <span class="sr-only">Toggle Dropdown</span>
+												</button>
 											<ul class="dropdown-menu" role="menu">
 												<li> <a href="#">Event 1</a></li>
 												<li><a href="#">Event 2</a></li>
@@ -155,8 +164,14 @@
 									</div>
 									</form> 
        				 			</div>
-                             <div class="graph">
-                             	Graphs go here!
+                             <div id="graph">
+                             <p> grapshh </p>
+                             	<script>
+										window.onload = function(){
+											var r = Raphael(document.getElementById("graph"), 640, 480);
+											r.piechart(320, 240, 100, [55, 20, 13, 32, 5, 1, 2]);
+										}
+                                </script>
                              </div>
                         </div>
                     </div>
@@ -173,6 +188,7 @@
     <script src="../scripts/raphael.js"></script>
     <script src="../scripts/graphael.js"></script>
     <script src="../scripts/g.bar.js"></script>
+    <script src="../scripts/g.pie.js"></script>
 
     <!-- Custom JavaScript for the Menu Toggle -->
     <script>
