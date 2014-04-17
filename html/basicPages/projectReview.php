@@ -84,18 +84,34 @@
         <!-- Sidebar -->
         <div id="sidebar-wrapper">
             <ul class="sidebar-nav">
-                <li class="sidebar-brand"><a href="#">Project Name</a>
-                </li>
-                <li><a href="#">Registered Events</a>
-                </li>
-                <li><a href="#">Registered Tags</a>
-                </li>
-                <li class="sidebaractive"><a href="projectReview.php">Analytics</a>
-                </li>
-                <li><a href="#">Trends</a>
-                </li>
-                <li><a href="#">Code Snippets</a>
-                </li>
+            	 <?php
+				 	$st = '<li class="sidebar-brand"><a href="#">';
+    				include ("../php/mysqli.php");
+					if(isset($_GET['pid'])){
+						$pid = $_GET['pid'];
+					}
+					global $db_obj;
+					$query = "SELECT * FROM Products WHERE pid = '".$pid."'";
+					if ( ($result = $db_obj->query($query)) && ($result->num_rows != 0) ){  // success!
+						while($row = $result->fetch_assoc()){
+          								$st .= $row['product'];
+          				}		
+					}
+					$query1 = "SELECT * FROM Hash_Products WHERE pid = '".$pid."'";
+					if ( ($result1 = $db_obj->query($query1)) && ($result1->num_rows != 0) ){  // success!
+						while($row1 = $result1->fetch_assoc()){
+          								$hash_num = $row1['hash_number'];
+          				}		
+					}
+					$st .= '</a></li>';
+		           $st .= '<li><a href="'.$hash_num.'">Registered Events</a></li>';
+                	$st .= '<li><a href="'.$hash_num.'">Registered Tags</a></li>';
+                	$st .= '<li class="sidebaractive"><a href="projectReview.php?pid='.$pid.'">Analytics</a></li>';
+                	$st .= '<li><a href="'.$hash_num.'">Trends</a></li>';
+               	$st .= '<li><a href="'.$hash_num.'">Code Snippets</a></li>';
+				
+					echo $st;
+				?>
             </ul>
         </div>
 
