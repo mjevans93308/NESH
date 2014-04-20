@@ -54,11 +54,14 @@
 	border-bottom-color:#B0ACAC;
 	border-bottom-width:thin;
 	height: 50px;
-	padding:7px;
+	padding:7px 21px 7px 21px;
 	margin:0px;
-	padding-right: 21px;
 }
 
+.padding{
+	float:left;
+	padding-left: 10px;
+}
 
 /*********************************************/
 #wrapper {
