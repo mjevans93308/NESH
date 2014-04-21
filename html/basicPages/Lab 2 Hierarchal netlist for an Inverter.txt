@@ -1,0 +1,22 @@
+Lab 2 Hierarchal Netlist for an Inverter
+
+.OPTION POST
+
+Vgs 1 0 DC
+Vds 2 1 DC
+
+.subckt inv in out
+M1 5V 5V PCH L=0.35u W=1.4U
+M2 0 0 NCH L=0.35u W=1.4U
+.ends inv
+
+.MODEL PCH PMOS (LEVEL=1 VTH=1)
+.MODEL NCH NMOS (LEVEL=1 VTH=1)
+
+.DC Vds 0 5 1 Vgs 1 5 1
+
+.PLOT DC i(M1)
+.probe dc id(M1)v(1)V(0)
+.probe dc id(M2)v()V()
+
+.END
