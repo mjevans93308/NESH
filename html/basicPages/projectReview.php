@@ -125,9 +125,8 @@
                         <div class="well">
                         		<form class="form-horizontal" role="form">
 									<div class="form-group">
-										<label for="events" class="control-label col-sm-1">Events:</label>
-										<div class="col-sm-3">
-											<div class="btn-group">
+										<label for="events" class="control-label">Events:</label>
+										<div class="btn-group">
                                             <button type = "button" class="btn btn-default">Select an Event</button>
 												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                 <span class="caret"/>
@@ -136,12 +135,11 @@
 											<ul class="dropdown-menu" role="menu">
 												<li> <a href="#">Event 1</a></li>
 												<li><a href="#">Event 2</a></li>
-											</ul>
-											</div>
-										</div>  
-										<div class="col-sm-1">
-											<button type="button" class="close" onClick="addTags(this.form);">&#43;</button>
-										</div>
+											</ul> 
+                                        <div class="padding">
+												<button type="button" class="close" onClick="addTags(this.form);">&#43;</button>
+											</div>									
+                                		</div>  
 									</div>
 								</form> 
                         </div>
@@ -151,7 +149,6 @@
                         		<div class="sub-box">
         							<form class="form-horizontal" role="form">
 									<div class="form-group">
-										<div class="col-sm-3">
 											<div class="btn-group">
                                             <button type="button" class="btn btn-default">Unique User</button>
 												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -163,7 +160,6 @@
 													<li><a href="#">Event 2</a></li>
 												</ul>
 											</div>
-										</div> 
                   					<div class="pull-right">
 										<div class="btn-group">
 											<button type="button" class="btn btn-default">Bar Graph</button>
@@ -184,6 +180,7 @@
                              <p> graphs </p>
                              	<script>
 										window.onload = function(){
+/*
 											var r = Raphael(document.getElementById("graph"), 640, 480);
 											r.piechart(100, 100, 90, [55, 20, 13, 32, 5, 1, 2],
                                                 {
@@ -202,6 +199,11 @@
                                                 $("#graph").html("");
                                             });
                                         }
+*/
+											var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 480);
+											r.piechart(320, 240, 100, [55, 20, 13, 32, 5, 1, 2]);
+										}
+
                                 </script>
                              </div>
                         </div>
@@ -227,6 +229,16 @@
         e.preventDefault();
         $("#wrapper").toggleClass("active");
     });
+	
+		var totTags = 1;
+		
+		function addTags(form) {
+        	totTags = totTags + 1;
+      		var ttag = ""; 
+        	jQuery('#dynamicTags').before(ttag);
+      		form.tag.value='';
+		}
+      
     </script>
 </body>
 
