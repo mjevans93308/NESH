@@ -63,6 +63,12 @@
 	padding-left: 10px;
 }
 
+.selectclass{
+	border-bottom-left-radius:0;
+  	border-bottom-right-radius:0;
+  	border-top-left-radius:0;
+  	border-top-right-radius:0;
+}
 /*********************************************/
 #wrapper {
   padding-left: 250px;
