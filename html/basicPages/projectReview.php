@@ -170,12 +170,33 @@
 									</form> 
        				 			</div>
                              <div id="graph">
-                             <p> grapshh </p>
+                             <p> graphs </p>
                              	<script>
 										window.onload = function(){
+/*
+											var r = Raphael(document.getElementById("graph"), 640, 480);
+											r.piechart(100, 100, 90, [55, 20, 13, 32, 5, 1, 2],
+                                                {
+                                                    legend: ["User 1", "User 2", "User 3", "User 4", "User 5", "User 6", "User 7"]
+                                                }
+                                            );
+                                            var userDetails = ["User 1 stuff", "User 2 stuff", "User 3 stuff", "User 4 stuff", "User 5 stuff", "User 6 stuff", "User 7 stuff"]
+                                            pie.hover(function(){
+                                                var info = [
+                                                    "<b>" + this.label[i].attrs["text"] + "</b>",
+                                                    userDetails[this.value.order],
+                                                    "Details:" + this.value.value
+                                                ].join("");
+                                                $("#graph").html(info);
+                                            }, function(){
+                                                $("#graph").html("");
+                                            });
+                                        }
+*/
 											var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 480);
 											r.piechart(320, 240, 100, [55, 20, 13, 32, 5, 1, 2]);
 										}
+
                                 </script>
                              </div>
                         </div>
