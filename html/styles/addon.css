@@ -42,6 +42,10 @@
   	padding:0px;
 }
 
+#boxNPNM{
+	margin-bottom: 7px;
+}
+
 #graph{
 	border:thin solid #B0ACAC;
   	margin:10px;
@@ -60,7 +64,7 @@
 
 .padding{
 	float:left;
-	padding-left: 10px;
+	padding-right: 10px;
 }
 
 .selectclass{
@@ -68,6 +72,11 @@
   	border-bottom-right-radius:0;
   	border-top-left-radius:0;
   	border-top-right-radius:0;
+}
+
+.autowidth{
+	width: auto;
+	padding: 10px;
 }
 /*********************************************/
 #wrapper {
