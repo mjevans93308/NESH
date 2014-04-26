@@ -10,7 +10,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Welcome to Front Page</title>
+    <title>Projects</title>
     <link rel="stylesheet" type="text/css" href="../styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../styles/addon.css">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
