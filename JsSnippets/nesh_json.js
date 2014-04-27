@@ -15,7 +15,6 @@ function Nesh(clientkey){
 		"hash"   : clientkey,	// client hash key
 		"log" 	 : new Array(), // event log
 		//"err"    : new Array(), // error log
-		"active" : false,		// active ajax call in progress
 		"needy"  : 1 			// need SID flag: 1 need, 0 success, -1 error
 
 		/* LOG/ERR ITEM FORMAT
@@ -25,6 +24,7 @@ function Nesh(clientkey){
 			tags: [strings],
 			errmsg: string, // empty string for event
 			sent: int // flag: 0=not sent, 1=success, -1=failed
+			active : BOOL (false)		// active ajax call in progress
 		}
 		*/
 		//timeout? - handled by XMLHttpReq
@@ -57,6 +57,7 @@ function Nesh(clientkey){
 
 	var parseJSON = function(inputstr){
 		// parse JSON string
+		return eval("("+inputstr+")");
 		// return JSON object
 	}
 
@@ -110,30 +111,39 @@ function Nesh(clientkey){
 		}
 		this.save();
 		// check for unsent elements -- send them
+		for(entry in _data.log){
+
+		}
 	}
 	
-	//SID ajax request for unique session ID
 	this.getSID = function(){
-		// set timeout - handled by XMLHttpReq?
-		this.active = true;
-		this.needy = 1;
-		// ajax call
+		// only get/verify the sid if needy
+		if( ! _data.needy ) return;
+
+		_data.active = true;
+		// if the last sid call was an error, reset the sid
+		if( _data.needy == -1 ) _data.sid = 0 ;
+		// ajax call with sid (if 0, return unique, else verifies)
+		_sxhr.send( "test="+_data.sid );
 	}
 	
 	//SID ajax return handler
 	this._sxhr.onload = function(){
 		// clear timeout - handled by XMLHttpReq
-		this.active = false;
-		this.needy = 0;
+		var result = parseJSON(_sxhr.responseText);
+		_data.sid = result.sid;
+		_data.active = false;
+		_data.needy = 0;
 		this.load();
 	}
 	
 	//SID ajax return error handler
 	this._sxhr.onerror = function(){
 		// clear timeout - handled by XMLHttpReq
-		this.active = false;
-		this.needy = -1;
-		// add error to log
+		_data.active = false;
+		_data.needy = -1;
+		// add error to log?
+		this.createEntry(0,"","SessionID AJAX Request Returned Error");
 		// retry?
 	}
 
