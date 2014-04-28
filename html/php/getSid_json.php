@@ -37,49 +37,29 @@ if(isset($HTTP_RAW_POST_DATA)) {
 	}
 	// verified _CLEAN variables properly interpreted (JS)
 
-	$event = ""; $time = ""; $hash = ""; $tags = array();
+	$inputSID = 0;
 	// verify needed data & clean for DB
-	if(isset($_CLEAN['index'])){ $return_arr['index']=$_CLEAN['index']; }
-	else{ $return_arr['index']= -1; }
-	if(isset($_CLEAN['key'])){
-		$hash = $db_obj->escape_string($_CLEAN[key]);
-		//errlog('hash_esc',$hash); // DEBUG FEEDBACK
-	}
-	else 				
-		errlog("HASH_ERROR","no hash");
-	if(isset($_CLEAN['event'])){
-		$event = $db_obj->escape_string($_CLEAN['event']);
-		//errlog('event_esc',$event); // DEBUG FEEDBACK
-	}else 							
-		errlog("EVENT_ERROR","no event");
-	if(isset($_CLEAN['time'])){
-		$time = $db_obj->escape_string($_CLEAN['time']);
-		//errlog('time_esc',$time); // DEBUG FEEDBACK
-	}else 							
-		errlog("TIMESTAMP_ERROR","no timestamp");
-	if(isset($_CLEAN['tags'])){
-		$tags = explode(',', $_CLEAN['tags']);
-		//$x=0; // DEBUG FEEDBACK
-		foreach($tags as $tag){
-			$tag = $db_obj->escape_string($tag);
-			//errlog("esc_tag$x",$tag); // DEBUG FEEDBACK
-			//$x++; // DEBUG FEEDBACK
-		}//unset($tag);
-		$numtags = count($tags);
-		$availtags = tagcount($hash,$numtags);
-		if($availtags < $numtags){
-			errlog("TAG_ERROR","too many tags","sent: $numtags > avail: $availtags");
-			for($i=$availtags; $i<$numtags; $i++)
-				unset($tags[$i]);
-		}
-	}
-	
-	
+	if(isset($_CLEAN['sid'])){ $inputSID=$_CLEAN['sid']; }
+
 	//include("mysqli_verify.php"); // we should store the hash table in a seperate database for security purposes
 
-	if($hash){
+	if($inputSID){
+		$query="SELECT * FROM USID WHERE usession_id = '$inputSID'";
+		if ($result = $db_obj->query($query)){
+			if($result->num_rows == 1){
+				// unique
+			}else{
+				// not in table / not unique
+				// generate error
+				// generate unique
+				// send back
+			}
+		}
+	}else{
+		// add new SID to DB & return it
+	}
 		
-		$query="SELECT * FROM Hash_Products WHERE hash_number = '$hash'";
+		$query="SELECT * FROM USID WHERE usession_id = '$inputSID'";
 		if ( $result = $db_obj->query($query)){
 			if($result->num_rows == 1){
 				createEvent($hash,$event,$time,$tags);

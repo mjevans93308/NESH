@@ -33,9 +33,9 @@ function Nesh(clientkey){
 	// Network Member Vars
 	var _urlRoot = "http://nesh.co/php/";
 	// XMLHttpReq for SID
-	var _sxhr = createCORSRequest('POST', _urlRoot+"getSID.php");
+	var _sxhr = createCORSRequest('POST', _urlRoot+"getSid_json.php");
 	// XMLHttpReq for Events
-	var _exhr = createCORSRequest('POST', _urlRoot+"getData.php");
+	var _exhr = createCORSRequest('POST', _urlRoot+"getData_json.php");
 
 
 	/*********************************************/
@@ -124,7 +124,7 @@ function Nesh(clientkey){
 		// if the last sid call was an error, reset the sid
 		if( _data.needy == -1 ) _data.sid = 0 ;
 		// ajax call with sid (if 0, return unique, else verifies)
-		_sxhr.send( "test="+_data.sid );
+		_sxhr.send( "sid="+_data.sid );
 	}
 	
 	//SID ajax return handler
