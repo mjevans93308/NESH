@@ -131,6 +131,7 @@
                                 *******************************************************-->
                 					<div class="pull-left padding" id="eventGraph">
                     					<select id="event" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true">
+                                        <div id="eventOptions">
                                         <?php
 												$st1 = '<option selected>Event</option>';
 												$query2 = "SELECT * FROM Events WHERE hash_number = '".$hash_num."'";
@@ -141,10 +142,11 @@
 													}
 												echo $st1;
 											?>
+                                        </div>
                     					</select>
                 					</div>
                                  <div class="pull-left">
-                          			<button type="button" class="close" onClick="addTags(this.form);">&#43;</button>
+                          			<button type="button" class="close" onClick="addEventGraphs(this.form);">&#43;</button>
                                 	</div>
               					</div>
                              <div class="form-group">
@@ -157,6 +159,7 @@
                                  </div>
                              	<div class="pull-left padding">
                     					<select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true">
+                                        <div id="tagOptions">
                                         <?php
 												$st2 = '<option selected>Property</option>';
 												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
@@ -181,11 +184,17 @@
 													}
 												echo $st2;
 											?>
+                                       </div>
                     					</select>
                 					</div>
                                 <div class="pull-left">
-                          			<button type="button" class="close" onClick="addTags(this.form);">&#43;</button>
+                          			<button type="button" class="close" onClick="addTagGraphs(this.form);"><span class="glyphicon glyphicon-chevron-right"></span></button>
                                 	</div>
+                             </div>
+                             <div class="form-group">
+                              	<div class="pull-left">
+                          			<button type="button" class="close" onClick="addTagGraphs(this.form);">&#43;</button>
+                              	</div>
                              </div>
         						</form>  
                         </div>
@@ -245,11 +254,41 @@
                                                 $("#graph").html("");
                                             });
                                         }
-
-/*											var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 480);
-											r.piechart(320, 240, 100, [55, 20, 13, 32, 5, 1, 2]);*/
-
                                 </script>
+                                <script>
+										var totTags = 1;
+										var totTagCount = 1;
+										var totEvents = 1;
+		
+										function addTagGraphs(form) {
+											
+      										if(totTagCount < 5){
+        										totTags = totTags + 1;
+												totTagCount = totTagCount + 1;
+      											var ttag = "<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" type=\"text\" name=\"tagArr[]\" value='"+form.tag.value+"' placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags("+totTags+");\">&times;</button></div></div>" ; 
+        										jQuery('#dynamicTags').before(ttag);
+      											form.tag.value='';
+			    							}
+      										else{
+        										alert("Maximum number of tags allowed is 5.");      
+      										}
+										}
+      
+	 		 							function addEventGraphs(eventForm) {
+											totEvents = totEvents + 1;
+											var eventsVar = "<div class = \"form-group\" id=\"event"+totEvents+"\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-2 control-label\">Event Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"eventArr[]\" value='"+eventForm.events.value+"' placeholder=\"Event Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteEvents("+totEvents+")\">&times;</button></div></div>";                       
+											jQuery('#dynamicEvents').before(eventsVar);
+											eventForm.events.value='';
+										}
+			
+										function deleteTagGraphs(tNum) {
+											totTagCount = totTagCount - 1;
+      										jQuery('#tag'+tNum).remove();
+										}
+										function deleteEventGraphs(eNum) {
+											jQuery('#event'+eNum).remove();
+										}
+									</script>
                              </div>
                         </div>
                     </div>
