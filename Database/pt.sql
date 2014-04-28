@@ -1,16 +1,3 @@
-/*These are all the Tables*/
-
-/*Use the username and the password to login*/
-Create Table Members(
-uid int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-first varchar(20) NOT NULL,
-last varchar(20) NOT NULL,
-email varchar(20) NOT NULL UNIQUE,
-username varchar(20) NOT NULL UNIQUE,
-password varbinary(48) NOT NULL
-);
-
-/*Product name is linked with uid*/
 Create Table Products(
 product varchar(30) NOT NULL UNIQUE,
 uid int NOT NULL,
@@ -28,7 +15,7 @@ FOREIGN KEY(uid) REFERENCES Members(uid)
 ON DELETE CASCADE;
 
 Create Table Hash_Products(
-pid int NOT NULL Primary Key UNIQUE,
+pid int NOT NULL,
 hash_number int NOT NULL);
 
 ALTER TABLE Hash_Products
