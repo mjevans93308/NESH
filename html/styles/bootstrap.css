@@ -5074,6 +5074,14 @@ a.list-group-item-danger.active:focus {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
+.close:disabled{
+	color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+}
+
 button.close {
   padding: 0;
   cursor: pointer;

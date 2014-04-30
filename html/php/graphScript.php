@@ -1,5 +1,5 @@
 <?php
-include("mysqli.php");
+include("../php/mysqli.php");
 
 
 if(isset($_POST)){
@@ -22,7 +22,7 @@ if(isset($_POST)){
 	
 	if(isset($_POST['event_id']))
 	{
-		$events = $$_POST['event_id'].split(",");
+		$events = $_POST['event_id'].split(",");
 		//$query_event = "SELECT * from $hash_number WHERE (event_id =".$events.join(" OR event_id=").")";
 		$final_query .= "(event_id =".$events.join(" OR event_id=").")";	
 	}
@@ -59,9 +59,14 @@ if(isset($_POST)){
 	}
 	
 
-	
+	if(isset($_POST['event_id'])){
+		echo "recieved event_id=".$_POST['event_id'];
+	}
+	else
+		echo "didn't recieve anythings";
 
 	
 }
-
+else
+	echo  "Didn;t even get here";
 ?>

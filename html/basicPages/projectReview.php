@@ -130,7 +130,7 @@
                                 		This is the section for selecting Events for graphs
                                 *******************************************************-->
                 					<div class="pull-left padding" id="eventGraph">
-                    					<select id="event" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true">
+                    					<select id="eventSelect" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange='eventSelected()'>
                                         <div id="eventOptions">
                                         <?php
 												$st1 = '<option selected>Event</option>';
@@ -145,11 +145,9 @@
                                         </div>
                     					</select>
                 					</div>
-                                 <div class="pull-left">
-                          			<button type="button" class="close" onClick="addEventGraphs(this.form);">&#43;</button>
-                                	</div>
               					</div>
-                             <div class="form-group">
+                             <div id="tagGraph">
+                             <div class="form-group" id= "tagSection1">
                              	<div class="pull-left padding">
                              		<select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true">
                                 			<option selected>By</option>
@@ -158,42 +156,75 @@
                                 		</select>
                                  </div>
                              	<div class="pull-left padding">
-                    					<select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true">
-                                        <div id="tagOptions">
-                                        <?php
+                    					<select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
+										<?php
 												$st2 = '<option selected>Property</option>';
 												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
 													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
 														while($row3 = $result3->fetch_assoc()){
 															if($row3['tag0'] != ""){
-          														$st2 .= '<option>'.$row3['tag0'].'</option>';
+          														$st2 .= '<option value="tag0">'.$row3['tag0'].'</option>';
+																
+																/******************************************************************
+																						TAG DETAILS FOR TAG 0
+																******************************************************************/
+																
+																$query4 = "SELECT DISTINCT tag0 FROM Session WHERE hash_number='".$hash_num."'";
+																if($tag0 = $db_obj->query($query4)){
+																	$i = 0;
+																	$tag0Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag0Str .= '<option selected>Value</option>';
+																	while($row4 = $tag0->fetch_array(MYSQLI_NUM)){
+																		$tag0Str .= '<option>'.$row4[i].'</option>';
+																		$i++;
+																	}
+																	$tag0Str .= '</select></div>';	
+																}
+																
 															}
 															if($row3['tag1'] != ""){
-          														$st2 .= '<option>'.$row3['tag1'].'</option>';
+          														$st2 .= '<option value="tag1">'.$row3['tag1'].'</option>';
+																$query5 = "SELECT DISTINCT tag1 FROM Session WHERE hash_number='".$hash_num."'";
+																$tag1 = $db_obj->query($query5);
 															}
 															if($row3['tag2'] != ""){
-          														$st2 .= '<option>'.$row3['tag2'].'</option>';
+          														$st2 .= '<option value="tag2">'.$row3['tag2'].'</option>';
+																
+																$query6 = "SELECT DISTINCT tag2 FROM Session WHERE hash_number='".$hash_num."'";
+																$tag2 = $db_obj->query($query6);
 															}
 															if($row3['tag3'] != ""){
-          														$st2 .= '<option>'.$row3['tag3'].'</option>';
+          														$st2 .= '<option value="tag3">'.$row3['tag3'].'</option>';
+																$query7 = "SELECT DISTINCT tag3 FROM Session WHERE hash_number='".$hash_num."'";
+																$tag3 = $db_obj->query($query7);
 															}
 															if($row3['tag4'] != ""){
-          														$st2 .= '<option>'.$row3['tag4'].'</option>';
+          														$st2 .= '<option value="tag4">'.$row3['tag4'].'</option>';
+																
+																$query8 = "SELECT DISTINCT tag4 FROM Session WHERE hash_number='".$hash_num."'";
+																$tag4 = $db_obj->query($query8);
 															}
           												}		
 													}
 												echo $st2;
+												
 											?>
-                                       </div>
-                    					</select>
+                    					</select>  
+                                    <?php
+											$temp = $st2;
+											echo "<script> window.tag0Str='".$tag0Str."'</script>"; 
+											echo "<script> window.additionalTags='".$temp."'</script>"; 
+
+										?>
                 					</div>
                                 <div class="pull-left">
-                          			<button type="button" class="close" onClick="addTagGraphs(this.form);"><span class="glyphicon glyphicon-chevron-right"></span></button>
+                          			<button type="button" id="addTagDet1" class="close" onClick="addTagDetails('#tagSection1');">&#62;</button>
                                 	</div>
+                             </div>
                              </div>
                              <div class="form-group">
                               	<div class="pull-left">
-                          			<button type="button" class="close" onClick="addTagGraphs(this.form);">&#43;</button>
+                          			<button type="button" id="addTagOpt" class="close" onClick="addTagGraphs(this.form);">&#43;</button>
                               	</div>
                              </div>
         						</form>  
@@ -232,63 +263,6 @@
 									</form> 
        				 			</div>
                              <div id="graph">
-                             <p> graphs </p>
-                             	<script>
-										window.onload = function(){
-
-											var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 480);
-											r.piechart(100, 100, 90, [55, 20, 13, 32, 5, 1, 2],
-                                                {
-                                                    legend: ["User 1", "User 2", "User 3", "User 4", "User 5", "User 6", "User 7"]
-                                                }
-                                            );
-                                            var userDetails = ["User 1 stuff", "User 2 stuff", "User 3 stuff", "User 4 stuff", "User 5 stuff", "User 6 stuff", "User 7 stuff"]
-                                            pie.hover(function(){
-                                                var info = [
-                                                    "<b>" + this.label[i].attrs["text"] + "</b>",
-                                                    userDetails[this.value.order],
-                                                    "Details:" + this.value.value
-                                                ].join("");
-                                                $("#graph").html(info);
-                                            }, function(){
-                                                $("#graph").html("");
-                                            });
-                                        }
-                                </script>
-                                <script>
-										var totTags = 1;
-										var totTagCount = 1;
-										var totEvents = 1;
-		
-										function addTagGraphs(form) {
-											
-      										if(totTagCount < 5){
-        										totTags = totTags + 1;
-												totTagCount = totTagCount + 1;
-      											var ttag = "<div class = \"form-group\" id=\"tag"+totTags+"\"><label for=\"tag"+totTags+"\" class=\"col-sm-2 control-label\">Tag Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" type=\"text\" name=\"tagArr[]\" value='"+form.tag.value+"' placeholder=\"Tag Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteTags("+totTags+");\">&times;</button></div></div>" ; 
-        										jQuery('#dynamicTags').before(ttag);
-      											form.tag.value='';
-			    							}
-      										else{
-        										alert("Maximum number of tags allowed is 5.");      
-      										}
-										}
-      
-	 		 							function addEventGraphs(eventForm) {
-											totEvents = totEvents + 1;
-											var eventsVar = "<div class = \"form-group\" id=\"event"+totEvents+"\"><label for=\"eventName"+totEvents+"\" class=\"col-sm-2 control-label\">Event Name:</label><div class=\"col-sm-9\"><input class=\"form-control\" name=\"eventArr[]\" value='"+eventForm.events.value+"' placeholder=\"Event Name\"></div><div class = \"col-sm-1\"><button type=\"button\" class=\"close\" onClick=\"deleteEvents("+totEvents+")\">&times;</button></div></div>";                       
-											jQuery('#dynamicEvents').before(eventsVar);
-											eventForm.events.value='';
-										}
-			
-										function deleteTagGraphs(tNum) {
-											totTagCount = totTagCount - 1;
-      										jQuery('#tag'+tNum).remove();
-										}
-										function deleteEventGraphs(eNum) {
-											jQuery('#event'+eNum).remove();
-										}
-									</script>
                              </div>
                         </div>
                     </div>
@@ -307,29 +281,158 @@
     <script src="../scripts/graphael.js"></script>
     <script src="../scripts/g.bar.js"></script>
     <script src="../scripts/g.pie.js"></script>
+    <script src="../scripts/g.line.js"></script>
+	<script>
+		window.onload = function(){
+			/********************************************************
+						INITIAL SETTINGS FOR THE DROPDOWNS
+			*********************************************************/
+			$('#prepositions').prop('disabled', true);
+			$('#prepositions').selectpicker('refresh');
+			$('#property').prop('disabled', true);
+			$('#property').selectpicker('refresh');
+			$('.selectpicker').selectpicker();
+			document.getElementById("addTagDet").disabled = true;
+			document.getElementById("addTagOpt").disabled = true;
+			
+			/********************************************************
+									GRAPH AREA
+			*********************************************************/
+			var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 490),
+			txtattr = { font: "12px sans-serif" };
+                
+                var x = [], y = [], y2 = [], y3 = [];
 
-    <!-- Custom JavaScript for the Menu Toggle -->
-    <script>
+                for (var i = 0; i < 1e6; i++) {
+                    x[i] = i * 10;
+                    y[i] = (y[i - 1] || 0) + (Math.random() * 7) - 3;
+                    y2[i] = (y2[i - 1] || 150) + (Math.random() * 7) - 3.5;
+                    y3[i] = (y3[i - 1] || 300) + (Math.random() * 7) - 4;
+                }
+				var width = document.getElementById("graph").clientWidth - 20;
+                var lines = r.linechart(20, 0, width, 480, [1, 2, 3, 4, 5, 6, 7],[12, 32, 23, 15, 17, 27, 22], { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
+                    this.tags = r.set();
+
+                    for (var i = 0, ii = this.y.length; i < ii; i++) {
+                        this.tags.push(r.tag(this.x, this.y[i], this.values[i], 200, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
+                    }
+                }, function () {
+                    this.tags && this.tags.remove();
+                });
+
+                lines.symbols.attr({ r: 6 });
+                // lines.lines[0].animate({"stroke-width": 6}, 1000);
+                // lines.symbols[0].attr({stroke: "#fff"});
+                // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
+           /*         fin = function () {
+                        this.flag = r.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
+                    },
+                    fout = function () {
+                        this.flag.animate({opacity: 0}, 300, function () {this.remove();});
+                    },
+                    txtattr = { font: "12px sans-serif" };
+                
+                r.text(160, 10, "Single Series Chart").attr(txtattr);
+                
+                r.barchart(0, 0, document.getElementById("graph").clientWidth/2, 500, [55, 20, 13, 32, 5, 1, 2, 10]).hover(fin, fout);
+			var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 480);
+			r.barchart(0, 0, document.getElementById("graph").clientWidth/5, 480, [76, 70, 67, 71, 69], {});
+			r.piechart(100, 100, 90, [55, 20, 13, 32, 5, 1, 2],
+			{
+				legend: ["User 1", "User 2", "User 3", "User 4", "User 5", "User 6", "User 7"]
+			});
+			var userDetails = ["User 1 stuff", "User 2 stuff", "User 3 stuff", "User 4 stuff", "User 5 stuff", "User 6 stuff", "User 7 stuff"]
+			pie.hover(function(){
+				var info = [
+					"<b>" + this.label[i].attrs["text"] + "</b>",
+					userDetails[this.value.order],
+					"Details:" + this.value.value
+					].join("");
+					$("#graph").html(info);
+					}, function(){
+						$("#graph").html("");
+					 });*/
+		}
+		/********************************************************
+						FUNCTIONS FOR DROPDOWNS
+		*********************************************************/
+		var tag = 1;
+		var tagNum = 1;
+		
+		function eventSelected(){
+			alert("onclick works");
+			var eventSelected = $('#eventSelect option:selected').val();
+			alert(eventSelected);
+			$('#prepositions').prop('disabled', false);
+			$('#prepositions').selectpicker('refresh');
+			$('#property').prop('disabled', false);
+			$('#property').selectpicker('refresh');
+			document.getElementById('addTagDet').disabled = false;
+			document.getElementById('addTagOpt').disabled = false;
+			
+			/*********INVOKING THE SCRIPT ON THE SERVER TO GET DATA***********/
+			var xmlhttp;
+			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+  				xmlhttp=new XMLHttpRequest();
+  			}
+			else{// code for IE6, IE5
+  				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  			}
+			xmlhttp.open("POST","http://nesh.co/php/graphScript.php", true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send("event_id=100442");
+			/*********because this is an asynchronous request, we must look for a 
+			statechange and then use the response text***********/
+			xmlhttp.onreadystatechange=function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					alert(xmlhttp.responseText);
+				}
+  			}
+		}
+	
+		function tagSelected(){
+			var tagSelected1 = $('#property option:selected').val();
+			alert(tagSelected1);
+		}
+
+		function addTagDetails(form) {
+			var addTagPrep = '<div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>Contains</option></select></div>';
+			$(form).append(addTagPrep);
+			$(form).append(window.tag0Str);
+			$('.selectpicker').selectpicker();
+			$('#addTagDet').remove();
+		}
+		
+		function addTagGraphs(form) {
+		if(tagNum < 5){
+			tag += 1;
+			tagNum += 1;
+			var string = '<div class="form-group" id= "tagSection'+tag+'"><div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>By</option><option>Is</option></select></div><div class="pull-left padding"><select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">'
+			string += window.additionalTags;
+			string += '</select></div><div class="pull-left"><button type="button" id="addTagDet" class="close" onClick="addTagDetails(\'#tagSection'+tag+'\');">&#62;</button></div>';
+			string += '<div class="pull-left"><button type="button" id="removeTag" class="close" onClick="deleteTag(\'#tagSection'+tag+'\')">&#120;</button></div></div>';
+			
+			$('#tagGraph').append(string);
+			$('.selectpicker').selectpicker();
+		}
+		else
+			alert("Maximum number of tags reached!");
+		}
+
+		function deleteTag(form) {
+			if(tagNum != 1){
+				tagNum = tagNum - 1;
+				jQuery(form).remove();
+			}
+		}
+
+		/********************************************************
+					Custom JavaScript for the Menu Toggle 
+		*********************************************************/
 		$("#menu-toggle").click(function(e) {
 			e.preventDefault();
         	$("#wrapper").toggleClass("active");
     	});
-	
-		$(window).on('load', function () {
-			$('.selectpicker').selectpicker({
-				'selectedText': 'cat'
-			});
-            // $('.selectpicker').selectpicker('hide');
-		});
-		
-		var totTags = 1;
-		
-		function addTags(form) {
-        	totTags = totTags + 1;
-      		var ttag = ""; 
-        	jQuery('#dynamicTags').before(ttag);
-      		form.tag.value='';
-		}
     </script>
 </body>
 
