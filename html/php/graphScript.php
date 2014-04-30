@@ -22,40 +22,46 @@ if(isset($_POST)){
 	
 	if(isset($_POST['event_id']))
 	{
-		$events = $_POST['event_id'].split(",");
-		//$query_event = "SELECT * from $hash_number WHERE (event_id =".$events.join(" OR event_id=").")";
-		$final_query .= "(event_id =".$events.join(" OR event_id=").")";	
+		//$events = $_POST['event_id'].split(",");
+		$events = explode(",", $_POST['event_id']);
+		//$final_query .= "(event_id =".$events.join(" OR event_id=").")";
+		$final_query = "(event_id =".implode(" OR event_id=", $events).")";
 	}
 
 	if(isset($_POST['tag0']))
 	{
-		$tags0 = $_POST['tag0'].split(',');
-		//$query_tag0 = "SELECT * from $hash_number WHERE (tag0 =".$tags0.join(" OR tag0=").")";
-		$final_query .= "AND (tag0 =".$tags0.join(" OR tag0=").")";
+		//$tags0 = $_POST['tag0'].split(',');
+		$tags0 = explode(",", $_POST['tag0']);
+		//$final_query .= "AND (tag0 =".$tags0.join(" OR tag0=").")";
+		$final_query = "AND (tag0 =".implode(" OR tag0=", $tags0).")";
 	}
 	if(isset($_POST['tag1']))
 	{
-		$tags1 = $_POST['tag1'].split(',');
-		//$query_tag1 = "SELECT * from $hash_number WHERE (tag1 =".$tags1.join(" OR tag1=").")";
-		$final_query .= "AND (tag1 =".$tags1.join(" OR tag1=").")";
+		//$tags1 = $_POST['tag1'].split(',');
+		$tags1 = explode(",", $_POST['tag1']);
+		//$final_query .= "AND (tag1 =".$tags1.join(" OR tag1=").")";
+		$final_query = "AND (tag1 =".implode(" OR tag1=", $tags1).")";
 	}
 	if(isset($_POST['tag2']))
 	{
-		$tags2 = $_POST['tag2'].split(',');
-		//$query_tag2 = "SELECT * from $hash_number WHERE (tag2 =".$tags2.join(" OR tag2=").")";
-		$final_query .= "AND (tag2 =".$tags2.join(" OR tag2=").")";
+		//$tags2 = $_POST['tag2'].split(',');
+		$tags2 = explode(",", $_POST['tag2']);
+		//$final_query .= "AND (tag2 =".$tags2.join(" OR tag2=").")";
+		$final_query = "AND (tag2 =".implode(" OR tag2=", $tags2).")";
 	}
 	if(isset($_POST['tag3']))
 	{
-		$tags3 = $_POST['tag3'].split(',');
-		//$query_tag3 = "SELECT * from $hash_number WHERE (tag3 =".$tags3.join(" OR tag3=").")";
-		$final_query .= "AND (tag3 =".$tags3.join(" OR tag3=").")";
+		//$tags3 = $_POST['tag3'].split(',');
+		$tags3 = explode(",", $_POST['tag3']);
+		//$final_query .= "AND (tag3 =".$tags3.join(" OR tag3=").")";
+		$final_query = "AND (tag3 =".implode(" OR tag3=", $tags3).")";
 	}
 	if(isset($_POST['tag4']))
 	{
-		$tags4 = $_POST['tag4'].split(',');
-		//$query_tag4 = "SELECT * from $hash_number WHERE (tag4 =".$tags4.join(" OR tag4=").")";
-		$final_query .= "AND (tag4 =".$tags4.join(" OR tag4=").")";
+		//$tags4 = $_POST['tag4'].split(',');
+		$tags4 = explode(",", $_POST['tag4']);
+		//$final_query .= "AND (tag4 =".$tags4.join(" OR tag4=").")";
+		$final_query = "AND (tag4 =".implode(" OR tag4=", $tags4).")";
 	}
 	
 
@@ -68,5 +74,5 @@ if(isset($_POST)){
 	
 }
 else
-	echo  "Didn;t even get here";
+	echo  "Didn't even get here";
 ?>
