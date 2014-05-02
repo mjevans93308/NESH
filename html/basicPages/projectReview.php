@@ -170,12 +170,10 @@
 																
 																$query4 = "SELECT DISTINCT tag0 FROM Session WHERE hash_number='".$hash_num."'";
 																if($tag0 = $db_obj->query($query4)){
-																	$i = 0;
 																	$tag0Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
 																	$tag0Str .= '<option selected>Value</option>';
-																	while($row4 = $tag0->fetch_array(MYSQLI_NUM)){
-																		$tag0Str .= '<option>'.$row4[i].'</option>';
-																		$i++;
+																	while($row4 = $tag0->fetch_array()){
+																		$tag0Str .= '<option>'.$row4['tag0'].'</option>';
 																	}
 																	$tag0Str .= '</select></div>';	
 																}
@@ -184,24 +182,52 @@
 															if($row3['tag1'] != ""){
           														$st2 .= '<option value="tag1">'.$row3['tag1'].'</option>';
 																$query5 = "SELECT DISTINCT tag1 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag1 = $db_obj->query($query5);
+																if($tag1 = $db_obj->query($query5)){
+																	$tag1Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag1Str .= '<option selected>Value</option>';
+																	while($row5 = $tag1->fetch_array()){
+																		$tag1Str .= '<option>'.$row5['tag1'].'</option>';
+																	}
+																	$tag1Str .= '</select></div>';	
+																}
 															}
 															if($row3['tag2'] != ""){
           														$st2 .= '<option value="tag2">'.$row3['tag2'].'</option>';
 																
 																$query6 = "SELECT DISTINCT tag2 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag2 = $db_obj->query($query6);
+																if($tag2 = $db_obj->query($query6)){
+																	$tag2Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag2Str .= '<option selected>Value</option>';
+																	while($row6 = $tag2->fetch_array()){
+																		$tag2Str .= '<option>'.$row6['tag2'].'</option>';
+																	}
+																	$tag2Str .= '</select></div>';	
+																}
 															}
 															if($row3['tag3'] != ""){
           														$st2 .= '<option value="tag3">'.$row3['tag3'].'</option>';
 																$query7 = "SELECT DISTINCT tag3 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag3 = $db_obj->query($query7);
+																if($tag3 = $db_obj->query($query7)){
+																	$tag3Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag3Str .= '<option selected>Value</option>';
+																	while($row7 = $tag3->fetch_array()){
+																		$tag3Str .= '<option>'.$row7['tag3'].'</option>';
+																	}
+																	$tag3Str .= '</select></div>';	
+																}
 															}
 															if($row3['tag4'] != ""){
           														$st2 .= '<option value="tag4">'.$row3['tag4'].'</option>';
 																
 																$query8 = "SELECT DISTINCT tag4 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag4 = $db_obj->query($query8);
+																if($tag4 = $db_obj->query($query8)){
+																	$tag4Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag4Str .= '<option selected>Value</option>';
+																	while($row8 = $tag4->fetch_array()){
+																		$tag4Str .= '<option>'.$row8['tag4'].'</option>';
+																	}
+																	$tag4Str .= '</select></div>';	
+																}
 															}
           												}		
 													}
@@ -212,12 +238,16 @@
                                     <?php
 											$temp = $st2;
 											echo "<script> window.tag0Str='".$tag0Str."'</script>"; 
+											echo "<script> window.tag1Str='".$tag1Str."'</script>"; 
+											echo "<script> window.tag2Str='".$tag2Str."'</script>"; 
+											echo "<script> window.tag3Str='".$tag3Str."'</script>"; 
+											echo "<script> window.tag4Str='".$tag4Str."'</script>"; 
 											echo "<script> window.additionalTags='".$temp."'</script>"; 
 
 										?>
                 					</div>
                                 <div class="pull-left">
-                          			<button type="button" id="addTagDet1" class="close" onClick="addTagDetails('#tagSection1');">&#62;</button>
+                          			<button type="button" id="addTagDet1" class="close" onClick="addTagDetails('#tagSection1', 1);">&#62;</button>
                                 	</div>
                              </div>
                              </div>
@@ -408,16 +438,19 @@
 			alert("tagNum: "+tagNum);
 			alert("tag: "+ tag);
 			if(tagNum >1){
-				for(i = 0; i < tag; i++){
-					var id = "property"+tag;
+				for(i = 1; i <= tag; i++){
+					var tagIDD = "#tagSection"+i;
+					var id = "#property"+i;
 					alert(id);
-					//alert(getElementById(id));
+					alert($(tagIDD).find(id).length);
 					alert("gets here");
-					if(getElementById(id) != null){
-						var query1 = '#'+id+' option:selected';
-						var tagSelected2 = $(query).val();
+					if($(tagIDD).find(id).length){
+						var query1 = id+' option:selected';
+						var tagSelected2 = $(query1).val();
 						postString += tagSelected2;
-						postString += ', ';
+						if(i != tag){
+							postString += ', ';
+						}
 					}
 				}
 			}
@@ -427,12 +460,35 @@
 			alert(postString);
 		}
 
-		function addTagDetails(form) {
+		function addTagDetails(form, num) {
+			var query = '#property'+num+' option:selected';	
+			alert(query);
+			var tagSelected1 = $(query).val();
+			alert(tagSelected1);
 			var addTagPrep = '<div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>Contains</option></select></div>';
 			$(form).append(addTagPrep);
-			$(form).append(window.tag0Str);
+			//alert(window.tag0Str);
+			if(tagSelected1 == 'tag0'){
+				$(form).append(window.tag0Str);
+			}
+			else if(tagSelected1 == 'tag1'){
+				$(form).append(window.tag1Str);
+			}
+			else if(tagSelected1 == 'tag2'){
+				$(form).append(window.tag2Str);
+			}
+			else if(tagSelected1 == 'tag3'){
+				$(form).append(window.tag3Str);
+			}
+			else if(tagSelected1 == 'tag4'){
+				$(form).append(window.tag4Str);
+			}
+			string = '<div class="pull-left"><button type="button" id="removeTag" class="close" onClick="deleteTag(\'#tagSection'+tag+'\')">&#120;</button></div></div>';
+			$(form).append(string);
 			$('.selectpicker').selectpicker();
-			$('#addTagDet').remove();
+			var tagDetId = '#addTagDet'+num;
+			alert(tagDetId);
+			$(tagDetId).remove();
 		}
 		
 		function addTagGraphs(form) {
@@ -441,8 +497,8 @@
 			tagNum += 1;
 			var string = '<div class="form-group" id= "tagSection'+tag+'"><div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>By</option><option>Is</option></select></div><div class="pull-left padding"><select id="property'+tag+'" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected(this.id)">'
 			string += window.additionalTags;
-			string += '</select></div><div class="pull-left"><button type="button" id="addTagDet" class="close" onClick="addTagDetails(\'#tagSection'+tag+'\');">&#62;</button></div>';
-			string += '<div class="pull-left"><button type="button" id="removeTag" class="close" onClick="deleteTag(\'#tagSection'+tag+'\')">&#120;</button></div></div>';
+			string += '</select></div><div class="pull-left"><button type="button" id="addTagDet'+tag+'" class="close" onClick="addTagDetails(\'#tagSection'+tag+'\', '+tag+');">&#62;</button></div></div>';
+			
 			
 			$('#tagGraph').append(string);
 			$('.selectpicker').selectpicker();
