@@ -26,9 +26,6 @@ class line {
     }
 }
 
-$bar = new foo;
-$bar->do_foo();
-
 function errlog($errid, $errdesc="", $errval=""){
 	global $return_arr;
 	$return_arr[$errid]="";
