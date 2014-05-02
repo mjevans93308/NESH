@@ -105,11 +105,10 @@
           				}		
 					}
 					$st .= '</a></li>';
-                	$st .= '<li class="sidebaractive"><a href="projectReview.php?pid='.$pid.'">Analytics</a></li>';
+                	$st .= '<li><a href="projectReview.php?pid='.$pid.'">Analytics</a></li>';
                 	$st .= '<li><a href="trends.php?pid='.$pid.'">Trends</a></li>';
-		           $st .= '<li><a href="projSettings.php?pid='.$pid.'">Settings</a></li>';
+		           $st .= '<li class="sidebaractive"><a href="projSettings.php?pid='.$pid.'">Settings</a></li>';
                	$st .= '<li><a href="codeSnippets.php?pid='.$pid.'">Code Snippets</a></li>';
-				
 					echo $st;
 				?>
             </ul>
