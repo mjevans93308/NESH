@@ -105,11 +105,10 @@
           				}		
 					}
 					$st .= '</a></li>';
-                	$st .= '<li class="sidebaractive"><a href="projectReview.php?pid='.$pid.'">Analytics</a></li>';
+                	$st .= '<li><a href="projectReview.php?pid='.$pid.'">Analytics</a></li>';
                 	$st .= '<li><a href="trends.php?pid='.$pid.'">Trends</a></li>';
 		           $st .= '<li><a href="projSettings.php?pid='.$pid.'">Settings</a></li>';
-               	$st .= '<li><a href="codeSnippets.php?pid='.$pid.'">Code Snippets</a></li>';
-				
+               	$st .= '<li class="sidebaractive"><a href="codeSnippets.php?pid='.$pid.'">Code Snippets</a></li>';
 					echo $st;
 				?>
             </ul>
@@ -136,7 +135,7 @@
 												$query2 = "SELECT * FROM Events WHERE hash_number = '".$hash_num."'";
 													if ( ($result2 = $db_obj->query($query2)) && ($result2->num_rows != 0) ){  // success!
 														while($row2 = $result2->fetch_assoc()){
-          													$st1 .= '<option value="'.$row2['event_id'].'">'.$row2['description'].'</option>';
+          													$st1 .= '<option>'.$row2['description'].'</option>';
           												}		
 													}
 												echo $st1;
@@ -155,7 +154,7 @@
                                 		</select>
                                  </div>
                              	<div class="pull-left padding">
-                    					<select id="property1" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected(this.id)">                                        
+                    					<select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
 										<?php
 												$st2 = '<option selected>Property</option>';
 												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
@@ -283,17 +282,17 @@
     <script src="../scripts/g.line.js"></script>
 	<script>
 		window.onload = function(){
-			//alert("window onload works!");
+			alert("window onload works!");
 			/********************************************************
 						INITIAL SETTINGS FOR THE DROPDOWNS
 			*********************************************************/
-			//alert("2");
+			alert("2");
 			$('#prepositions').prop('disabled', true);
 			$('#prepositions').selectpicker('refresh');
-			$('#property1').prop('disabled', true);
-			$('#property1').selectpicker('refresh');
+			$('#property').prop('disabled', true);
+			$('#property').selectpicker('refresh');
 			$('.selectpicker').selectpicker();
-			//alert("3");
+			alert("3");
 			document.getElementById("addTagDet1").disabled = true;
 			document.getElementById("addTagOpt").disabled = true;
 			
@@ -360,20 +359,17 @@
 		*********************************************************/
 		var tag = 1;
 		var tagNum = 1;
-		var postString = '';
 		
 		function eventSelected(){
-			//alert("onclick works");
+			alert("onclick works");
 			var eventSelected = $('#eventSelect option:selected').val();
 			alert(eventSelected);
 			$('#prepositions').prop('disabled', false);
 			$('#prepositions').selectpicker('refresh');
-			$('#property1').prop('disabled', false);
-			$('#property1').selectpicker('refresh');
+			$('#property').prop('disabled', false);
+			$('#property').selectpicker('refresh');
 			document.getElementById('addTagDet1').disabled = false;
 			document.getElementById('addTagOpt').disabled = false;
-			postString += "event_id="+eventSelected;
-			alert(postString);
 			
 			/*********INVOKING THE SCRIPT ON THE SERVER TO GET DATA***********/
 			var xmlhttp;
@@ -385,7 +381,7 @@
   			}
 			xmlhttp.open("POST","http://nesh.co/php/graphScript.php", true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send(postString);
+			xmlhttp.send("event_id=100442");
 			/*********because this is an asynchronous request, we must look for a 
 			statechange and then use the response text***********/
 			xmlhttp.onreadystatechange=function(){
@@ -395,36 +391,9 @@
   			}
 		}
 	
-		function tagSelected(propID){
-			postString = '';
-			var eventSelected = $('#eventSelect option:selected').val();
-			postString += "event_id="+eventSelected;
-			postString += "&tags=";
-			var query = '#'+propID+' option:selected';
-			var i;
-			alert(query);
-			var tagSelected1 = $(query).val();
+		function tagSelected(){
+			var tagSelected1 = $('#property option:selected').val();
 			alert(tagSelected1);
-			alert("tagNum: "+tagNum);
-			alert("tag: "+ tag);
-			if(tagNum >1){
-				for(i = 0; i < tag; i++){
-					var id = "property"+tag;
-					alert(id);
-					//alert(getElementById(id));
-					alert("gets here");
-					if(getElementById(id) != null){
-						var query1 = '#'+id+' option:selected';
-						var tagSelected2 = $(query).val();
-						postString += tagSelected2;
-						postString += ', ';
-					}
-				}
-			}
-			else{
-				postString += tagSelected1;
-			}
-			alert(postString);
 		}
 
 		function addTagDetails(form) {
@@ -439,7 +408,7 @@
 		if(tagNum < 5){
 			tag += 1;
 			tagNum += 1;
-			var string = '<div class="form-group" id= "tagSection'+tag+'"><div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>By</option><option>Is</option></select></div><div class="pull-left padding"><select id="property'+tag+'" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected(this.id)">'
+			var string = '<div class="form-group" id= "tagSection'+tag+'"><div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>By</option><option>Is</option></select></div><div class="pull-left padding"><select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">'
 			string += window.additionalTags;
 			string += '</select></div><div class="pull-left"><button type="button" id="addTagDet" class="close" onClick="addTagDetails(\'#tagSection'+tag+'\');">&#62;</button></div>';
 			string += '<div class="pull-left"><button type="button" id="removeTag" class="close" onClick="deleteTag(\'#tagSection'+tag+'\')">&#120;</button></div></div>';

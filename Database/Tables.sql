@@ -49,6 +49,10 @@ event_id int NOT NULL,
 c_timestamp TIMESTAMP NOT NULL
 );
 
+Create Table usid(
+usession_id varchar(20) UNIQUE
+);
+
 ALTER TABLE Session
 ADD CONSTRAINT fk_session
 Foreign KEY(hash_number) References Hash_Products(hash_number)

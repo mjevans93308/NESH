@@ -149,9 +149,9 @@
 }
 
 .bootstrap-select.btn-group.show-tick .dropdown-menu li.selected a i.check-mark {
-    position: absolute;
+    position: relative;
     display: inline-block;
-    right: 15px;
+    right: 0px;
     margin-top: 2.5px;
 }
 
