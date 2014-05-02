@@ -385,27 +385,12 @@
 						$("#graph").html("");
 					 });*/
 		}
-		/********************************************************
-						FUNCTIONS FOR DROPDOWNS
-		*********************************************************/
+		
 		var tag = 1;
 		var tagNum = 1;
 		var postString = '';
-		
-		function eventSelected(){
-			//alert("onclick works");
-			var eventSelected = $('#eventSelect option:selected').val();
-			alert(eventSelected);
-			$('#prepositions').prop('disabled', false);
-			$('#prepositions').selectpicker('refresh');
-			$('#property1').prop('disabled', false);
-			$('#property1').selectpicker('refresh');
-			document.getElementById('addTagDet1').disabled = false;
-			document.getElementById('addTagOpt').disabled = false;
-			postString += "event_id="+eventSelected;
-			alert(postString);
-			
-			/*********INVOKING THE SCRIPT ON THE SERVER TO GET DATA***********/
+		/*********INVOKING THE SCRIPT ON THE SERVER TO GET DATA***********/
+		function invokeScript(){
 			var xmlhttp;
 			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
   				xmlhttp=new XMLHttpRequest();
@@ -424,12 +409,31 @@
 				}
   			}
 		}
+		/********************************************************
+						FUNCTIONS FOR DROPDOWNS
+		*********************************************************/
+		
+		
+		function eventSelected(){
+			//alert("onclick works");
+			var eventSelected = $('#eventSelect option:selected').val();
+			alert(eventSelected);
+			$('#prepositions').prop('disabled', false);
+			$('#prepositions').selectpicker('refresh');
+			$('#property1').prop('disabled', false);
+			$('#property1').selectpicker('refresh');
+			document.getElementById('addTagDet1').disabled = false;
+			document.getElementById('addTagOpt').disabled = false;
+			postString += "event_id="+eventSelected;
+			alert(postString);
+			invokeScript();			
+		}
 	
 		function tagSelected(propID){
 			postString = '';
 			var eventSelected = $('#eventSelect option:selected').val();
 			postString += "event_id="+eventSelected;
-			postString += "&tags=";
+			postString += "&";
 			var query = '#'+propID+' option:selected';
 			var i;
 			alert(query);
@@ -447,17 +451,46 @@
 					if($(tagIDD).find(id).length){
 						var query1 = id+' option:selected';
 						var tagSelected2 = $(query1).val();
-						postString += tagSelected2;
+						if(tagSelected2 == 'tag0'){
+							postString += "tag0=_ALL";
+						}
+						if(tagSelected2 == 'tag1'){
+							postString += "tag1=_ALL";
+						}
+						if(tagSelected2 == 'tag2'){
+							postString += "tag2=_ALL";
+						}
+						if(tagSelected2 == 'tag3'){
+							postString += "tag3=_ALL";
+						}
+						if(tagSelected2 == 'tag4'){
+							postString += "tag4=_ALL";
+						}
 						if(i != tag){
-							postString += ', ';
+							postString += '&';
 						}
 					}
 				}
 			}
 			else{
-				postString += tagSelected1;
+				if(tagSelected1 == 'tag0'){
+					postString += "tag0=_ALL";
+				}
+				else if(tagSelected1 == 'tag1'){
+					postString += "tag1=_ALL";
+				}
+				else if(tagSelected1 == 'tag2'){
+					postString += "tag2=_ALL";
+				}
+				else if(tagSelected1 == 'tag3'){
+					postString += "tag3=_ALL";
+				}
+				else if(tagSelected1 == 'tag4'){
+					postString += "tag4=_ALL";
+				}
 			}
 			alert(postString);
+			invokeScript();
 		}
 
 		function addTagDetails(form, num) {
