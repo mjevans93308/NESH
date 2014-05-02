@@ -69,8 +69,6 @@ if(isset($_POST)){
 	//		c. add to array
 	// 3. Return function
 
-	$q_view = "CREATE VIEW $hash_number AS SELECT * from Session WHERE hash_number = $hash_number";
-	$q_drop = "DROP VIEW $hash_number";
 //	$final_query = "CREATE VIEW $hash_number AS SELECT * from $hash_number WHERE ";
 	$all_arr = array();
 
@@ -94,6 +92,9 @@ if(isset($_POST)){
 		//$final_query .= "(event_id =".$events.join(" OR event_id=").")";
 		//$final_query = "(event_id =".implode(" OR event_id=", $events).")";
 	}
+
+	$q_view = "CREATE VIEW $hash_number AS SELECT * from Session WHERE hash_number = $hash_number";
+	$q_drop = "DROP VIEW $hash_number";
 
 	for( $t = 0 ; $t < 5 ; $t++ ){
 		$tagNum = "tag".$t;
