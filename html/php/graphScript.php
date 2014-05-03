@@ -115,7 +115,7 @@ if(isset($_POST)){
 	// CREATE VIEW
 	
 	if ( ! $result = $db_obj->query($q_view)){
-		errlog("DB_ERROR_CREATE_VIEW","error creating view",$hash_number);
+		errlog("DB_ERROR_CREATE_VIEW","error creating view",$q_view);
 		errlog("DB_ERROR_CREATE_VIEW_SQL",mysql_error(),mysql_errno());
 		sendback(-1);
 	}
@@ -127,7 +127,7 @@ if(isset($_POST)){
 
 	foreach( $all_arr as $filter ){
 		$filter_arr[$filter] = array();
-		$q_count = "SELECT $filter AS 'TAG', DATE( c_timestamp ) AS 'DAY', COUNT( * ) AS 'CNT' FROM $hash_number GROUP BY $filter, DATE( c_timestamp )";
+		$q_count = "SELECT $filter AS TAG, DATE( c_timestamp ) AS DAY, COUNT( * ) AS CNT FROM $hash_number GROUP BY $filter, DATE( c_timestamp )";
 		if ( $result = $db_obj->query($q_count)){
 			if( $result->num_rows > 0 ){
 				$row = $result->fetch_assoc();
