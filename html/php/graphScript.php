@@ -93,8 +93,8 @@ if(isset($_POST)){
 		//$final_query = "(event_id =".implode(" OR event_id=", $events).")";
 	}
 
-	$q_view = "CREATE VIEW $hash_number AS SELECT * from Session WHERE hash_number = $hash_number";
-	$q_drop = "DROP VIEW $hash_number";
+	$q_view = "CREATE VIEW '$hash_number' AS SELECT * from Session WHERE hash_number = '$hash_number'";
+	$q_drop = "DROP VIEW '$hash_number'";
 
 	for( $t = 0 ; $t < 5 ; $t++ ){
 		$tagNum = "tag".$t;
@@ -106,7 +106,7 @@ if(isset($_POST)){
 				//$tags0 = $_POST['tag0'].split(',');
 				$tagSet = explode(",", $_POST[$tagNum]);
 				//$final_query .= "AND (tag0 =".$tags0.join(" OR tag0=").")";
-				$q_view .= " AND ($tagNum =".implode(" OR $tagNum=", $tagSet).")";
+				$q_view .= " AND ($tagNum ='".implode("' OR $tagNum='", $tagSet)."')";
 			}
 		}
 	}
@@ -127,7 +127,7 @@ if(isset($_POST)){
 
 	foreach( $all_arr as $filter ){
 		$filter_arr[$filter] = array();
-		$q_count = "SELECT $filter AS TAG, DATE( C_TIMESTAMP ) AS DAY, COUNT( * ) AS CNT FROM $hash_number GROUP BY  $filter, DATE( C_TIMESTAMP )";
+		$q_count = "SELECT $filter AS 'TAG', DATE( c_timestamp ) AS 'DAY', COUNT( * ) AS 'CNT' FROM $hash_number GROUP BY $filter, DATE( c_timestamp )";
 		if ( $result = $db_obj->query($q_count)){
 			if( $result->num_rows > 0 ){
 				$row = $result->fetch_assoc();
