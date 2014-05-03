@@ -82,7 +82,7 @@ if(isset($_POST)){
 		sendback(-1);
 	}
 
-	$q_view = "CREATE VIEW 'V$hash_number' AS SELECT * from Session WHERE hash_number=$hash_number";
+	$q_view = "CREATE VIEW V$hash_number AS SELECT * from Session WHERE hash_number=$hash_number";
 	$q_drop = "DROP VIEW V$hash_number";
 	
 	if(isset($_POST['event_id'])){
