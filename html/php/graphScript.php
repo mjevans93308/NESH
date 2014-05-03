@@ -83,7 +83,7 @@ if(isset($_POST)){
 	}
 
 	$q_view = "CREATE VIEW V$hash_number AS SELECT * from Session WHERE hash_number=$hash_number";
-	$q_drop = "DROP VIEW V$hash_number";
+	$q_drop = "DROP VIEW V$hash_number;";
 	
 	if(isset($_POST['event_id'])){
 		$event_id = $_POST['event_id'];
@@ -110,7 +110,7 @@ if(isset($_POST)){
 			}
 		}
 	}
-
+	$q_view .= ";";
 	/////////////////////////////////////////////
 	// CREATE VIEW
 	
@@ -127,7 +127,7 @@ if(isset($_POST)){
 
 	foreach( $all_arr as $filter ){
 		$filter_arr[$filter] = array();
-		$q_count = "SELECT $filter AS TAG, DATE( c_timestamp ) AS 'DAY', COUNT( * ) AS 'CNT' FROM V$hash_number GROUP BY $filter, DATE( c_timestamp )";
+		$q_count = "SELECT $filter AS TAG, DATE( c_timestamp ) AS DAY, COUNT( * ) AS CNT FROM V$hash_number GROUP BY $filter, DATE( c_timestamp );";
 		if ( $result = $db_obj->query($q_count)){
 			if( $result->num_rows > 0 ){
 				$row = $result->fetch_assoc();
