@@ -104,6 +104,7 @@
           								$hash_num = $row1['hash_number'];
           				}		
 					}
+					echo '<script>window.hash_num ='.$hash_num.' </script>';
 					$st .= '</a></li>';
                 	$st .= '<li class="sidebaractive"><a href="projectReview.php?pid='.$pid.'">Analytics</a></li>';
                 	$st .= '<li><a href="trends.php?pid='.$pid.'">Trends</a></li>';
@@ -424,7 +425,7 @@
 			$('#property1').selectpicker('refresh');
 			document.getElementById('addTagDet1').disabled = false;
 			document.getElementById('addTagOpt').disabled = false;
-			postString += "event_id="+eventSelected;
+			postString += "hash_number="+window.hash_num+"&event_id="+eventSelected;
 			alert(postString);
 			invokeScript();			
 		}
@@ -432,7 +433,7 @@
 		function tagSelected(propID){
 			postString = '';
 			var eventSelected = $('#eventSelect option:selected').val();
-			postString += "event_id="+eventSelected;
+			postString += "hash_number="+window.hash_num+"&event_id="+eventSelected;
 			postString += "&";
 			var query = '#'+propID+' option:selected';
 			var i;
