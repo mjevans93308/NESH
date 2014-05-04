@@ -1,7 +1,7 @@
 <?php
 include("../php/mysqli.php");
 
-$debug = true;
+$debug = false;
 global $db_obj;
 $return_arr = array();
 //$filter_arr = array();
@@ -15,7 +15,6 @@ class line {
 		$this->_k = "";
 		$this->_x = array();
 		$this->_y = array();
-
 	}
 
     public function addXY($x,$y){
@@ -60,8 +59,8 @@ function sendback($rval){
 		$prejoin[] = "\"$tag\":\"$str\"";
 	}
 	$echostring = join(",",$prejoin);
-	$index = $_CLEAN['index'];
-	echo "{\"index\":\"$index\",$echostring}";
+	echo "{$echostring}";
+	exit($rval);
 }
 
 if(isset($_POST)){
@@ -96,6 +95,11 @@ if(isset($_POST)){
 
 	$q_view = "CREATE VIEW V$hash_number AS SELECT * from Session WHERE hash_number=$hash_number";
 	$q_drop = "DROP VIEW V$hash_number;";
+
+	// IF Nothing Selected : Event Lines
+	// IF Only Event Selected : All Tag Lines
+	// IF Tag Selected with no specifics: All Line within that tag
+	// If Tag Selected with Specifics: use spec to limit view
 	
 	if(isset($_POST['event_id'])){
 		$event_id = $_POST['event_id'];
