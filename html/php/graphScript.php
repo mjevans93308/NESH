@@ -1,6 +1,7 @@
 <?php
 include("../php/mysqli.php");
 
+$debug = true;
 global $db_obj;
 $return_arr = array();
 //$filter_arr = array();
@@ -10,19 +11,30 @@ class line {
 	public $_x = array();
 	public $_y = array();
 
+	public function __construct(){
+		$this->_k = "";
+		$this->_x = array();
+		$this->_y = array();
+
+	}
+
     public function addXY($x,$y){
-    	$_x[] = $x;
-    	$_y[] = $y;
+    	global $debug;
+    	if($debug==true){echo "($x,$y)";}
+    	$this->_x[]=$x;
+    	$this->_y[]=$y;
     }
     
     public function setKey($k){
-    	$_k = $k;
+    	$this->_k = $k;
     }
 
     public function getJSON(){
-    	$xstr = "[".implode(",", $_x)."]";
-    	$ystr = "[".implode(",", $_y)."]";
-    	return "\"$_k\":{\"x\":\"$xstr\",\"y\":\"$ystr\"}";
+    	global $debug;
+    	$xstr = "[".implode(",", $this->_x)."]";
+    	$ystr = "[".implode(",", $this->_y)."]";
+    	if($debug==true){echo "\"$this->_k\":{\"x\":\"$xstr\",\"y\":\"$ystr\"}";}
+    	return "\"$this->_k\":{\"x\":\"$xstr\",\"y\":\"$ystr\"}";
     }
 }
 
@@ -132,15 +144,17 @@ if(isset($_POST)){
 			if( $result->num_rows > 0 ){
 				$row = $result->fetch_assoc();
 				while($row = $result->fetch_assoc()){
-					if(!isset($filter_arr[$filter][$row['TAG']])){
-						$filter_arr[$filter][$row['TAG']] = new line();
-						$filter_arr[$filter][$row['TAG']].setKey($row['TAG']);
+					$tagstr = $row['TAG'];
+					if($debug == true){echo "filterarr[".$filter."][".$tagstr."]=";}
+					if(!isset($filter_arr[$filter][$tagstr])){
+						$filter_arr[$filter][$tagstr] = new line();
+						$filter_arr[$filter][$tagstr]->setKey($tagstr);
 					}
-					$filter_arr[$filter][$row['TAG']].addXY($row['DAY'],$row['CNT']);
+					$filter_arr[$filter][$tagstr]->addXY($row['DAY'],$row['CNT']);
 				}
 				$tempArr = array();
 				foreach($filter_arr[$filter] as $filterItem){
-					$tempArr[] = $filterItem.getJSON();
+					$tempArr[] = $filterItem->getJSON();
 				}
 				$return_arr[$filter] = "{".implode(",", $tempArr)."}";
 			}else{
