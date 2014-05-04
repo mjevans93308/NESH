@@ -142,7 +142,7 @@ if(isset($_POST)){
 		$q_count = "SELECT $filter AS TAG, DATE( c_timestamp ) AS DAY, COUNT( * ) AS CNT FROM V$hash_number GROUP BY $filter, DATE( c_timestamp );";
 		if ( $result = $db_obj->query($q_count)){
 			if( $result->num_rows > 0 ){
-				$row = $result->fetch_assoc();
+				//$row = $result->fetch_assoc();
 				while($row = $result->fetch_assoc()){
 					$tagstr = $row['TAG'];
 					if($debug == true){echo "filterarr[".$filter."][".$tagstr."]=";}
