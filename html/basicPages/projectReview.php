@@ -344,7 +344,7 @@
 				y3[i] = (y3[i - 1] || 300) + (Math.random() * 7) - 4;
 			}
 			var width = document.getElementById("graph").clientWidth - 20;
-			var lines = r.linechart(20, 0, width, 480, [1, 2, 3, 4, 5, 6, 7],[12, 32, 23, 15, 17, 27, 22], { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
+			var lines = r.linechart(20, 0, width, 480, [[1, 2, 3, 4, 5, 6, 7],[3.5, 4.5, 5.5, 6.5, 7, 8]], [[12, 32, 23, 15, 17, 27, 22], [10, 20, 30, 25, 15, 28]], { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
 				this.tags = r.set();
 				for (var i = 0, ii = this.y.length; i < ii; i++) {
 					this.tags.push(r.tag(this.x, this.y[i], this.values[i], 200, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
