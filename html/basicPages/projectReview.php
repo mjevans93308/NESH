@@ -327,6 +327,8 @@
 			//alert("3");
 			document.getElementById("addTagDet1").disabled = true;
 			document.getElementById("addTagOpt").disabled = true;
+			window.xAxis = [[1, 2, 3, 4, 5, 6, 7], [3.5, 4.5, 5.5, 6.5, 7, 8]];
+			window.yAxis =  [[12, 32, 23, 15, 17, 27, 22], [10, 20, 30, 25, 15, 28]];
 			createGraph();
 		}
 		
@@ -334,6 +336,7 @@
 									GRAPH AREA
 			*********************************************************/
 		function createGraph(){
+			alert("gets into the function");
 			var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 490),
 			txtattr = { font: "12px sans-serif" };
 			var x = [], y = [], y2 = [], y3 = [];
@@ -344,7 +347,8 @@
 				y3[i] = (y3[i - 1] || 300) + (Math.random() * 7) - 4;
 			}
 			var width = document.getElementById("graph").clientWidth - 20;
-			var lines = r.linechart(20, 0, width, 480, [[1, 2, 3, 4, 5, 6, 7],[3.5, 4.5, 5.5, 6.5, 7, 8]], [[12, 32, 23, 15, 17, 27, 22], [10, 20, 30, 25, 15, 28]], { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
+			var j = 0;
+			var lines = r.linechart(20, 0, width, 480, window.xAxis, window.yAxis, { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
 				this.tags = r.set();
 				for (var i = 0, ii = this.y.length; i < ii; i++) {
 					this.tags.push(r.tag(this.x, this.y[i], this.values[i], 200, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
@@ -404,7 +408,10 @@
 			statechange and then use the response text***********/
 			xmlhttp.onreadystatechange=function(){
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					alert(xmlhttp.responseText);
+					var response = xmlhttp.responseText;
+					alert(response);
+					var retData = $.parseJSON(response);
+					alert(retData);
 				}
   			}
 		}
