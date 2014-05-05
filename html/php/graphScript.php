@@ -30,10 +30,10 @@ class line {
 
     public function getJSON(){
     	global $debug;
-    	$xstr = "[".implode(",", $this->_x)."]";
+    	$xstr = "[\"".implode("\",\"", $this->_x)."\"]";
     	$ystr = "[".implode(",", $this->_y)."]";
-    	if($debug==true){echo "\"$this->_k\":{\"x\":\"$xstr\",\"y\":\"$ystr\"}";}
-    	return "\"$this->_k\":{\"x\":\"$xstr\",\"y\":\"$ystr\"}";
+    	if($debug==true){echo "\"$this->_k\":{\"x\":$xstr,\"y\":$ystr}";}
+    	return "\"$this->_k\":{\"x\":$xstr,\"y\":$ystr}";
     }
 }
 
@@ -56,11 +56,13 @@ function sendback($rval){
 	}
 	$prejoin = array();
 	foreach($return_arr as $tag => $str){
-		if($str)
-		$prejoin[] = "\"$tag\":\"$str\"";
+		if($str[0] == "{" || $str[0] == "[" )
+			$prejoin[] = "\"$tag\":$str";
+		else
+			$prejoin[] = "\"$tag\":\"$str\"";
 	}
 	$echostring = join(",",$prejoin);
-	echo "\'{$echostring}\'";
+	echo "{".$echostring."}";
 	exit($rval);
 }
 
