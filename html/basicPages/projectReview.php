@@ -404,15 +404,16 @@
 			xmlhttp.open("POST","http://nesh.co/php/graphScript.php", true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xmlhttp.send(postString);
+			
 			/*********because this is an asynchronous request, we must look for a 
 			statechange and then use the response text***********/
 			xmlhttp.onreadystatechange=function(){
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					var response = xmlhttp.responseText;
-					alert(response);
-					var retData = $.parseJSON(response);
-					alert("return data ahead");
-					alert(retData);
+					var res = xmlhttp.responseText;
+					alert(res);
+					var obj = $.parseJSON(res);
+					alert("json recieved?");
+					alert(obj.STATUS);
 				}
   			}
 		}
