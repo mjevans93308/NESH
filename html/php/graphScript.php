@@ -59,7 +59,7 @@ function sendback($rval){
 		$prejoin[] = "\"$tag\":\"$str\"";
 	}
 	$echostring = join(",",$prejoin);
-	echo "{$echostring}";
+	echo "\'{$echostring}\'";
 	exit($rval);
 }
 
