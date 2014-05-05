@@ -101,6 +101,11 @@ if(isset($_POST)){
 	// IF Tag Selected with no specifics: All Line within that tag
 	// If Tag Selected with Specifics: use spec to limit view
 	
+	if(!isset($_POST['event_id'])&&!isset($_POST['tag0'])&&!isset($_POST['tag1'])&&!isset($_POST['tag2'])&&!isset($_POST['tag3'])&&!isset($_POST['tag4'])){
+		// get all event_id's
+		// get all tags for all events 
+	}
+
 	if(isset($_POST['event_id'])){
 		$event_id = $_POST['event_id'];
 		$q_view .= " AND event_id=$event_id";
