@@ -414,6 +414,35 @@
 					var obj = $.parseJSON(res);
 					alert("json recieved?");
 					alert(obj.STATUS);
+					alert(obj.tags.tag0.blue.x[0]);
+					window.xAxis = [];
+					window.yAxis = [];
+					for (var tagSet in obj.tags){
+						alert("gets into the first for");
+						window.labelArray = [];
+						for ( var tagName in obj.tags[tagSet] ){
+							alert("gets into the second loop");
+							var tempX = [];
+							var tempY = [];
+							for ( var k = 0; k < obj.tags[tagSet][tagName].x.length; k++ ){
+		//						alert("gets into the third loop");
+			//					alert("1:"+obj[tags][tagName].x[k]);
+				//				alert("2:"+obj[tags][tagName].y[k]);
+								
+								tempX.push(obj.tags[tagSet][tagName].x[k]);
+								tempY.push(obj.tags[tagSet][tagName].y[k]);
+								alert("tempX,Y=["+tempX.join(",")+"],["+tempY.join(",")+"]");
+							}
+							document.getElementById('graph').innerHTML='';
+							//window.labelArray.push(tagName);
+							window.xAxis.push(tempX);
+							window.yAxis.push(tempY);
+						}
+					}
+					alert("finish for");
+	//				alert($.toJSON(window.xAxis));
+		//			alert($.toJSON(window.yAxis));
+					createGraph();
 				}
   			}
 		}
