@@ -2,8 +2,12 @@
 include("../php/mysqli.php");
 
 /* Behavior
- * IF ! Hash || ! Event : Die with error
- * IF ! Tags : Return counts per day of all lines in all tags
+ * IF ! Hash : Die with error
+ * IF ! Type : Return Thruput
+ * Else, Return Type
+ 	"thru" : Thruput/Funnel Graph
+ 	"events" : events versus date
+ 	""
  * IF Tag && ! Specifics: All Lines within that tag
  * If Tag Selected with Specifics: use Spec to limit view
  */
