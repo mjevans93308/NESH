@@ -32,7 +32,7 @@ class line {
     	global $debug;
     	$xstr = "[\"".implode("\",\"", $this->_x)."\"]";
     	$ystr = "[".implode(",", $this->_y)."]";
-    	if($debug==true){echo "\"$this->_k\":{\"x\":\"$xstr\",\"y\":$ystr}";}
+    	if($debug==true){echo "\"$this->_k\":{\"x\":$xstr,\"y\":$ystr}";}
     	return "\"$this->_k\":{\"x\":$xstr,\"y\":$ystr}";
     }
 }
@@ -114,10 +114,25 @@ if(isset($_POST)){
 		$q_view .= " AND event_id=$event_id";
 	}else{
 		$all_arr[] = "event_id";
-		//$events = $_POST['event_id'].split(",");
-		//$events = explode(",", $_POST['event_id']);
-		//$final_query .= "(event_id =".$events.join(" OR event_id=").")";
-		//$final_query = "(event_id =".implode(" OR event_id=", $events).")";
+		$evt_arr = $array();
+		$q_events = "SELECT event_id FROM Events WHERE hash_number=$hash_number";
+		if ( $evt_result = $db_obj->query($q_events)){
+			if( $evt_result->num_rows > 0 ){
+				while($evt_row = $evt_result->fetch_assoc()){
+					$evt_arr[] = $evt_row['event_id'];
+					if($debug == true){echo "event[]=".$evt_row['event_id'];}
+				}
+				if( $result = $db_obj->query($q_view)){
+
+				}
+			}else{
+				errlog("DB_GRAPHING_NO_EVENTS","db returned 0 rows for events for hash",$hash_number);
+			}
+		}else{
+			errlog("DB_ERROR_EVENT_COUNT","error counting events for hash",$hash_number);
+			errlog("DB_ERROR_EVENT_COUNT_SQL",mysql_error(),mysql_errno());
+			sendback(-1);
+		}
 	}
 
 	for( $t = 0 ; $t < 5 ; $t++ ){
