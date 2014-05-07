@@ -191,7 +191,8 @@ if(isset($_POST)){
 		sendback(-1);
 	}
 	sendback(0);
+}else{
+	errlog("POST_ERROR","no POST data received");
+	sendback(-1);
 }
-else
-	echo  "Didn't even get here";
 ?>
