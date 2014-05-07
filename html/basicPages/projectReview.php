@@ -339,13 +339,6 @@
 			alert("gets into the function");
 			var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 490),
 			txtattr = { font: "12px sans-serif" };
-			var x = [], y = [], y2 = [], y3 = [];
-			for (var i = 0; i < 1e6; i++) {
-				x[i] = i * 10;
-				y[i] = (y[i - 1] || 0) + (Math.random() * 7) - 3;
-				y2[i] = (y2[i - 1] || 150) + (Math.random() * 7) - 3.5;
-				y3[i] = (y3[i - 1] || 300) + (Math.random() * 7) - 4;
-			}
 			var width = document.getElementById("graph").clientWidth - 20;
 			var j = 0;
 			var lines = r.linechart(20, 0, width, 480, window.xAxis, window.yAxis, { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
@@ -388,6 +381,54 @@
 					}, function(){
 						$("#graph").html("");
 					 });*/
+			var myTextElem = lines.axis[0].text.items;
+			for(var l = 0; l < myTextElem.length; l++){
+				myTextElem[l].attr({'text' : window.xAxisLabels[l]});
+			}
+		}
+		
+		function checkMonth(number){
+			switch( number ){
+				case 1: 
+					return 31;
+					break;
+				case 2: 
+					return 28 + 31;
+					break;
+				case 3:
+					return 31 + 28 + 31;
+					break;
+				case 4:
+					return 30 + 31 + 28 + 31;
+					break; 
+				case 5: 
+					return 31 + 30 + 31 + 28 + 31;
+					break;
+				case 6: 
+					return 30 + 31 + 30 + 31 + 28 + 31;
+					break;
+				case 7: 
+					return 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				case 8: 
+					return 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				case 9: 
+					return 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				case 10:
+					return 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				case 11: 
+					return 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				case 12:
+					return 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				default: 
+					return 0;
+					break;
+			}
 		}
 		var tag = 1;
 		var tagNum = 1;
@@ -410,38 +451,40 @@
 			xmlhttp.onreadystatechange=function(){
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					var res = xmlhttp.responseText;
-					alert(res);
+					//alert(res);
 					var obj = $.parseJSON(res);
-					alert("json recieved?");
-					alert(obj.STATUS);
-					alert(obj.tags.tag0.blue.x[0]);
+					//alert("json status: "+obj.STATUS);
+					//alert(obj.tags.tag0.blue.x[0]);
 					window.xAxis = [];
 					window.yAxis = [];
 					for (var tagSet in obj.tags){
-						alert("gets into the first for");
+						//alert("gets into the first for: "+tagSet);
 						window.labelArray = [];
+						window.xAxisLabels = [];
 						for ( var tagName in obj.tags[tagSet] ){
-							alert("gets into the second loop");
+							//alert("gets into the second loop for: "+tagName);
 							var tempX = [];
 							var tempY = [];
 							for ( var k = 0; k < obj.tags[tagSet][tagName].x.length; k++ ){
 		//						alert("gets into the third loop");
 			//					alert("1:"+obj[tags][tagName].x[k]);
 				//				alert("2:"+obj[tags][tagName].y[k]);
-								
-								tempX.push(obj.tags[tagSet][tagName].x[k]);
+								var dateSet = obj.tags[tagSet][tagName].x[k].split("-");
+								var dateNum = ((parseInt(dateSet[0])-2014)*365)+checkMonth(parseInt(dateSet[1]))+parseInt(dateSet[2]);
+								window.xAxisLabels.push(obj.tags[tagSet][tagName].x[k]);
+								tempX.push(dateNum);
 								tempY.push(obj.tags[tagSet][tagName].y[k]);
-								alert("tempX,Y=["+tempX.join(",")+"],["+tempY.join(",")+"]");
 							}
 							document.getElementById('graph').innerHTML='';
-							//window.labelArray.push(tagName);
+							window.labelArray.push(tagName); //tagName = Mozila, Firefox etc
 							window.xAxis.push(tempX);
 							window.yAxis.push(tempY);
 						}
 					}
-					alert("finish for");
-	//				alert($.toJSON(window.xAxis));
-		//			alert($.toJSON(window.yAxis));
+					//alert("finish for");
+					//for(var l = 0; l < window.xAxis.length; l++){
+					//	alert("x, y=["+window.xAxis[l].join(",")+"],["+window.yAxis[l].join(",")+"]");
+					//}
 					createGraph();
 				}
   			}
