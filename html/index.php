@@ -87,8 +87,8 @@
 	<div class="container-fluid">
 		<div class="row">
         	<div class="col-xs-6">
-           	<img id="imagine" src="images/google_analytics_report.png">
-      			<p id="bound">To improve developer-user feedback interaction, we have developed a web-based, event-driven analytic and A/B testing system. Event triggered snippets, embedded in clients' websites or mobile apps, send usage data to the cloud, where clients can observe trends in customizable graphs.</p>
+           	<img id="imagine" src="images/graph.jpg">
+      			<p>To improve developer-user feedback interaction, we have developed a web-based, event-driven analytic and A/B testing system. Event triggered snippets, embedded in clients' websites or mobile apps, send usage data to the cloud, where clients can observe trends in customizable graphs.</p>
            </div>
            <div class="col-xs-6">
            	<div class="page-header">

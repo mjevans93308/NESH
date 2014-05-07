@@ -5,13 +5,11 @@
 .basic-footer {
 	border-top: 1px solid #E5E5E5;
 	color:#777777;
-	/*margin-top: 50px;
+	margin-top: 50px;
 	padding-bottom: 30px;
 	padding-top: 30px;
 	text-align: center;
 	width: 100%;
-	position: fixed;
-	*/
 	height: 60px;
 }
 
@@ -50,6 +48,9 @@
 	border:thin solid #B0ACAC;
   	margin:10px;
   	width:98%;
+}
+#marginLeft{
+	margin-left:0px;
 }
 
 .sub-box{

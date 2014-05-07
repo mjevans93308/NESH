@@ -116,91 +116,70 @@
 
         <!-- Page content -->
         <div id="page-content-wrapper">
-            <!-- Keep all page content within the page-content inset div! -->
-            <div class="page-content inset">
-            	               <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="well">
-								<form class="form-horizontal" role="form">
-            					<div class="form-group">
-                                <!--****************************************************
-                                		This is the section for selecting Events for graphs
-                                *******************************************************-->
-                					<div class="pull-left padding" id="eventGraph">
-                    					<select id="eventSelect" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange='eventSelected()'>
-                                        <div id="eventOptions">
-                                        <?php
-												$st1 = '<option selected>Event</option>';
-												$query2 = "SELECT * FROM Events WHERE hash_number = '".$hash_num."'";
-													if ( ($result2 = $db_obj->query($query2)) && ($result2->num_rows != 0) ){  // success!
-														while($row2 = $result2->fetch_assoc()){
-          													$st1 .= '<option>'.$row2['description'].'</option>';
-          												}		
-													}
-												echo $st1;
-											?>
-                                        </div>
-                    					</select>
-                					</div>
-              					</div>
+        <!-- Keep all page content within the page-content inset div! -->
+        	<div class="page-content inset">
+           	<a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+            	<div class="row">
+              		<div class="col-md-12"> 
+                    	<div class="well">
+                        <div class="page-header">
+                    		<h4>Basic Code Snippets</h4> 
+                        </div>
+                        <h5>The custom JavaScript file generated at the following link should be included into your project</h5>
+                        <p>link here</p>
+                        <h5>This is a general format of how the code snippet should look</h5>
+                        <p>nesh.track("event", "tag, tag, tag, tag, tag");</p>               
+                  	</div>
+                  </div>
+                  <div class="col-md-12">
+                  	<div class="well">
+                    		<div class="page-header">
+                         		<h4>Create a custom code snippet:</h4>
+                         </div>
+                    		<form class="form-horizontal" role="form">
+                            <div class="form-group" id="marginLeft">
+                            <!--****************************************************
+                            	This is the section for selecting Events for graphs
+                            *******************************************************-->
+                            <div class="pull-left padding" id="eventGraph">
+                            		<select id="eventSelect" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange='eventSelected()'>
+                            		<div id="eventOptions">
+									<?php
+                                    $st1 = '<option selected>Event</option>';
+										$query2 = "SELECT * FROM Events WHERE hash_number = '".$hash_num."'";
+										if ( ($result2 = $db_obj->query($query2)) && ($result2->num_rows != 0) ){  // success!
+											while($row2 = $result2->fetch_assoc()){
+												$st1 .= '<option>'.$row2['description'].'</option>';
+											}
+										}
+										echo $st1;
+									?>
+                                	</div>
+                    				</select>
+                				</div>
                              <div id="tagGraph">
-                             <div class="form-group" id= "tagSection1">
-                             	<div class="pull-left padding">
-                             		<select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true">
-                                			<option selected>By</option>
-                                			<option>Is</option>
-                                    
-                                		</select>
-                                 </div>
+                             <div id= "tagSection1">
                              	<div class="pull-left padding">
                     					<select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
 										<?php
-												$st2 = '<option selected>Property</option>';
+												$st2 = '<option selected>Tag</option>';
 												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
 													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
 														while($row3 = $result3->fetch_assoc()){
 															if($row3['tag0'] != ""){
-          														$st2 .= '<option value="tag0">'.$row3['tag0'].'</option>';
-																
-																/******************************************************************
-																						TAG DETAILS FOR TAG 0
-																******************************************************************/
-																
-																$query4 = "SELECT DISTINCT tag0 FROM Session WHERE hash_number='".$hash_num."'";
-																if($tag0 = $db_obj->query($query4)){
-																	$i = 0;
-																	$tag0Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
-																	$tag0Str .= '<option selected>Value</option>';
-																	while($row4 = $tag0->fetch_array(MYSQLI_NUM)){
-																		$tag0Str .= '<option>'.$row4[i].'</option>';
-																		$i++;
-																	}
-																	$tag0Str .= '</select></div>';	
-																}
-																
+          														$st2 .= '<option value="tag0">'.$row3['tag0'].'</option>';	
 															}
 															if($row3['tag1'] != ""){
           														$st2 .= '<option value="tag1">'.$row3['tag1'].'</option>';
-																$query5 = "SELECT DISTINCT tag1 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag1 = $db_obj->query($query5);
 															}
 															if($row3['tag2'] != ""){
           														$st2 .= '<option value="tag2">'.$row3['tag2'].'</option>';
-																
-																$query6 = "SELECT DISTINCT tag2 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag2 = $db_obj->query($query6);
 															}
 															if($row3['tag3'] != ""){
           														$st2 .= '<option value="tag3">'.$row3['tag3'].'</option>';
-																$query7 = "SELECT DISTINCT tag3 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag3 = $db_obj->query($query7);
 															}
 															if($row3['tag4'] != ""){
           														$st2 .= '<option value="tag4">'.$row3['tag4'].'</option>';
-																
-																$query8 = "SELECT DISTINCT tag4 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag4 = $db_obj->query($query8);
 															}
           												}		
 													}
@@ -208,68 +187,20 @@
 												
 											?>
                     					</select>  
-                                    <?php
-											$temp = $st2;
-											echo "<script> window.tag0Str='".$tag0Str."'</script>"; 
-											echo "<script> window.additionalTags='".$temp."'</script>"; 
-
-										?>
                 					</div>
-                                <div class="pull-left">
-                          			<button type="button" id="addTagDet1" class="close" onClick="addTagDetails('#tagSection1');">&#62;</button>
-                                	</div>
                              </div>
                              </div>
-                             <div class="form-group">
-                              	<div class="pull-left">
-                          			<button type="button" id="addTagOpt" class="close" onClick="addTagGraphs(this.form);">&#43;</button>
-                              	</div>
+                             <div class="pull-left">
+                          		<button type="button" id="addTagOpt" class="close" onClick="addTagGraphs(this.form);">&#43;</button>
+                             </div>
                              </div>
         						</form>  
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="well" id="box">
-                        		<div class="sub-box">
-        							<form class="form-horizontal" role="form">
-									<div class="form-group">
-											<div class="btn-group">
-                                            <button type="button" class="btn btn-default">Unique User</button>
-												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"/>
-													  <span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<ul class="dropdown-menu" role="menu">
-													<li> <a href="#">Event 1</a></li>
-													<li><a href="#">Event 2</a></li>
-												</ul>
-											</div>
-                  					<div class="pull-right">
-										<div class="btn-group">
-											<button type="button" class="btn btn-default">Bar Graph</button>
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"/>
-													  <span class="sr-only">Toggle Dropdown</span>
-												</button>
-											<ul class="dropdown-menu" role="menu">
-												<li> <a href="#">Event 1</a></li>
-												<li><a href="#">Event 2</a></li>
-											</ul>
-										</div>
-										</div> 
-									</div>
-									</form> 
-       				 			</div>
-                             <div id="graph">
-                             </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-
     </div>
-
+</div>
     <!-- JavaScript -->
     <script src="../scripts/jquery-1.11.0.js" type="text/javascript"></script>
     <script src="../scripts/bootstrap.js" type="text/javascript"></script>
@@ -286,74 +217,9 @@
 			/********************************************************
 						INITIAL SETTINGS FOR THE DROPDOWNS
 			*********************************************************/
-			alert("2");
-			$('#prepositions').prop('disabled', true);
-			$('#prepositions').selectpicker('refresh');
-			$('#property').prop('disabled', true);
-			$('#property').selectpicker('refresh');
 			$('.selectpicker').selectpicker();
-			alert("3");
-			document.getElementById("addTagDet1").disabled = true;
-			document.getElementById("addTagOpt").disabled = true;
-			
-			/********************************************************
-									GRAPH AREA
-			*********************************************************/
-			var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 490),
-			txtattr = { font: "12px sans-serif" };
-                
-                var x = [], y = [], y2 = [], y3 = [];
-
-                for (var i = 0; i < 1e6; i++) {
-                    x[i] = i * 10;
-                    y[i] = (y[i - 1] || 0) + (Math.random() * 7) - 3;
-                    y2[i] = (y2[i - 1] || 150) + (Math.random() * 7) - 3.5;
-                    y3[i] = (y3[i - 1] || 300) + (Math.random() * 7) - 4;
-                }
-				var width = document.getElementById("graph").clientWidth - 20;
-                var lines = r.linechart(20, 0, width, 480, [1, 2, 3, 4, 5, 6, 7],[12, 32, 23, 15, 17, 27, 22], { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
-                    this.tags = r.set();
-
-                    for (var i = 0, ii = this.y.length; i < ii; i++) {
-                        this.tags.push(r.tag(this.x, this.y[i], this.values[i], 200, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
-                    }
-                }, function () {
-                    this.tags && this.tags.remove();
-                });
-
-                lines.symbols.attr({ r: 6 });
-                // lines.lines[0].animate({"stroke-width": 6}, 1000);
-                // lines.symbols[0].attr({stroke: "#fff"});
-                // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
-           /*         fin = function () {
-                        this.flag = r.popup(this.bar.x, this.bar.y, this.bar.value || "0").insertBefore(this);
-                    },
-                    fout = function () {
-                        this.flag.animate({opacity: 0}, 300, function () {this.remove();});
-                    },
-                    txtattr = { font: "12px sans-serif" };
-                
-                r.text(160, 10, "Single Series Chart").attr(txtattr);
-                
-                r.barchart(0, 0, document.getElementById("graph").clientWidth/2, 500, [55, 20, 13, 32, 5, 1, 2, 10]).hover(fin, fout);
-			var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 480);
-			r.barchart(0, 0, document.getElementById("graph").clientWidth/5, 480, [76, 70, 67, 71, 69], {});
-			r.piechart(100, 100, 90, [55, 20, 13, 32, 5, 1, 2],
-			{
-				legend: ["User 1", "User 2", "User 3", "User 4", "User 5", "User 6", "User 7"]
-			});
-			var userDetails = ["User 1 stuff", "User 2 stuff", "User 3 stuff", "User 4 stuff", "User 5 stuff", "User 6 stuff", "User 7 stuff"]
-			pie.hover(function(){
-				var info = [
-					"<b>" + this.label[i].attrs["text"] + "</b>",
-					userDetails[this.value.order],
-					"Details:" + this.value.value
-					].join("");
-					$("#graph").html(info);
-					}, function(){
-						$("#graph").html("");
-					 });*/
 		}
+
 		/********************************************************
 						FUNCTIONS FOR DROPDOWNS
 		*********************************************************/
@@ -363,45 +229,11 @@
 		function eventSelected(){
 			alert("onclick works");
 			var eventSelected = $('#eventSelect option:selected').val();
-			alert(eventSelected);
-			$('#prepositions').prop('disabled', false);
-			$('#prepositions').selectpicker('refresh');
-			$('#property').prop('disabled', false);
-			$('#property').selectpicker('refresh');
-			document.getElementById('addTagDet1').disabled = false;
-			document.getElementById('addTagOpt').disabled = false;
-			
-			/*********INVOKING THE SCRIPT ON THE SERVER TO GET DATA***********/
-			var xmlhttp;
-			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
-  				xmlhttp=new XMLHttpRequest();
-  			}
-			else{// code for IE6, IE5
-  				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-  			}
-			xmlhttp.open("POST","http://nesh.co/php/graphScript.php", true);
-			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send("event_id=100442");
-			/*********because this is an asynchronous request, we must look for a 
-			statechange and then use the response text***********/
-			xmlhttp.onreadystatechange=function(){
-				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					alert(xmlhttp.responseText);
-				}
-  			}
 		}
 	
 		function tagSelected(){
 			var tagSelected1 = $('#property option:selected').val();
 			alert(tagSelected1);
-		}
-
-		function addTagDetails(form) {
-			var addTagPrep = '<div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>Contains</option></select></div>';
-			$(form).append(addTagPrep);
-			$(form).append(window.tag0Str);
-			$('.selectpicker').selectpicker();
-			$('#addTagDet').remove();
 		}
 		
 		function addTagGraphs(form) {
