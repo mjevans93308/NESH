@@ -294,7 +294,7 @@
 									</form> 
        				 			</div>
                              <div id="graph">
-                             	<h4>Select options from the events and tags to display custom graphs</h4>
+                             	<h4>Select options from the events and tags to display two custom graphsfor versions A and B</h4>
                              </div>
                         </div>
                     </div>

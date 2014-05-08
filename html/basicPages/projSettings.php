@@ -123,152 +123,53 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="well">
-								<form class="form-horizontal" role="form">
-            					<div class="form-group">
-                                <!--****************************************************
-                                		This is the section for selecting Events for graphs
-                                *******************************************************-->
-                					<div class="pull-left padding" id="eventGraph">
-                    					<select id="eventSelect" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange='eventSelected()'>
-                                        <div id="eventOptions">
-                                        <?php
-												$st1 = '<option selected>Event</option>';
-												$query2 = "SELECT * FROM Events WHERE hash_number = '".$hash_num."'";
-													if ( ($result2 = $db_obj->query($query2)) && ($result2->num_rows != 0) ){  // success!
-														while($row2 = $result2->fetch_assoc()){
-          													$st1 .= '<option>'.$row2['description'].'</option>';
-          												}		
-													}
-												echo $st1;
-											?>
-                                        </div>
-                    					</select>
-                					</div>
-              					</div>
-                             <div id="tagGraph">
-                             <div class="form-group" id= "tagSection1">
-                             	<div class="pull-left padding">
-                             		<select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true">
-                                			<option selected>By</option>
-                                			<option>Is</option>
-                                    
-                                		</select>
-                                 </div>
-                             	<div class="pull-left padding">
-                    					<select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
-										<?php
-												$st2 = '<option selected>Property</option>';
-												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
-													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
-														while($row3 = $result3->fetch_assoc()){
-															if($row3['tag0'] != ""){
-          														$st2 .= '<option value="tag0">'.$row3['tag0'].'</option>';
-																
-																/******************************************************************
-																						TAG DETAILS FOR TAG 0
-																******************************************************************/
-																
-																$query4 = "SELECT DISTINCT tag0 FROM Session WHERE hash_number='".$hash_num."'";
-																if($tag0 = $db_obj->query($query4)){
-																	$i = 0;
-																	$tag0Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
-																	$tag0Str .= '<option selected>Value</option>';
-																	while($row4 = $tag0->fetch_array(MYSQLI_NUM)){
-																		$tag0Str .= '<option>'.$row4[i].'</option>';
-																		$i++;
-																	}
-																	$tag0Str .= '</select></div>';	
-																}
-																
-															}
-															if($row3['tag1'] != ""){
-          														$st2 .= '<option value="tag1">'.$row3['tag1'].'</option>';
-																$query5 = "SELECT DISTINCT tag1 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag1 = $db_obj->query($query5);
-															}
-															if($row3['tag2'] != ""){
-          														$st2 .= '<option value="tag2">'.$row3['tag2'].'</option>';
-																
-																$query6 = "SELECT DISTINCT tag2 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag2 = $db_obj->query($query6);
-															}
-															if($row3['tag3'] != ""){
-          														$st2 .= '<option value="tag3">'.$row3['tag3'].'</option>';
-																$query7 = "SELECT DISTINCT tag3 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag3 = $db_obj->query($query7);
-															}
-															if($row3['tag4'] != ""){
-          														$st2 .= '<option value="tag4">'.$row3['tag4'].'</option>';
-																
-																$query8 = "SELECT DISTINCT tag4 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag4 = $db_obj->query($query8);
-															}
-          												}		
-													}
-												echo $st2;
-												
-											?>
-                    					</select>  
-                                    <?php
-											$temp = $st2;
-											echo "<script> window.tag0Str='".$tag0Str."'</script>"; 
-											echo "<script> window.additionalTags='".$temp."'</script>"; 
-
-										?>
-                					</div>
-                                <div class="pull-left">
-                          			<button type="button" id="addTagDet1" class="close" onClick="addTagDetails('#tagSection1');">&#62;</button>
-                                	</div>
-                             </div>
-                             </div>
-                             <div class="form-group">
-                              	<div class="pull-left">
-                          			<button type="button" id="addTagOpt" class="close" onClick="addTagGraphs(this.form);">&#43;</button>
-                              	</div>
-                             </div>
-        						</form>  
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="well" id="box">
-                        		<div class="sub-box">
-        							<form class="form-horizontal" role="form">
-									<div class="form-group">
-											<div class="btn-group">
-                                            <button type="button" class="btn btn-default">Unique User</button>
-												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"/>
-													  <span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<ul class="dropdown-menu" role="menu">
-													<li> <a href="#">Event 1</a></li>
-													<li><a href="#">Event 2</a></li>
-												</ul>
-											</div>
-                  					<div class="pull-right">
-										<div class="btn-group">
-											<button type="button" class="btn btn-default">Bar Graph</button>
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"/>
-													  <span class="sr-only">Toggle Dropdown</span>
-												</button>
-											<ul class="dropdown-menu" role="menu">
-												<li> <a href="#">Event 1</a></li>
-												<li><a href="#">Event 2</a></li>
-											</ul>
-										</div>
-										</div> 
-									</div>
-									</form> 
-       				 			</div>
-                             <div id="graph">
-                             </div>
+								 <div class="page-header">
+                              	<h5>Current Events Reggistered with the Project</h5>
+                              </div>
+                              <?php
+										$st1 = '';
+                                		$query2 = "SELECT * FROM Events WHERE hash_number = '".$hash_num."'";
+											if ( ($result2 = $db_obj->query($query2)) && ($result2->num_rows != 0) ){  // success!
+												while($row2 = $result2->fetch_assoc()){
+													$st1 .= '<div class="input-group paddingBottom"><input type="text" class="form-control" value="'.$row2['description'].'"><span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-pencil"></span></button></span></div>';
+          										}		
+											}
+										echo $st1;
+									?>
+                              	<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+                              <div class="page-header">
+                              	<h5>Current Tags Reggistered with the Project</h5>
+                              </div>
+                              <?php
+							  		$st2 = '';
+                              	$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
+									if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
+										while($row3 = $result3->fetch_assoc()){
+											if($row3['tag0'] != ""){
+          										$st2 .= '<div class="input-group paddingBottom"><input type="text" class="form-control" value="'.$row3['tag0'].'"><span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-pencil"></span></button></span></div>';	
+											}
+											if($row3['tag1'] != ""){
+          										$st2 .= '<div class="input-group paddingBottom"><input type="text" class="form-control" value="'.$row3['tag1'].'"><span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-pencil"></span></button></span></div>';	
+											}
+											if($row3['tag2'] != ""){
+          										$st2 .= '<div class="input-group paddingBottom"><input type="text" class="form-control" value="'.$row3['tag2'].'"><span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-pencil"></span></button></span></div>';	
+											}
+											if($row3['tag3'] != ""){
+          										$st2 .= '<div class="input-group paddingBottom"><input type="text" class="form-control" value="'.$row3['tag3'].'"><span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-pencil"></span></button></span></div>';	
+											}
+											if($row3['tag4'] != ""){
+          										$st2 .= '<div class="input-group paddingBottom"><input type="text" class="form-control" value="'.$row3['tag4'].'"><span class="input-group-btn"><button class="btn btn-default" type="button"><span class="glyphicon glyphicon-pencil"></span></button></span></div>';	
+											}
+          								}		
+									}
+									echo $st2;
+								?>        
+                             <button type="button" class="btn btn-default" style="margin-bottom:20px;">Delete the Project</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <!-- JavaScript -->

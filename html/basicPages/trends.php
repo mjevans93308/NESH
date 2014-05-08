@@ -249,6 +249,7 @@
 		}
 		/*********INVOKING THE SCRIPT ON THE SERVER TO GET DATA***********/
 		function invokeScript(){
+			alert("calling invokeScript");
 			var xmlhttp;
 			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
   				xmlhttp=new XMLHttpRequest();
@@ -256,7 +257,8 @@
 			else{// code for IE6, IE5
   				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   			}
-			xmlhttp.open("POST","http://nesh.co/php/trendsCalc.php", true);
+			xmlhttp.open("POST","http://nesh.co/php/trendsCalc.php", false);
+			alert("opened");
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xmlhttp.send(postString);
 			
@@ -265,7 +267,8 @@
 			xmlhttp.onreadystatechange=function(){
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					var res = xmlhttp.responseText;
-					//alert(res);
+					alert(res);
+					/*
 					var obj = $.parseJSON(res);
 					//alert("json status: "+obj.STATUS);
 					//alert(obj.tags.tag0.blue.x[0]);
@@ -299,7 +302,7 @@
 					//for(var l = 0; l < window.xAxis.length; l++){
 					//	alert("x, y=["+window.xAxis[l].join(",")+"],["+window.yAxis[l].join(",")+"]");
 					//}
-					createGraph();
+					createGraph();*/
 				}
   			}
 		}
@@ -328,7 +331,7 @@
 				postString += "tag4=_ALL";
 			}
 			alert(postString);
-			//invokeScript();
+			invokeScript();
 		}
 		/********************************************************
 						FUNCTIONS FOR DROPDOWNS

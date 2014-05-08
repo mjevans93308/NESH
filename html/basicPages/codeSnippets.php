@@ -150,7 +150,7 @@
 										$query2 = "SELECT * FROM Events WHERE hash_number = '".$hash_num."'";
 										if ( ($result2 = $db_obj->query($query2)) && ($result2->num_rows != 0) ){  // success!
 											while($row2 = $result2->fetch_assoc()){
-												$st1 .= '<option>'.$row2['description'].'</option>';
+												$st1 .= '<option value="'.$row2['event_id'].'">'.$row2['description'].'</option>';
 											}
 										}
 										echo $st1;
@@ -171,17 +171,17 @@
           														$st2 .= '<option>'.$row3['tag0'].'</option>';	
 															}
 															if($row3['tag1'] != ""){
-          														$st2 .= '<option>'.$row3['tag1'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag1'].'</option>';
 															}
 															if($row3['tag2'] != ""){
-          														$st2 .= '<option>'.$row3['tag2'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag2'].'</option>';
 															}
 															if($row3['tag3'] != ""){
-          														$st2 .= '<option>'.$row3['tag3'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag3'].'</option>';
 															}
 															if($row3['tag4'] != ""){
-          														$st2 .= '<option>'.$row3['tag4'].'</option>';
-															}
+          														$st2 .= '<option disabled="disabled">'.$row3['tag4'].'</option>';
+															} 
           												}		
 													}
 												echo $st2;
@@ -203,19 +203,19 @@
 													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
 														while($row3 = $result3->fetch_assoc()){
 															if($row3['tag0'] != ""){
-          														$st2 .= '<option>'.$row3['tag0'].'</option>';	
+          														$st2 .= '<option disabled="disabled">'.$row3['tag0'].'</option>';	
 															}
 															if($row3['tag1'] != ""){
           														$st2 .= '<option>'.$row3['tag1'].'</option>';
 															}
 															if($row3['tag2'] != ""){
-          														$st2 .= '<option>'.$row3['tag2'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag2'].'</option>';
 															}
 															if($row3['tag3'] != ""){
-          														$st2 .= '<option>'.$row3['tag3'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag3'].'</option>';
 															}
 															if($row3['tag4'] != ""){
-          														$st2 .= '<option>'.$row3['tag4'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag4'].'</option>';
 															}
           												}		
 													}
@@ -238,19 +238,19 @@
 													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
 														while($row3 = $result3->fetch_assoc()){
 															if($row3['tag0'] != ""){
-          														$st2 .= '<option>'.$row3['tag0'].'</option>';	
+          														$st2 .= '<option disabled="disabled">'.$row3['tag0'].'</option>';	
 															}
 															if($row3['tag1'] != ""){
-          														$st2 .= '<option>'.$row3['tag1'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag1'].'</option>';
 															}
 															if($row3['tag2'] != ""){
           														$st2 .= '<option>'.$row3['tag2'].'</option>';
 															}
 															if($row3['tag3'] != ""){
-          														$st2 .= '<option>'.$row3['tag3'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag3'].'</option>';
 															}
 															if($row3['tag4'] != ""){
-          														$st2 .= '<option>'.$row3['tag4'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag4'].'</option>';
 															}
           												}		
 													}
@@ -273,19 +273,19 @@
 													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
 														while($row3 = $result3->fetch_assoc()){
 															if($row3['tag0'] != ""){
-          														$st2 .= '<option>'.$row3['tag0'].'</option>';	
+          														$st2 .= '<option disabled="disabled">'.$row3['tag0'].'</option>';	
 															}
 															if($row3['tag1'] != ""){
-          														$st2 .= '<option>'.$row3['tag1'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag1'].'</option>';
 															}
 															if($row3['tag2'] != ""){
-          														$st2 .= '<option>'.$row3['tag2'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag2'].'</option>';
 															}
 															if($row3['tag3'] != ""){
           														$st2 .= '<option>'.$row3['tag3'].'</option>';
 															}
 															if($row3['tag4'] != ""){
-          														$st2 .= '<option>'.$row3['tag4'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag4'].'</option>';
 															}
           												}		
 													}
@@ -308,16 +308,16 @@
 													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
 														while($row3 = $result3->fetch_assoc()){
 															if($row3['tag0'] != ""){
-          														$st2 .= '<option>'.$row3['tag0'].'</option>';	
+          														$st2 .= '<option disabled="disabled">'.$row3['tag0'].'</option>';	
 															}
 															if($row3['tag1'] != ""){
-          														$st2 .= '<option>'.$row3['tag1'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag1'].'</option>';
 															}
 															if($row3['tag2'] != ""){
-          														$st2 .= '<option>'.$row3['tag2'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag2'].'</option>';
 															}
 															if($row3['tag3'] != ""){
-          														$st2 .= '<option>'.$row3['tag3'].'</option>';
+          														$st2 .= '<option disabled="disabled">'.$row3['tag3'].'</option>';
 															}
 															if($row3['tag4'] != ""){
           														$st2 .= '<option>'.$row3['tag4'].'</option>';

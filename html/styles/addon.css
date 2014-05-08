@@ -68,6 +68,10 @@
 	padding-right: 10px;
 }
 
+.paddingBottom{
+	padding-bottom: 20px
+}
+
 .selectclass{
 	border-bottom-left-radius:0;
   	border-bottom-right-radius:0;
