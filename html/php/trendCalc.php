@@ -99,7 +99,7 @@ if(isset($_POST)){
 		sendback(-1);
 	}
 
-	$q_view = "CREATE VIEW V$hash_number AS SELECT * from Session WHERE hash_number=$hash_number";
+	$q_view = "CREATE VIEW V$hash_number AS SELECT * from Session WHERE hash_number=$hash_number;";
 	$q_drop = "DROP VIEW V$hash_number;";
 
 	// 1. Filter By Hash
@@ -107,35 +107,29 @@ if(isset($_POST)){
 	// 3. setup count query
 	// 4. return data 
 	
+	$empty = true;
+
 	if(isset($_POST['event_id'])){
-		$event_id = $_POST['event_id'];
-		$q_view .= " AND event_id=$event_id";
-	}else{
-		$q_events = "SELECT event_id FROM Events WHERE hash_number=$hash_number";
-		if($result = $db_obj->query($q_events)){
-			// add result table elements to 
+		if($_POST['event_id']=="_ALL"){
+			$trend = "event_id";
+			$empty = false;
 		}
-		// if no event selected, get events count
-		// 1. Get Event List : hash -> prod -> events
-
 	}
-
-	$emptyTags = 0;
-	for( $t = 0 ; $t < 5 ; $t++ ){
+	for( $t = 0 ; $t < 5 && $empty ; $t++ ){
 		$tagNum = "tag".$t;
 		if(isset($_POST[$tagNum]))
 		{
 			if($_POST[$tagNum] == "_ALL"){
-				$all_arr[] = $tagNum;
-			}else{
-				$tagSet = explode(",", $_POST[$tagNum]);
-				$q_view .= " AND ($tagNum='".implode("' OR $tagNum='", $tagSet)."')";
+				$trend = $tagNum;
+				$empty = false;
 			}
-		}else{
-			$emptyTags++;
 		}
 	}
-	$q_view .= ";";
+
+	if($empty){
+		errlog("POST_ERROR_NO_ALL","no filters POSTed with value _ALL");
+		sendback(-1);
+	}
 
 	/////////////////////////////////////////////
 	// CREATE VIEW
@@ -152,40 +146,31 @@ if(isset($_POST)){
 	$tags_arr = array();
 	$filter_arr = array();
 
-	// If only event selected, prep for all tag lines
-	if($emptyTags==5){
-		$all_arr = array("tag0","tag1","tag2","tag3","tag4");
-	}
-
-	foreach( $all_arr as $filter ){
-		$filter_arr[$filter] = array();
-		$q_count = "SELECT $filter AS TAG, DATE( c_timestamp ) AS DAY, COUNT( * ) AS CNT FROM V$hash_number GROUP BY $filter, DATE( c_timestamp );";
-		if ( $result = $db_obj->query($q_count)){
-			if( $result->num_rows > 0 ){
-				//$row = $result->fetch_assoc();
-				while($row = $result->fetch_assoc()){
-					$tagstr = $row['TAG'];
-					if($debug == true){echo "filterarr[".$filter."][".$tagstr."]=";}
-					if(!isset($filter_arr[$filter][$tagstr])){
-						$filter_arr[$filter][$tagstr] = new line();
-						$filter_arr[$filter][$tagstr]->setKey($tagstr);
-					}
-					$filter_arr[$filter][$tagstr]->addXY($row['DAY'],$row['CNT']);
+	$q_count = "SELECT $trend AS TREND, COUNT( * ) AS CNT FROM V$hash_number GROUP BY $trend;";
+	if ( $result = $db_obj->query($q_count)){
+		if( $result->num_rows > 0 ){
+			while($row = $result->fetch_assoc()){
+				$tagstr = $row['TREND'];
+				//if($debug == true){echo "filterarr[".$trend."][".$tagstr."]=";}
+				if(!isset($filter_arr[$trend][$tagstr])){
+					$filter_arr[$trend][$tagstr] = new line();
+					$filter_arr[$trend][$tagstr]->setKey($tagstr);
 				}
-				$tempArr = array();
-				foreach($filter_arr[$filter] as $filterItem){
-					$tempArr[] = $filterItem->getJSON();
-				}
-				$tags_arr[$filter] = "{".implode(",", $tempArr)."}";
-			}else{
-				errlog("DB_ERROR_RETURN","db returned 0 rows for filter",$filter);
-				//sendback(-1);
+				$filter_arr[$trend][$tagstr]->addXY($row['TREND'],$row['CNT']);
 			}
+			$tempArr = array();
+			foreach($filter_arr[$trend] as $filterItem){
+				$tempArr[] = $filterItem->getJSON();
+			}
+			$tags_arr[$trend] = "{".implode(",", $tempArr)."}";
 		}else{
-			errlog("DB_ERROR_COUNT","error counting filter",$filter);
-			errlog("DB_ERROR_COUNT_SQL",mysql_error(),mysql_errno());
-			sendback(-1);
+			errlog("DB_ERROR_EMPTY_RETURN","db returned 0 rows for trend",$trend);
+			//sendback(-1);
 		}
+	}else{
+		errlog("DB_ERROR_COUNT","error counting trend",$trend);
+		errlog("DB_ERROR_COUNT_SQL",mysql_error(),mysql_errno());
+		sendback(-1);
 	}
 
 	$prejoin = array();
@@ -204,7 +189,8 @@ if(isset($_POST)){
 		sendback(-1);
 	}
 	sendback(0);
+}else{
+	errlog("POST_ERROR_NO_DATA","no data sent by POST");
+	sendback(-1);
 }
-else
-	echo  "Didn't even get here";
 ?>
