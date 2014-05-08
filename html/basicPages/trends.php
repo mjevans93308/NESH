@@ -104,6 +104,7 @@
           								$hash_num = $row1['hash_number'];
           				}		
 					}
+					echo '<script>window.hash_num ='.$hash_num.' </script>';
 					$st .= '</a></li>';
                 	$st .= '<li><a href="projectReview.php?pid='.$pid.'">Analytics</a></li>';
                 	$st .= '<li class="sidebaractive"><a href="trends.php?pid='.$pid.'">Trends</a></li>';
@@ -126,29 +127,33 @@
         							<form class="form-horizontal" role="form">
 									<div class="form-group">
 											<div class="btn-group">
-                                            <button type="button" class="btn btn-default">Unique User</button>
-												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"/>
-													  <span class="sr-only">Toggle Dropdown</span>
-												</button>
-												<ul class="dropdown-menu" role="menu">
-													<li> <a href="#">Event 1</a></li>
-													<li><a href="#">Event 2</a></li>
-												</ul>
+                                            <button type="button" class="btn btn-default" onClick="buttonClicked('Events');">Events</button>
+                                            <?php
+													$st2 = '';
+												 	$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
+													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
+														while($row3 = $result3->fetch_assoc()){
+															if($row3['tag0'] != ""){
+          														$st2 .= '<button type="button" class="btn btn-default" onClick="buttonClicked(\'tag0\');">'.$row3['tag0'].'</button>';	
+															}
+															if($row3['tag1'] != ""){
+          														$st2 .= '<button type="button" class="btn btn-default" onClick="buttonClicked(\'tag1\');">'.$row3['tag1'].'</button>';
+															}
+															if($row3['tag2'] != ""){
+          														$st2 .= '<button type="button" class="btn btn-default" onClick="buttonClicked(\'tag2\');">'.$row3['tag2'].'</button>';
+															}
+															if($row3['tag3'] != ""){
+          														$st2 .= '<button type="button" class="btn btn-default" onClick="buttonClicked(\'tag3\');">'.$row3['tag3'].'</button>';
+															}
+															if($row3['tag4'] != ""){
+          														$st2 .= '<button type="button" class="btn btn-default" onClick="buttonClicked(\'tag4\');">'.$row3['tag4'].'</button>';
+															}
+          												}		
+													}
+												echo $st2;
+												 ?>
 											</div>
-                  					<div class="pull-right">
-										<div class="btn-group">
-											<button type="button" class="btn btn-default">Bar Graph</button>
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                <span class="caret"/>
-													  <span class="sr-only">Toggle Dropdown</span>
-												</button>
-											<ul class="dropdown-menu" role="menu">
-												<li> <a href="#">Event 1</a></li>
-												<li><a href="#">Event 2</a></li>
-											</ul>
-										</div>
-										</div> 
+         
 									</div>
 									</form> 
        				 			</div>
@@ -238,6 +243,89 @@
 						$("#graph").html("");
 					 });*/
 		}
+		/*********INVOKING THE SCRIPT ON THE SERVER TO GET DATA***********/
+		function invokeScript(){
+			var xmlhttp;
+			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+  				xmlhttp=new XMLHttpRequest();
+  			}
+			else{// code for IE6, IE5
+  				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  			}
+			xmlhttp.open("POST","http://nesh.co/php/trendsCalc.php", true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send(postString);
+			
+			/*********because this is an asynchronous request, we must look for a 
+			statechange and then use the response text***********/
+			xmlhttp.onreadystatechange=function(){
+				if (xmlhttp.readyState==4 && xmlhttp.status==200){
+					var res = xmlhttp.responseText;
+					//alert(res);
+					var obj = $.parseJSON(res);
+					//alert("json status: "+obj.STATUS);
+					//alert(obj.tags.tag0.blue.x[0]);
+					window.xAxis = [];
+					window.yAxis = [];
+					for (var tagSet in obj.tags){
+						//alert("gets into the first for: "+tagSet);
+						window.labelArray = [];
+						window.xAxisLabels = [];
+						for ( var tagName in obj.tags[tagSet] ){
+							//alert("gets into the second loop for: "+tagName);
+							var tempX = [];
+							var tempY = [];
+							for ( var k = 0; k < obj.tags[tagSet][tagName].x.length; k++ ){
+		//						alert("gets into the third loop");
+			//					alert("1:"+obj[tags][tagName].x[k]);
+				//				alert("2:"+obj[tags][tagName].y[k]);
+								var dateSet = obj.tags[tagSet][tagName].x[k].split("-");
+								var dateNum = ((parseInt(dateSet[0])-2014)*365)+checkMonth(parseInt(dateSet[1]))+parseInt(dateSet[2]);
+								window.xAxisLabels.push(obj.tags[tagSet][tagName].x[k]);
+								tempX.push(dateNum);
+								tempY.push(obj.tags[tagSet][tagName].y[k]);
+							}
+							document.getElementById('graph').innerHTML='';
+							window.labelArray.push(tagName); //tagName = Mozila, Firefox etc
+							window.xAxis.push(tempX);
+							window.yAxis.push(tempY);
+						}
+					}
+					//alert("finish for");
+					//for(var l = 0; l < window.xAxis.length; l++){
+					//	alert("x, y=["+window.xAxis[l].join(",")+"],["+window.yAxis[l].join(",")+"]");
+					//}
+					createGraph();
+				}
+  			}
+		}
+		
+		function buttonClicked(propID){
+			postString = '';
+			var eventSelected = $('#eventSelect option:selected').val();
+			postString += "hash_number="+window.hash_num;
+			postString += "&";
+			if(propID == "Events"){
+				postString += "event_id=_ALL";
+			}
+			if(propID == "tag0"){
+				postString += "tag0=_ALL";
+			}
+			if(propID == "tag1"){
+				postString += "tag1=_ALL";
+			}
+			if(propID == "tag2"){
+				postString += "tag2=_ALL";
+			}
+			if(propID == "tag3"){
+				postString += "tag3=_ALL";
+			}
+			if(propID == "tag4"){
+				postString += "tag4=_ALL";
+			}
+			alert(postString);
+			invokeScript();
+		}
 		/********************************************************
 						FUNCTIONS FOR DROPDOWNS
 		*********************************************************/
@@ -248,6 +336,8 @@
 			e.preventDefault();
         	$("#wrapper").toggleClass("active");
     	});
+		
+		
     </script>
 </body>
 

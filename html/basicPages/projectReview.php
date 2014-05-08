@@ -593,7 +593,8 @@
 						}
 					}
 					if(tagSelected2 == 'tag1'){
-						if($('#tagDetailSelect2').find(id).length){
+						alert("tagDetail Selected: "+$(tagIDD).find('#tagDetailSelect2').length);
+						if($(tagIDD).find('#tagDetailSelect2').length){
 							postString += "tag1="+ $('#tagDetailSelect2 option:selected').val();
 						}
 						else{
@@ -601,7 +602,8 @@
 						}
 					}
 					if(tagSelected2 == 'tag2'){
-						if($('#tagDetailSelect3').find(id).length){
+						alert("tagDetail Selected: "+$(tagIDD).find('#tagDetailSelect3').length);
+						if($(tagIDD).find('#tagDetailSelect3').length){
 							postString += "tag2="+ $('#tagDetailSelect3 option:selected').val();
 						}
 						else{
@@ -609,7 +611,8 @@
 						}
 					}
 					if(tagSelected2 == 'tag3'){
-						if($('#tagDetailSelect4').find(id).length){
+						alert("tagDetail Selected: "+$(tagIDD).find('#tagDetailSelect4').length);
+						if($(tagIDD).find('#tagDetailSelect4').length){
 							postString += "tag3="+ $('#tagDetailSelect4 option:selected').val();
 						}
 						else{
@@ -617,7 +620,8 @@
 						}
 					}
 					if(tagSelected2 == 'tag4'){
-						if($('#tagDetailSelect5').find(id).length){
+						alert("tagDetail Selected: "+$(tagIDD).find('#tagDetailSelect5').length);
+						if($(tagIDD).find('#tagDetailSelect5').length){
 							postString += "tag4="+ $('#tagDetailSelect5 option:selected').val();
 						}
 						else{
