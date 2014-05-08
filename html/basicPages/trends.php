@@ -180,41 +180,24 @@
     <script src="../scripts/g.line.js"></script>
 	<script>
 		window.onload = function(){
-			alert("window onload works!");
-			/********************************************************
-						INITIAL SETTINGS FOR THE DROPDOWNS
-			*********************************************************/
-			
-			
-			/********************************************************
-									GRAPH AREA
-			*********************************************************/
-			var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 490),
+		}
+				function createGraph(){
+			alert("gets into the function");
+			var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 490);
+			 r.barchart(0, 0, document.getElementById("graph").clientWidth, 480, window.yAxis, {}).drawXAxis( window.xAxisLabels, { stacked: true, attr: { font:"18px Arial", fill:"#000", "font-weight": "regular"}, rotate: 0 }).drawYAxis( window.yAxis, Math.min.apply(Math,window.yAxis), Math.max.apply(Math,window.yAxis), { stacked: true, attr: { font:"18px Arial", fill:"#000", "font-weight": "regular"}, rotate: 0 });
+			/*,
 			txtattr = { font: "12px sans-serif" };
-                
-                var x = [], y = [], y2 = [], y3 = [];
-
-                for (var i = 0; i < 1e6; i++) {
-                    x[i] = i * 10;
-                    y[i] = (y[i - 1] || 0) + (Math.random() * 7) - 3;
-                    y2[i] = (y2[i - 1] || 150) + (Math.random() * 7) - 3.5;
-                    y3[i] = (y3[i - 1] || 300) + (Math.random() * 7) - 4;
-                }
-				var width = document.getElementById("graph").clientWidth - 20;
-				window.xAxis=[1, 2, 3, 4, 5, 6, 7];
-				window.yAxis=[12, 32, 23, 15, 17, 27, 22];
-				window.xAxisLabels=[1, 2, 3, 4, 5, 6, 7];
-                var lines = r.linechart(20, 0, width, 480, window.xAxis,window.yAxis, { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
-                    this.tags = r.set();
-
-                    for (var i = 0, ii = this.y.length; i < ii; i++) {
-                        this.tags.push(r.tag(this.x, this.y[i], this.values[i], 200, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
-                    }
-                }, function () {
-                    this.tags && this.tags.remove();
-                });
-
-                lines.symbols.attr({ r: 6 });
+			var width = document.getElementById("graph").clientWidth - 20;
+			var j = 0;
+			var lines = r.linechart(20, 0, width, 480, window.xAxis, window.yAxis, { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
+				this.tags = r.set();
+				for (var i = 0, ii = this.y.length; i < ii; i++) {
+					this.tags.push(r.tag(this.x, this.y[i], this.values[i], 200, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
+					}
+				}, function () {
+					this.tags && this.tags.remove();
+				});
+				lines.symbols.attr({ r: 6 });
                 // lines.lines[0].animate({"stroke-width": 6}, 1000);
                 // lines.symbols[0].attr({stroke: "#fff"});
                 // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
@@ -246,6 +229,10 @@
 					}, function(){
 						$("#graph").html("");
 					 });*/
+			var myTextElem = lines.axis[0].text.items;
+			for(var l = 0; l < myTextElem.length; l++){
+				myTextElem[l].attr({'text' : window.xAxisLabels[l]});
+			}
 		}
 		/*********INVOKING THE SCRIPT ON THE SERVER TO GET DATA***********/
 		function invokeScript(){
@@ -257,7 +244,7 @@
 			else{// code for IE6, IE5
   				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   			}
-			xmlhttp.open("POST","http://nesh.co/php/trendsCalc.php", false);
+			xmlhttp.open("POST","http://nesh.co/php/trendCalc.php", true);
 			alert("opened");
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 			xmlhttp.send(postString);
@@ -268,28 +255,26 @@
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
 					var res = xmlhttp.responseText;
 					alert(res);
-					/*
+					
 					var obj = $.parseJSON(res);
 					//alert("json status: "+obj.STATUS);
 					//alert(obj.tags.tag0.blue.x[0]);
 					window.xAxis = [];
 					window.yAxis = [];
-					for (var tagSet in obj.tags){
-						//alert("gets into the first for: "+tagSet);
+					for (var tagSet in obj.tags){//tagSet = event_id
+						alert("gets into the first for: "+tagSet);
 						window.labelArray = [];
 						window.xAxisLabels = [];
-						for ( var tagName in obj.tags[tagSet] ){
-							//alert("gets into the second loop for: "+tagName);
+						for ( var tagName in obj.tags[tagSet] ){//tagName = 5 or 6
+							alert("gets into the second loop for: "+tagName);
 							var tempX = [];
 							var tempY = [];
 							for ( var k = 0; k < obj.tags[tagSet][tagName].x.length; k++ ){
-		//						alert("gets into the third loop");
-			//					alert("1:"+obj[tags][tagName].x[k]);
-				//				alert("2:"+obj[tags][tagName].y[k]);
-								var dateSet = obj.tags[tagSet][tagName].x[k].split("-");
-								var dateNum = ((parseInt(dateSet[0])-2014)*365)+checkMonth(parseInt(dateSet[1]))+parseInt(dateSet[2]);
+							alert("gets into the third loop");
+							alert("1:"+obj.tags[tagSet][tagName].x[k]);
+							alert("2:"+obj.tags[tagSet][tagName].y[k]);
 								window.xAxisLabels.push(obj.tags[tagSet][tagName].x[k]);
-								tempX.push(dateNum);
+								tempX.push(obj.tags[tagSet][tagName].x[k]);
 								tempY.push(obj.tags[tagSet][tagName].y[k]);
 							}
 							document.getElementById('graph').innerHTML='';
@@ -302,7 +287,7 @@
 					//for(var l = 0; l < window.xAxis.length; l++){
 					//	alert("x, y=["+window.xAxis[l].join(",")+"],["+window.yAxis[l].join(",")+"]");
 					//}
-					createGraph();*/
+					createGraph();
 				}
   			}
 		}
