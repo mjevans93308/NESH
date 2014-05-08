@@ -144,7 +144,7 @@ if(isset($_POST)){
 		$all_arr = array("tag0","tag1","tag2","tag3","tag4");
 	}else{
 		if(empty($all_arr)){
-			$all_arr[]="event_id"
+			$all_arr[]="event_id";
 		}
 	}
 
