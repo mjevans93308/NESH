@@ -128,7 +128,7 @@
         							<form class="form-horizontal" role="form">
 									<div class="form-group">
 											<div class="btn-group">
-                                            <button type="button" class="btn btn-default" onClick="buttonClicked('Events');">Events</button>
+                                            <button type="button" id="eventClicked" class="btn btn-default" onClick="buttonClicked('Events');">Events</button>
                                             <?php
 													$st2 = '';
 												 	$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
@@ -179,12 +179,14 @@
     <script src="../scripts/g.pie.js"></script>
     <script src="../scripts/g.line.js"></script>
 	<script>
+		var postString;
 		window.onload = function(){
+			document.getElementById("eventClicked").click();
 		}
-				function createGraph(){
+			function createGraph(){
 			alert("gets into the function");
 			var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 490);
-			 r.barchart(0, 0, document.getElementById("graph").clientWidth, 480, window.yAxis, {}).drawXAxis( window.xAxisLabels, { stacked: true, attr: { font:"18px Arial", fill:"#000", "font-weight": "regular"}, rotate: 0 }).drawYAxis( window.yAxis, Math.min.apply(Math,window.yAxis), Math.max.apply(Math,window.yAxis), { stacked: true, attr: { font:"18px Arial", fill:"#000", "font-weight": "regular"}, rotate: 0 });
+			 r.barchart(0, 0, document.getElementById("graph").clientWidth, 480, window.yAxis, {});
 			/*,
 			txtattr = { font: "12px sans-serif" };
 			var width = document.getElementById("graph").clientWidth - 20;

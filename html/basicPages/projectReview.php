@@ -267,26 +267,26 @@
         							<form class="form-horizontal" role="form">
 									<div class="form-group">
 											<div class="btn-group">
-                                            <button type="button" class="btn btn-default">Unique User</button>
+                                            <button type="button" class="btn btn-default">All Users</button>
 												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                 <span class="caret"/>
 													  <span class="sr-only">Toggle Dropdown</span>
 												</button>
 												<ul class="dropdown-menu" role="menu">
-													<li> <a href="#">Event 1</a></li>
-													<li><a href="#">Event 2</a></li>
+													<li> <a href="#">Unique Users</a></li>
+													<li><a href="#">Average</a></li>
 												</ul>
 											</div>
                   					<div class="pull-right">
 										<div class="btn-group">
-											<button type="button" class="btn btn-default">Bar Graph</button>
+											<button type="button" class="btn btn-default">Line Graph</button>
                                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                 <span class="caret"/>
 													  <span class="sr-only">Toggle Dropdown</span>
 												</button>
 											<ul class="dropdown-menu" role="menu">
-												<li> <a href="#">Event 1</a></li>
-												<li><a href="#">Event 2</a></li>
+												<li> <a href="#">Bar Graph</a></li>
+												<li><a href="#">Pie Chart</a></li>
 											</ul>
 										</div>
 										</div> 

@@ -267,34 +267,39 @@
         							<form class="form-horizontal" role="form">
 									<div class="form-group">
 											<div class="btn-group">
-                                            <button type="button" class="btn btn-default">Unique User</button>
+                                            <button type="button" class="btn btn-default">All Users</button>
 												<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                 <span class="caret"/>
 													  <span class="sr-only">Toggle Dropdown</span>
 												</button>
 												<ul class="dropdown-menu" role="menu">
-													<li> <a href="#">Event 1</a></li>
-													<li><a href="#">Event 2</a></li>
+													<li> <a href="#">Unique User</a></li>
+													<li><a href="#">Average</a></li>
 												</ul>
 											</div>
                   					<div class="pull-right">
 										<div class="btn-group">
-											<button type="button" class="btn btn-default">Bar Graph</button>
+											<button type="button" class="btn btn-default">Line Graph</button>
                                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                                 <span class="caret"/>
 													  <span class="sr-only">Toggle Dropdown</span>
 												</button>
 											<ul class="dropdown-menu" role="menu">
-												<li> <a href="#">Event 1</a></li>
-												<li><a href="#">Event 2</a></li>
+												<li> <a href="#">Bar Graph</a></li>
+												<li><a href="#">Pie Chart</a></li>
 											</ul>
 										</div>
 										</div> 
 									</div>
 									</form> 
        				 			</div>
+                             <div id="graph_a1">
+                             </div>
+
                              <div id="graph_a">
                              	<h4>Select options from the events and tags to display two custom graphsfor versions A and B</h4>
+                             </div>
+                             <div id="graph_b1">
                              </div>
                              <div id="graph_b">
                              </div>
@@ -337,10 +342,11 @@
 									GRAPH AREA
 			*********************************************************/
 		function createGraph(xAxisArr,yAxisArr,xLabelsArr,labelsArr,ab){
-			alert("gets into the function");
-			var r = Raphael(document.getElementById("graph_"+ab), document.getElementById("graph_"+ab).clientWidth, 490),
+		alert("gets into the function");
+			var iddd = "graph_"+ab;
+			var r = Raphael(document.getElementById(iddd), document.getElementById(iddd).clientWidth, 490),
 			txtattr = { font: "12px sans-serif" };
-			var width = document.getElementById("graph_"+ab).clientWidth - 20;
+			var width = document.getElementById(iddd).clientWidth - 20;
 			var j = 0;
 			var lines = r.linechart(20, 0, width, 480, xAxisArr, yAxisArr, { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
 				this.tags = r.set();
@@ -388,8 +394,8 @@
 			}
 		}
 
-    function createGraphA(){createGraph(window.xAxis_a,window.yAxis_a,window.xAxisLabels_a,window.labelArray_a,"a");}
-    function createGraphB(){createGraph(window.xAxis_b,window.yAxis_b,window.xAxisLabels_b,window.labelArray_b,"b");}
+    function createGraphA(){createGraph(window.xAxis_a,window.yAxis_a,window.xAxisLabels,window.labelArray,"a");}
+    function createGraphB(){createGraph(window.xAxis_b,window.yAxis_b,window.xAxisLabels,window.labelArray,"b");}
 		
 		function checkMonth(number){
 			switch( number ){
@@ -461,73 +467,69 @@
 					//alert(obj.tags.tag0.blue.x[0]);
 					window.xAxis_a = [];
 					window.yAxis_a = [];
-          window.xAxis_b = [];
-          window.yAxis_b = [];
-
-
-          // loop thru set A
-
-          for (var tagSet in obj.tags_a){
-            //alert("gets into the first for: "+tagSet);
-            window.labelArray_a = [];
-            window.xAxisLabels_a = [];
-            for ( var tagName in obj.tags_a[tagSet] ){
-              //alert("gets into the second loop for: "+tagName);
-              var tempX = [];
-              var tempY = [];
-              for ( var k = 0; k < obj.tags_a[tagSet][tagName].x.length; k++ ){
-    //            alert("gets into the third loop");
-      //          alert("1:"+obj[tags][tagName].x[k]);
-        //        alert("2:"+obj[tags][tagName].y[k]);
-                var dateSet = obj.tags_a[tagSet][tagName].x[k].split("-");
-                var dateNum = ((parseInt(dateSet[0])-2014)*365)+checkMonth(parseInt(dateSet[1]))+parseInt(dateSet[2]);
-                window.xAxisLabels_a.push(obj.tags_a[tagSet][tagName].x[k]);
-                tempX.push(dateNum);
-                tempY.push(obj.tags_a[tagSet][tagName].y[k]);
-              }
-              document.getElementById('graph_a').innerHTML='';
-              window.labelArray_a.push(tagName); //tagName = Mozila, Firefox etc
-              window.xAxis_a.push(tempX);
-              window.yAxis_a.push(tempY);
-            }
-          }
-
-
-          // loop thru set B
-          for (var tagSet in obj.tags_b){
-            //alert("gets into the first for: "+tagSet);
-            window.labelArray_b = [];
-            window.xAxisLabels_b = [];
-            for ( var tagName in obj.tags_b[tagSet] ){
-              //alert("gets into the second loop for: "+tagName);
-              var tempX = [];
-              var tempY = [];
-              for ( var k = 0; k < obj.tags_b[tagSet][tagName].x.length; k++ ){
-    //            alert("gets into the third loop");
-      //          alert("1:"+obj[tags][tagName].x[k]);
-        //        alert("2:"+obj[tags][tagName].y[k]);
-                var dateSet = obj.tags_b[tagSet][tagName].x[k].split("-");
-                var dateNum = ((parseInt(dateSet[0])-2014)*365)+checkMonth(parseInt(dateSet[1]))+parseInt(dateSet[2]);
-                window.xAxisLabels_b.push(obj.tags_b[tagSet][tagName].x[k]);
-                tempX.push(dateNum);
-                tempY.push(obj.tags_b[tagSet][tagName].y[k]);
-              }
-              document.getElementById('graph_b').innerHTML='';
-              window.labelArray_b.push(tagName); //tagName = Mozila, Firefox etc
-              window.xAxis_b.push(tempX);
-              window.yAxis_b.push(tempY);
-            }
-          }
-
-
+					for (var tagSet in obj.tags_a){
+						//alert("gets into the first for: "+tagSet);
+						window.labelArray = [];
+						window.xAxisLabels = [];
+						for ( var tagName in obj.tags_a[tagSet] ){
+							//alert("gets into the second loop for: "+tagName);
+							var tempX = [];
+							var tempY = [];
+							for ( var k = 0; k < obj.tags_a[tagSet][tagName].x.length; k++ ){
+		//						alert("gets into the third loop");
+			//					alert("1:"+obj[tags][tagName].x[k]);
+				//				alert("2:"+obj[tags][tagName].y[k]);
+								var dateSet = obj.tags_a[tagSet][tagName].x[k].split("-");
+								var dateNum = ((parseInt(dateSet[0])-2014)*365)+checkMonth(parseInt(dateSet[1]))+parseInt(dateSet[2]);
+								window.xAxisLabels.push(obj.tags_a[tagSet][tagName].x[k]);
+								tempX.push(dateNum);
+								tempY.push(obj.tags_a[tagSet][tagName].y[k]);
+							}
+							document.getElementById('graph_a1').innerHTML='<div class="page-header">Version A:</div>';
+							document.getElementById('graph_a').innerHTML='';
+							window.labelArray.push(tagName); //tagName = Mozila, Firefox etc
+							window.xAxis_a.push(tempX);
+							window.yAxis_a.push(tempY);
+						}
+					}
+					
+					window.xAxis_b = [];
+					window.yAxis_b = [];
+					for (var tagSet in obj.tags_b){
+						//alert("gets into the first for: "+tagSet);
+						window.labelArray = [];
+						window.xAxisLabels = [];
+						for ( var tagName in obj.tags_b[tagSet] ){
+							//alert("gets into the second loop for: "+tagName);
+							var tempX = [];
+							var tempY = [];
+							for ( var k = 0; k < obj.tags_b[tagSet][tagName].x.length; k++ ){
+		//						alert("gets into the third loop");
+			//					alert("1:"+obj[tags][tagName].x[k]);
+				//				alert("2:"+obj[tags][tagName].y[k]);
+								var dateSet = obj.tags_b[tagSet][tagName].x[k].split("-");
+								var dateNum = ((parseInt(dateSet[0])-2014)*365)+checkMonth(parseInt(dateSet[1]))+parseInt(dateSet[2]);
+								window.xAxisLabels.push(obj.tags_b[tagSet][tagName].x[k]);
+								tempX.push(dateNum);
+								tempY.push(obj.tags_b[tagSet][tagName].y[k]);
+							}
+							document.getElementById('graph_b1').innerHTML='<div class="page-header">Version B:</div>';
+							document.getElementById('graph_b').innerHTML='';
+							window.labelArray.push(tagName); //tagName = Mozila, Firefox etc
+							window.xAxis_b.push(tempX);
+							window.yAxis_b.push(tempY);
+						}
+					}
+					
+					
 					//alert("finish for");
 					//for(var l = 0; l < window.xAxis.length; l++){
 					//	alert("x, y=["+window.xAxis[l].join(",")+"],["+window.yAxis[l].join(",")+"]");
 					//}
 					createGraphA();
-          createGraphB();
+					createGraphB();
 				}
- 			}
+  			}
 		}
 		/********************************************************
 						FUNCTIONS FOR DROPDOWNS
