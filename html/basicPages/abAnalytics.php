@@ -104,12 +104,14 @@
           								$hash_num = $row1['hash_number'];
           				}		
 					}
+					echo '<script>window.hash_num ='.$hash_num.' </script>';
 					$st .= '</a></li>';
                 	$st .= '<li><a href="projectReview.php?pid='.$pid.'">Analytics</a></li>';
                 	$st .= '<li><a href="trends.php?pid='.$pid.'">Trends</a></li>';
-					$st .= '<li><a href="abAnalytics.php?pid='.$pid.'">AB Analytics</a></li>';
-		           $st .= '<li class="sidebaractive"><a href="projSettings.php?pid='.$pid.'">Settings</a></li>';
+					$st .= '<li class="sidebaractive"><a href="abAnalytics.php?pid='.$pid.'">AB Analytics</a></li>';
+		           $st .= '<li><a href="projSettings.php?pid='.$pid.'">Settings</a></li>';
                	$st .= '<li><a href="codeSnippets.php?pid='.$pid.'">Code Snippets</a></li>';
+				
 					echo $st;
 				?>
             </ul>
@@ -136,7 +138,7 @@
 												$query2 = "SELECT * FROM Events WHERE hash_number = '".$hash_num."'";
 													if ( ($result2 = $db_obj->query($query2)) && ($result2->num_rows != 0) ){  // success!
 														while($row2 = $result2->fetch_assoc()){
-          													$st1 .= '<option>'.$row2['description'].'</option>';
+          													$st1 .= '<option value="'.$row2['event_id'].'">'.$row2['description'].'</option>';
           												}		
 													}
 												echo $st1;
@@ -155,7 +157,7 @@
                                 		</select>
                                  </div>
                              	<div class="pull-left padding">
-                    					<select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
+                    					<select id="property1" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected(this.id)">                                        
 										<?php
 												$st2 = '<option selected>Property</option>';
 												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
@@ -170,12 +172,10 @@
 																
 																$query4 = "SELECT DISTINCT tag0 FROM Session WHERE hash_number='".$hash_num."'";
 																if($tag0 = $db_obj->query($query4)){
-																	$i = 0;
-																	$tag0Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag0Str = '<div class="pull-left padding"><select id="tagDetailSelect1" class="selectpicker show-tick form-control padding" style="float:left;" onChange="tagDetailSelected(1)">';
 																	$tag0Str .= '<option selected>Value</option>';
-																	while($row4 = $tag0->fetch_array(MYSQLI_NUM)){
-																		$tag0Str .= '<option>'.$row4[i].'</option>';
-																		$i++;
+																	while($row4 = $tag0->fetch_array()){
+																		$tag0Str .= '<option>'.$row4['tag0'].'</option>';
 																	}
 																	$tag0Str .= '</select></div>';	
 																}
@@ -184,24 +184,52 @@
 															if($row3['tag1'] != ""){
           														$st2 .= '<option value="tag1">'.$row3['tag1'].'</option>';
 																$query5 = "SELECT DISTINCT tag1 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag1 = $db_obj->query($query5);
+																if($tag1 = $db_obj->query($query5)){
+																	$tag1Str = '<div class="pull-left padding"><select id="tagDetailSelect2" class="selectpicker show-tick form-control padding" style="float:left;" onChange="tagDetailSelected(2)">';
+																	$tag1Str .= '<option selected>Value</option>';
+																	while($row5 = $tag1->fetch_array()){
+																		$tag1Str .= '<option>'.$row5['tag1'].'</option>';
+																	}
+																	$tag1Str .= '</select></div>';	
+																}
 															}
 															if($row3['tag2'] != ""){
           														$st2 .= '<option value="tag2">'.$row3['tag2'].'</option>';
 																
 																$query6 = "SELECT DISTINCT tag2 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag2 = $db_obj->query($query6);
+																if($tag2 = $db_obj->query($query6)){
+																	$tag2Str = '<div class="pull-left padding"><select id="tagDetailSelect3" class="selectpicker show-tick form-control padding" style="float:left;" onChange="tagDetailSelected(3)">';
+																	$tag2Str .= '<option selected>Value</option>';
+																	while($row6 = $tag2->fetch_array()){
+																		$tag2Str .= '<option>'.$row6['tag2'].'</option>';
+																	}
+																	$tag2Str .= '</select></div>';	
+																}
 															}
 															if($row3['tag3'] != ""){
           														$st2 .= '<option value="tag3">'.$row3['tag3'].'</option>';
 																$query7 = "SELECT DISTINCT tag3 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag3 = $db_obj->query($query7);
+																if($tag3 = $db_obj->query($query7)){
+																	$tag3Str = '<div class="pull-left padding"><select id="tagDetailSelect4" class="selectpicker show-tick form-control padding" style="float:left;" onChange="tagDetailSelected(4)">';
+																	$tag3Str .= '<option selected>Value</option>';
+																	while($row7 = $tag3->fetch_array()){
+																		$tag3Str .= '<option>'.$row7['tag3'].'</option>';
+																	}
+																	$tag3Str .= '</select></div>';	
+																}
 															}
 															if($row3['tag4'] != ""){
           														$st2 .= '<option value="tag4">'.$row3['tag4'].'</option>';
 																
 																$query8 = "SELECT DISTINCT tag4 FROM Session WHERE hash_number='".$hash_num."'";
-																$tag4 = $db_obj->query($query8);
+																if($tag4 = $db_obj->query($query8)){
+																	$tag4Str = '<div class="pull-left padding"><select id="tagDetailSelect5" class="selectpicker show-tick form-control padding" style="float:left;" onChange="tagDetailSelected(5)">';
+																	$tag4Str .= '<option selected>Value</option>';
+																	while($row8 = $tag4->fetch_array()){
+																		$tag4Str .= '<option>'.$row8['tag4'].'</option>';
+																	}
+																	$tag4Str .= '</select></div>';	
+																}
 															}
           												}		
 													}
@@ -212,12 +240,16 @@
                                     <?php
 											$temp = $st2;
 											echo "<script> window.tag0Str='".$tag0Str."'</script>"; 
+											echo "<script> window.tag1Str='".$tag1Str."'</script>"; 
+											echo "<script> window.tag2Str='".$tag2Str."'</script>"; 
+											echo "<script> window.tag3Str='".$tag3Str."'</script>"; 
+											echo "<script> window.tag4Str='".$tag4Str."'</script>"; 
 											echo "<script> window.additionalTags='".$temp."'</script>"; 
 
 										?>
                 					</div>
                                 <div class="pull-left">
-                          			<button type="button" id="addTagDet1" class="close" onClick="addTagDetails('#tagSection1');">&#62;</button>
+                          			<button type="button" id="addTagDet1" class="close" onClick="addTagDetails('#tagSection1', 1);">&#62;</button>
                                 	</div>
                              </div>
                              </div>
@@ -262,6 +294,7 @@
 									</form> 
        				 			</div>
                              <div id="graph">
+                             	<h4>Select options from the events and tags to display custom graphs</h4>
                              </div>
                         </div>
                     </div>
@@ -283,46 +316,39 @@
     <script src="../scripts/g.line.js"></script>
 	<script>
 		window.onload = function(){
-			alert("window onload works!");
+			//alert("window onload works!");
 			/********************************************************
 						INITIAL SETTINGS FOR THE DROPDOWNS
 			*********************************************************/
-			alert("2");
+			//alert("2");
 			$('#prepositions').prop('disabled', true);
 			$('#prepositions').selectpicker('refresh');
-			$('#property').prop('disabled', true);
-			$('#property').selectpicker('refresh');
+			$('#property1').prop('disabled', true);
+			$('#property1').selectpicker('refresh');
 			$('.selectpicker').selectpicker();
-			alert("3");
+			//alert("3");
 			document.getElementById("addTagDet1").disabled = true;
 			document.getElementById("addTagOpt").disabled = true;
-			
+		}
+		
 			/********************************************************
 									GRAPH AREA
 			*********************************************************/
+		function createGraph(){
+			alert("gets into the function");
 			var r = Raphael(document.getElementById("graph"), document.getElementById("graph").clientWidth, 490),
 			txtattr = { font: "12px sans-serif" };
-                
-                var x = [], y = [], y2 = [], y3 = [];
-
-                for (var i = 0; i < 1e6; i++) {
-                    x[i] = i * 10;
-                    y[i] = (y[i - 1] || 0) + (Math.random() * 7) - 3;
-                    y2[i] = (y2[i - 1] || 150) + (Math.random() * 7) - 3.5;
-                    y3[i] = (y3[i - 1] || 300) + (Math.random() * 7) - 4;
-                }
-				var width = document.getElementById("graph").clientWidth - 20;
-                var lines = r.linechart(20, 0, width, 480, [1, 2, 3, 4, 5, 6, 7],[12, 32, 23, 15, 17, 27, 22], { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
-                    this.tags = r.set();
-
-                    for (var i = 0, ii = this.y.length; i < ii; i++) {
-                        this.tags.push(r.tag(this.x, this.y[i], this.values[i], 200, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
-                    }
-                }, function () {
-                    this.tags && this.tags.remove();
-                });
-
-                lines.symbols.attr({ r: 6 });
+			var width = document.getElementById("graph").clientWidth - 20;
+			var j = 0;
+			var lines = r.linechart(20, 0, width, 480, window.xAxis, window.yAxis, { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
+				this.tags = r.set();
+				for (var i = 0, ii = this.y.length; i < ii; i++) {
+					this.tags.push(r.tag(this.x, this.y[i], this.values[i], 200, 10).insertBefore(this).attr([{ fill: "#fff" }, { fill: this.symbols[i].attr("fill") }]));
+					}
+				}, function () {
+					this.tags && this.tags.remove();
+				});
+				lines.symbols.attr({ r: 6 });
                 // lines.lines[0].animate({"stroke-width": 6}, 1000);
                 // lines.symbols[0].attr({stroke: "#fff"});
                 // lines.symbols[0][1].animate({fill: "#f00"}, 1000);
@@ -354,25 +380,60 @@
 					}, function(){
 						$("#graph").html("");
 					 });*/
+			var myTextElem = lines.axis[0].text.items;
+			for(var l = 0; l < myTextElem.length; l++){
+				myTextElem[l].attr({'text' : window.xAxisLabels[l]});
+			}
 		}
-		/********************************************************
-						FUNCTIONS FOR DROPDOWNS
-		*********************************************************/
+		
+		function checkMonth(number){
+			switch( number ){
+				case 1: 
+					return 31;
+					break;
+				case 2: 
+					return 28 + 31;
+					break;
+				case 3:
+					return 31 + 28 + 31;
+					break;
+				case 4:
+					return 30 + 31 + 28 + 31;
+					break; 
+				case 5: 
+					return 31 + 30 + 31 + 28 + 31;
+					break;
+				case 6: 
+					return 30 + 31 + 30 + 31 + 28 + 31;
+					break;
+				case 7: 
+					return 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				case 8: 
+					return 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				case 9: 
+					return 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				case 10:
+					return 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				case 11: 
+					return 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				case 12:
+					return 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30 + 31 + 28 + 31; 
+					break;
+				default: 
+					return 0;
+					break;
+			}
+		}
 		var tag = 1;
 		var tagNum = 1;
-		
-		function eventSelected(){
-			alert("onclick works");
-			var eventSelected = $('#eventSelect option:selected').val();
-			alert(eventSelected);
-			$('#prepositions').prop('disabled', false);
-			$('#prepositions').selectpicker('refresh');
-			$('#property').prop('disabled', false);
-			$('#property').selectpicker('refresh');
-			document.getElementById('addTagDet1').disabled = false;
-			document.getElementById('addTagOpt').disabled = false;
-			
-			/*********INVOKING THE SCRIPT ON THE SERVER TO GET DATA***********/
+		var postString = '';
+		/*********INVOKING THE SCRIPT ON THE SERVER TO GET DATA***********/
+		function invokeScript(){
 			var xmlhttp;
 			if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
   				xmlhttp=new XMLHttpRequest();
@@ -382,37 +443,239 @@
   			}
 			xmlhttp.open("POST","http://nesh.co/php/graphScript.php", true);
 			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send("event_id=100442");
+			xmlhttp.send(postString);
+			
 			/*********because this is an asynchronous request, we must look for a 
 			statechange and then use the response text***********/
 			xmlhttp.onreadystatechange=function(){
 				if (xmlhttp.readyState==4 && xmlhttp.status==200){
-					alert(xmlhttp.responseText);
+					var res = xmlhttp.responseText;
+					//alert(res);
+					var obj = $.parseJSON(res);
+					//alert("json status: "+obj.STATUS);
+					//alert(obj.tags.tag0.blue.x[0]);
+					window.xAxis = [];
+					window.yAxis = [];
+					for (var tagSet in obj.tags){
+						//alert("gets into the first for: "+tagSet);
+						window.labelArray = [];
+						window.xAxisLabels = [];
+						for ( var tagName in obj.tags[tagSet] ){
+							//alert("gets into the second loop for: "+tagName);
+							var tempX = [];
+							var tempY = [];
+							for ( var k = 0; k < obj.tags[tagSet][tagName].x.length; k++ ){
+		//						alert("gets into the third loop");
+			//					alert("1:"+obj[tags][tagName].x[k]);
+				//				alert("2:"+obj[tags][tagName].y[k]);
+								var dateSet = obj.tags[tagSet][tagName].x[k].split("-");
+								var dateNum = ((parseInt(dateSet[0])-2014)*365)+checkMonth(parseInt(dateSet[1]))+parseInt(dateSet[2]);
+								window.xAxisLabels.push(obj.tags[tagSet][tagName].x[k]);
+								tempX.push(dateNum);
+								tempY.push(obj.tags[tagSet][tagName].y[k]);
+							}
+							document.getElementById('graph').innerHTML='';
+							window.labelArray.push(tagName); //tagName = Mozila, Firefox etc
+							window.xAxis.push(tempX);
+							window.yAxis.push(tempY);
+						}
+					}
+					//alert("finish for");
+					//for(var l = 0; l < window.xAxis.length; l++){
+					//	alert("x, y=["+window.xAxis[l].join(",")+"],["+window.yAxis[l].join(",")+"]");
+					//}
+					createGraph();
 				}
   			}
 		}
-	
-		function tagSelected(){
-			var tagSelected1 = $('#property option:selected').val();
-			alert(tagSelected1);
+		/********************************************************
+						FUNCTIONS FOR DROPDOWNS
+		*********************************************************/
+		
+		
+		function eventSelected(){
+			//alert("onclick works");
+			var eventSelected = $('#eventSelect option:selected').val();
+			postString = '';
+			alert(eventSelected);
+			$('#prepositions').prop('disabled', false);
+			$('#prepositions').selectpicker('refresh');
+			$('#property1').prop('disabled', false);
+			$('#property1').selectpicker('refresh');
+			document.getElementById('addTagDet1').disabled = false;
+			document.getElementById('addTagOpt').disabled = false;
+			postString += "hash_number="+window.hash_num+"&event_id="+eventSelected;
+			alert(postString);
+			invokeScript();			
 		}
-
-		function addTagDetails(form) {
+	
+		function tagSelected(propID){
+			postString = '';
+			var eventSelected = $('#eventSelect option:selected').val();
+			postString += "hash_number="+window.hash_num+"&event_id="+eventSelected;
+			postString += "&";
+			var query = '#'+propID+' option:selected';
+			var i;
+			alert(query);
+			var tagSelected1 = $(query).val();
+			alert(tagSelected1);
+			alert("tagNum: "+tagNum);
+			alert("tag: "+ tag);
+			if(tagNum >1){
+				for(i = 1; i <= tag; i++){
+					var tagIDD = "#tagSection"+i;
+					var id = "#property"+i;
+					alert(id);
+					alert($(tagIDD).find(id).length);
+					alert("gets here");
+					if($(tagIDD).find(id).length){
+						var query1 = id+' option:selected';
+						var tagSelected2 = $(query1).val();
+						if(tagSelected2 == 'tag0'){
+							postString += "tag0=_ALL";
+						}
+						if(tagSelected2 == 'tag1'){
+							postString += "tag1=_ALL";
+						}
+						if(tagSelected2 == 'tag2'){
+							postString += "tag2=_ALL";
+						}
+						if(tagSelected2 == 'tag3'){
+							postString += "tag3=_ALL";
+						}
+						if(tagSelected2 == 'tag4'){
+							postString += "tag4=_ALL";
+						}
+						if(i != tag){
+							postString += '&';
+						}
+					}
+				}
+			}
+			else{
+				if(tagSelected1 == 'tag0'){
+					postString += "tag0=_ALL";
+				}
+				else if(tagSelected1 == 'tag1'){
+					postString += "tag1=_ALL";
+				}
+				else if(tagSelected1 == 'tag2'){
+					postString += "tag2=_ALL";
+				}
+				else if(tagSelected1 == 'tag3'){
+					postString += "tag3=_ALL";
+				}
+				else if(tagSelected1 == 'tag4'){
+					postString += "tag4=_ALL";
+				}
+			}
+			alert(postString);
+			invokeScript();
+		}
+		function tagDetailSelected(idNum){
+			postString = '';
+			var eventSelected = $('#eventSelect option:selected').val();
+			postString += "hash_number="+window.hash_num+"&event_id="+eventSelected;
+			postString += "&";
+			var i;
+			for(i = 1; i <= tag; i++){
+				var tagIDD = "#tagSection"+i;
+				var id = "#property"+i;
+				if($(tagIDD).find(id).length){
+					var query1 = id+' option:selected';
+					var tagSelected2 = $(query1).val();
+					if(tagSelected2 == 'tag0'){
+						alert("tagDetail Selected: "+$(tagIDD).find('#tagDetailSelect1').length);
+						if($(tagIDD).find('#tagDetailSelect1').length){
+							postString += "tag0="+ $('#tagDetailSelect1 option:selected').val();
+						}
+						else{
+							postString += "tag0=_ALL";
+						}
+					}
+					if(tagSelected2 == 'tag1'){
+						alert("tagDetail Selected: "+$(tagIDD).find('#tagDetailSelect2').length);
+						if($(tagIDD).find('#tagDetailSelect2').length){
+							postString += "tag1="+ $('#tagDetailSelect2 option:selected').val();
+						}
+						else{
+							postString += "tag1=_ALL";
+						}
+					}
+					if(tagSelected2 == 'tag2'){
+						alert("tagDetail Selected: "+$(tagIDD).find('#tagDetailSelect3').length);
+						if($(tagIDD).find('#tagDetailSelect3').length){
+							postString += "tag2="+ $('#tagDetailSelect3 option:selected').val();
+						}
+						else{
+							postString += "tag2=_ALL";
+						}
+					}
+					if(tagSelected2 == 'tag3'){
+						alert("tagDetail Selected: "+$(tagIDD).find('#tagDetailSelect4').length);
+						if($(tagIDD).find('#tagDetailSelect4').length){
+							postString += "tag3="+ $('#tagDetailSelect4 option:selected').val();
+						}
+						else{
+							postString += "tag3=_ALL";
+						}
+					}
+					if(tagSelected2 == 'tag4'){
+						alert("tagDetail Selected: "+$(tagIDD).find('#tagDetailSelect5').length);
+						if($(tagIDD).find('#tagDetailSelect5').length){
+							postString += "tag4="+ $('#tagDetailSelect5 option:selected').val();
+						}
+						else{
+							postString += "tag4=_ALL";
+						}
+					}
+					if(i != tag){
+						postString += '&';
+					}
+				}
+			}
+			alert(postString);
+			invokeScript();
+		}
+		function addTagDetails(form, num) {
+			var query = '#property'+num+' option:selected';	
+			alert(query);
+			var tagSelected1 = $(query).val();
+			alert(tagSelected1);
 			var addTagPrep = '<div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>Contains</option></select></div>';
 			$(form).append(addTagPrep);
-			$(form).append(window.tag0Str);
+			//alert(window.tag0Str);
+			if(tagSelected1 == 'tag0'){
+				$(form).append(window.tag0Str);
+			}
+			else if(tagSelected1 == 'tag1'){
+				$(form).append(window.tag1Str);
+			}
+			else if(tagSelected1 == 'tag2'){
+				$(form).append(window.tag2Str);
+			}
+			else if(tagSelected1 == 'tag3'){
+				$(form).append(window.tag3Str);
+			}
+			else if(tagSelected1 == 'tag4'){
+				$(form).append(window.tag4Str);
+			}
+			string = '<div class="pull-left"><button type="button" id="removeTag" class="close" onClick="deleteTag(\'#tagSection'+tag+'\')">&#120;</button></div></div>';
+			$(form).append(string);
 			$('.selectpicker').selectpicker();
-			$('#addTagDet').remove();
+			var tagDetId = '#addTagDet'+num;
+			alert(tagDetId);
+			$(tagDetId).remove();
 		}
 		
 		function addTagGraphs(form) {
 		if(tagNum < 5){
 			tag += 1;
 			tagNum += 1;
-			var string = '<div class="form-group" id= "tagSection'+tag+'"><div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>By</option><option>Is</option></select></div><div class="pull-left padding"><select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">'
+			var string = '<div class="form-group" id= "tagSection'+tag+'"><div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>By</option><option>Is</option></select></div><div class="pull-left padding"><select id="property'+tag+'" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected(this.id)">'
 			string += window.additionalTags;
-			string += '</select></div><div class="pull-left"><button type="button" id="addTagDet" class="close" onClick="addTagDetails(\'#tagSection'+tag+'\');">&#62;</button></div>';
-			string += '<div class="pull-left"><button type="button" id="removeTag" class="close" onClick="deleteTag(\'#tagSection'+tag+'\')">&#120;</button></div></div>';
+			string += '</select></div><div class="pull-left"><button type="button" id="addTagDet'+tag+'" class="close" onClick="addTagDetails(\'#tagSection'+tag+'\', '+tag+');">&#62;</button></div></div>';
+			
 			
 			$('#tagGraph').append(string);
 			$('.selectpicker').selectpicker();

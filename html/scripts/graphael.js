@@ -722,7 +722,14 @@ Raphael.g = {
     axis: function (x, y, length, from, to, steps, orientation, labels, type, dashsize, paper) {
         dashsize = dashsize == null ? 2 : dashsize;
         type = type || "t";
-        steps = 6;
+		var number;
+		if(window.xAxisLabels.length > 6){
+			number = 6;
+		}
+		else{ 
+			number = window.xAxisLabels.length-1;
+		}
+        steps = number;
         paper = arguments[arguments.length-1] //paper is always last argument
 
         var path = type == "|" || type == " " ? ["M", x + .5, y, "l", 0, .001] : orientation == 1 || orientation == 3 ? ["M", x + .5, y, "l", 0, -length] : ["M", x, y + .5, "l", length, 0],

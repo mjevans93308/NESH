@@ -108,6 +108,7 @@
 					$st .= '</a></li>';
                 	$st .= '<li><a href="projectReview.php?pid='.$pid.'">Analytics</a></li>';
                 	$st .= '<li class="sidebaractive"><a href="trends.php?pid='.$pid.'">Trends</a></li>';
+					$st .= '<li><a href="abAnalytics.php?pid='.$pid.'">AB Analytics</a></li>';
 		           $st .= '<li><a href="projSettings.php?pid='.$pid.'">Settings</a></li>';
                	$st .= '<li><a href="codeSnippets.php?pid='.$pid.'">Code Snippets</a></li>';
 					echo $st;
@@ -200,7 +201,10 @@
                     y3[i] = (y3[i - 1] || 300) + (Math.random() * 7) - 4;
                 }
 				var width = document.getElementById("graph").clientWidth - 20;
-                var lines = r.linechart(20, 0, width, 480, [1, 2, 3, 4, 5, 6, 7],[12, 32, 23, 15, 17, 27, 22], { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
+				window.xAxis=[1, 2, 3, 4, 5, 6, 7];
+				window.yAxis=[12, 32, 23, 15, 17, 27, 22];
+				window.xAxisLabels=[1, 2, 3, 4, 5, 6, 7];
+                var lines = r.linechart(20, 0, width, 480, window.xAxis,window.yAxis, { nostroke: false, axis: "0 0 1 1", symbol: "circle"}).hoverColumn(function () {
                     this.tags = r.set();
 
                     for (var i = 0, ii = this.y.length; i < ii; i++) {
@@ -324,7 +328,7 @@
 				postString += "tag4=_ALL";
 			}
 			alert(postString);
-			invokeScript();
+			//invokeScript();
 		}
 		/********************************************************
 						FUNCTIONS FOR DROPDOWNS
