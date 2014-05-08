@@ -171,7 +171,7 @@
 																
 																$query4 = "SELECT DISTINCT tag0 FROM Session WHERE hash_number='".$hash_num."'";
 																if($tag0 = $db_obj->query($query4)){
-																	$tag0Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag0Str = '<div class="pull-left padding"><select id="tagDetailSelect1" class="selectpicker show-tick form-control padding" style="float:left;" onChange="tagDetailSelected(1)">';
 																	$tag0Str .= '<option selected>Value</option>';
 																	while($row4 = $tag0->fetch_array()){
 																		$tag0Str .= '<option>'.$row4['tag0'].'</option>';
@@ -184,7 +184,7 @@
           														$st2 .= '<option value="tag1">'.$row3['tag1'].'</option>';
 																$query5 = "SELECT DISTINCT tag1 FROM Session WHERE hash_number='".$hash_num."'";
 																if($tag1 = $db_obj->query($query5)){
-																	$tag1Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag1Str = '<div class="pull-left padding"><select id="tagDetailSelect2" class="selectpicker show-tick form-control padding" style="float:left;" onChange="tagDetailSelected(2)">';
 																	$tag1Str .= '<option selected>Value</option>';
 																	while($row5 = $tag1->fetch_array()){
 																		$tag1Str .= '<option>'.$row5['tag1'].'</option>';
@@ -197,7 +197,7 @@
 																
 																$query6 = "SELECT DISTINCT tag2 FROM Session WHERE hash_number='".$hash_num."'";
 																if($tag2 = $db_obj->query($query6)){
-																	$tag2Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag2Str = '<div class="pull-left padding"><select id="tagDetailSelect3" class="selectpicker show-tick form-control padding" style="float:left;" onChange="tagDetailSelected(3)">';
 																	$tag2Str .= '<option selected>Value</option>';
 																	while($row6 = $tag2->fetch_array()){
 																		$tag2Str .= '<option>'.$row6['tag2'].'</option>';
@@ -209,7 +209,7 @@
           														$st2 .= '<option value="tag3">'.$row3['tag3'].'</option>';
 																$query7 = "SELECT DISTINCT tag3 FROM Session WHERE hash_number='".$hash_num."'";
 																if($tag3 = $db_obj->query($query7)){
-																	$tag3Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag3Str = '<div class="pull-left padding"><select id="tagDetailSelect4" class="selectpicker show-tick form-control padding" style="float:left;" onChange="tagDetailSelected(4)">';
 																	$tag3Str .= '<option selected>Value</option>';
 																	while($row7 = $tag3->fetch_array()){
 																		$tag3Str .= '<option>'.$row7['tag3'].'</option>';
@@ -222,7 +222,7 @@
 																
 																$query8 = "SELECT DISTINCT tag4 FROM Session WHERE hash_number='".$hash_num."'";
 																if($tag4 = $db_obj->query($query8)){
-																	$tag4Str = '<div class="pull-left padding"><select id="tagDetailSelect" class="selectpicker show-tick form-control padding" style="float:left;">';
+																	$tag4Str = '<div class="pull-left padding"><select id="tagDetailSelect5" class="selectpicker show-tick form-control padding" style="float:left;" onChange="tagDetailSelected(5)">';
 																	$tag4Str .= '<option selected>Value</option>';
 																	while($row8 = $tag4->fetch_array()){
 																		$tag4Str .= '<option>'.$row8['tag4'].'</option>';
@@ -293,6 +293,7 @@
 									</form> 
        				 			</div>
                              <div id="graph">
+                             	<h4>Select options from the events and tags to display custom graphs</h4>
                              </div>
                         </div>
                     </div>
@@ -327,9 +328,6 @@
 			//alert("3");
 			document.getElementById("addTagDet1").disabled = true;
 			document.getElementById("addTagOpt").disabled = true;
-			window.xAxis = [[1, 2, 3, 4, 5, 6, 7], [3.5, 4.5, 5.5, 6.5, 7, 8]];
-			window.yAxis =  [[12, 32, 23, 15, 17, 27, 22], [10, 20, 30, 25, 15, 28]];
-			createGraph();
 		}
 		
 			/********************************************************
@@ -573,7 +571,67 @@
 			alert(postString);
 			invokeScript();
 		}
-
+		function tagDetailSelected(idNum){
+			postString = '';
+			var eventSelected = $('#eventSelect option:selected').val();
+			postString += "hash_number="+window.hash_num+"&event_id="+eventSelected;
+			postString += "&";
+			var i;
+			for(i = 1; i <= tag; i++){
+				var tagIDD = "#tagSection"+i;
+				var id = "#property"+i;
+				if($(tagIDD).find(id).length){
+					var query1 = id+' option:selected';
+					var tagSelected2 = $(query1).val();
+					if(tagSelected2 == 'tag0'){
+						alert("tagDetail Selected: "+$(tagIDD).find('#tagDetailSelect1').length);
+						if($(tagIDD).find('#tagDetailSelect1').length){
+							postString += "tag0="+ $('#tagDetailSelect1 option:selected').val();
+						}
+						else{
+							postString += "tag0=_ALL";
+						}
+					}
+					if(tagSelected2 == 'tag1'){
+						if($('#tagDetailSelect2').find(id).length){
+							postString += "tag1="+ $('#tagDetailSelect2 option:selected').val();
+						}
+						else{
+							postString += "tag1=_ALL";
+						}
+					}
+					if(tagSelected2 == 'tag2'){
+						if($('#tagDetailSelect3').find(id).length){
+							postString += "tag2="+ $('#tagDetailSelect3 option:selected').val();
+						}
+						else{
+							postString += "tag2=_ALL";
+						}
+					}
+					if(tagSelected2 == 'tag3'){
+						if($('#tagDetailSelect4').find(id).length){
+							postString += "tag3="+ $('#tagDetailSelect4 option:selected').val();
+						}
+						else{
+							postString += "tag3=_ALL";
+						}
+					}
+					if(tagSelected2 == 'tag4'){
+						if($('#tagDetailSelect5').find(id).length){
+							postString += "tag4="+ $('#tagDetailSelect5 option:selected').val();
+						}
+						else{
+							postString += "tag4=_ALL";
+						}
+					}
+					if(i != tag){
+						postString += '&';
+					}
+				}
+			}
+			alert(postString);
+			invokeScript();
+		}
 		function addTagDetails(form, num) {
 			var query = '#property'+num+' option:selected';	
 			alert(query);

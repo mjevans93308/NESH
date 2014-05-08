@@ -160,41 +160,185 @@
                              <div id="tagGraph">
                              <div id= "tagSection1">
                              	<div class="pull-left padding">
-                    					<select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
+                    					<select id="property1" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
 										<?php
 												$st2 = '<option selected>Tag</option>';
 												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
 													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
 														while($row3 = $result3->fetch_assoc()){
 															if($row3['tag0'] != ""){
-          														$st2 .= '<option value="tag0">'.$row3['tag0'].'</option>';	
+          														$st2 .= '<option>'.$row3['tag0'].'</option>';	
 															}
 															if($row3['tag1'] != ""){
-          														$st2 .= '<option value="tag1">'.$row3['tag1'].'</option>';
+          														$st2 .= '<option>'.$row3['tag1'].'</option>';
 															}
 															if($row3['tag2'] != ""){
-          														$st2 .= '<option value="tag2">'.$row3['tag2'].'</option>';
+          														$st2 .= '<option>'.$row3['tag2'].'</option>';
 															}
 															if($row3['tag3'] != ""){
-          														$st2 .= '<option value="tag3">'.$row3['tag3'].'</option>';
+          														$st2 .= '<option>'.$row3['tag3'].'</option>';
 															}
 															if($row3['tag4'] != ""){
-          														$st2 .= '<option value="tag4">'.$row3['tag4'].'</option>';
+          														$st2 .= '<option>'.$row3['tag4'].'</option>';
 															}
           												}		
 													}
 												echo $st2;
 												
 											?>
-                    					</select>  
+                    					</select>
+                                    <?php
+											$temp = $st2;
+											echo "<script> window.additionalTags='".$temp."'</script>"; 
+										?>  
+                					</div>
+                             </div>
+                             <div id= "tagSection2">
+                             	<div class="pull-left padding">
+                    					<select id="property2" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
+										<?php
+												$st2 = '<option selected>Tag</option>';
+												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
+													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
+														while($row3 = $result3->fetch_assoc()){
+															if($row3['tag0'] != ""){
+          														$st2 .= '<option>'.$row3['tag0'].'</option>';	
+															}
+															if($row3['tag1'] != ""){
+          														$st2 .= '<option>'.$row3['tag1'].'</option>';
+															}
+															if($row3['tag2'] != ""){
+          														$st2 .= '<option>'.$row3['tag2'].'</option>';
+															}
+															if($row3['tag3'] != ""){
+          														$st2 .= '<option>'.$row3['tag3'].'</option>';
+															}
+															if($row3['tag4'] != ""){
+          														$st2 .= '<option>'.$row3['tag4'].'</option>';
+															}
+          												}		
+													}
+												echo $st2;
+												
+											?>
+                    					</select>
+                                    <?php
+											$temp = $st2;
+											echo "<script> window.additionalTags='".$temp."'</script>"; 
+										?>  
+                					</div>
+                             </div>
+                             <div id= "tagSection3">
+                             	<div class="pull-left padding">
+                    					<select id="property3" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
+										<?php
+												$st2 = '<option selected>Tag</option>';
+												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
+													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
+														while($row3 = $result3->fetch_assoc()){
+															if($row3['tag0'] != ""){
+          														$st2 .= '<option>'.$row3['tag0'].'</option>';	
+															}
+															if($row3['tag1'] != ""){
+          														$st2 .= '<option>'.$row3['tag1'].'</option>';
+															}
+															if($row3['tag2'] != ""){
+          														$st2 .= '<option>'.$row3['tag2'].'</option>';
+															}
+															if($row3['tag3'] != ""){
+          														$st2 .= '<option>'.$row3['tag3'].'</option>';
+															}
+															if($row3['tag4'] != ""){
+          														$st2 .= '<option>'.$row3['tag4'].'</option>';
+															}
+          												}		
+													}
+												echo $st2;
+												
+											?>
+                    					</select>
+                                    <?php
+											$temp = $st2;
+											echo "<script> window.additionalTags='".$temp."'</script>"; 
+										?>  
+                					</div>
+                             </div>
+                             <div id= "tagSection4">
+                             	<div class="pull-left padding">
+                    					<select id="property4" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
+										<?php
+												$st2 = '<option selected>Tag</option>';
+												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
+													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
+														while($row3 = $result3->fetch_assoc()){
+															if($row3['tag0'] != ""){
+          														$st2 .= '<option>'.$row3['tag0'].'</option>';	
+															}
+															if($row3['tag1'] != ""){
+          														$st2 .= '<option>'.$row3['tag1'].'</option>';
+															}
+															if($row3['tag2'] != ""){
+          														$st2 .= '<option>'.$row3['tag2'].'</option>';
+															}
+															if($row3['tag3'] != ""){
+          														$st2 .= '<option>'.$row3['tag3'].'</option>';
+															}
+															if($row3['tag4'] != ""){
+          														$st2 .= '<option>'.$row3['tag4'].'</option>';
+															}
+          												}		
+													}
+												echo $st2;
+												
+											?>
+                    					</select>
+                                    <?php
+											$temp = $st2;
+											echo "<script> window.additionalTags='".$temp."'</script>"; 
+										?>  
+                					</div>
+                             </div>
+                             <div id= "tagSection5">
+                             	<div class="pull-left padding">
+                    					<select id="property5" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">                                        
+										<?php
+												$st2 = '<option selected>Tag</option>';
+												$query3 = "SELECT * FROM Products WHERE pid = '".$pid."'";
+													if ( ($result3 = $db_obj->query($query3)) && ($result3->num_rows == 1) ){  // success!
+														while($row3 = $result3->fetch_assoc()){
+															if($row3['tag0'] != ""){
+          														$st2 .= '<option>'.$row3['tag0'].'</option>';	
+															}
+															if($row3['tag1'] != ""){
+          														$st2 .= '<option>'.$row3['tag1'].'</option>';
+															}
+															if($row3['tag2'] != ""){
+          														$st2 .= '<option>'.$row3['tag2'].'</option>';
+															}
+															if($row3['tag3'] != ""){
+          														$st2 .= '<option>'.$row3['tag3'].'</option>';
+															}
+															if($row3['tag4'] != ""){
+          														$st2 .= '<option>'.$row3['tag4'].'</option>';
+															}
+          												}		
+													}
+												echo $st2;
+												
+											?>
+                    					</select>
+                                    <?php
+											$temp = $st2;
+											echo "<script> window.additionalTags='".$temp."'</script>"; 
+										?>  
                 					</div>
                              </div>
                              </div>
-                             <div class="pull-left">
-                          		<button type="button" id="addTagOpt" class="close" onClick="addTagGraphs(this.form);">&#43;</button>
-                             </div>
                              </div>
         						</form>  
+                              <div id="customSnippet" class="well">
+                             	<p>Custom code snippet will be displayed here once an option is selected</p>
+                             </div>
                         </div>
                     </div>
             </div>
@@ -223,41 +367,99 @@
 		/********************************************************
 						FUNCTIONS FOR DROPDOWNS
 		*********************************************************/
-		var tag = 1;
-		var tagNum = 1;
-		
+		var codeString = '';
 		function eventSelected(){
-			alert("onclick works");
+			codeString = '';
 			var eventSelected = $('#eventSelect option:selected').val();
+			codeString += 'nesh.track("'+eventSelected;
+			codeString += '", "';
+			var tagSelected1 = $('#property1 option:selected').val();
+			var tagSelected2 = $('#property2 option:selected').val();
+			var tagSelected3 = $('#property3 option:selected').val();
+			var tagSelected4 = $('#property4 option:selected').val();
+			var tagSelected5 = $('#property5 option:selected').val();
+			
+			if(tagSelected1 == 'Tag'){
+				alert(tagSelected1);
+				codeString += ', ';
+			}
+			else{
+				codeString += tagSelected1+', ';	
+			}
+			if(tagSelected2 == 'Tag'){
+				codeString += ', ';
+			}
+			else{
+				codeString += tagSelected2+', ';
+			}
+			if(tagSelected3 == 'Tag'){
+				codeString += ', ';
+			}
+			else{
+				codeString += tagSelected3+', ';
+			}
+			if(tagSelected4 == 'Tag'){
+				codeString += ', ';
+			}
+			else{
+				codeString += tagSelected4+', ';
+			}
+			if(tagSelected5 == 'Tag'){
+				codeString += '");';
+			}
+			else{
+				codeString += tagSelected5+'");';
+			}
+			alert(codeString);
+			document.getElementById('customSnippet').innerHTML = codeString;
 		}
 	
 		function tagSelected(){
-			var tagSelected1 = $('#property option:selected').val();
-			alert(tagSelected1);
+			codeString = '';
+			var eventSelected = $('#eventSelect option:selected').val();
+			codeString += 'nesh.track("'+eventSelected;
+			codeString += '", "';
+			var tagSelected1 = $('#property1 option:selected').val();
+			var tagSelected2 = $('#property2 option:selected').val();
+			var tagSelected3 = $('#property3 option:selected').val();
+			var tagSelected4 = $('#property4 option:selected').val();
+			var tagSelected5 = $('#property5 option:selected').val();
+			
+			if(tagSelected1 == 'Tag'){
+				alert(tagSelected1);
+				codeString += ', ';
+			}
+			else{
+				codeString += tagSelected1+', ';	
+			}
+			if(tagSelected2 == 'Tag'){
+				codeString += ', ';
+			}
+			else{
+				codeString += tagSelected2+', ';
+			}
+			if(tagSelected3 == 'Tag'){
+				codeString += ', ';
+			}
+			else{
+				codeString += tagSelected3+', ';
+			}
+			if(tagSelected4 == 'Tag'){
+				codeString += ', ';
+			}
+			else{
+				codeString += tagSelected4+', ';
+			}
+			if(tagSelected5 == 'Tag'){
+				codeString += '");';
+			}
+			else{
+				codeString += tagSelected5+'");';
+			}
+			alert(codeString);
+			document.getElementById('customSnippet').innerHTML = codeString;
 		}
 		
-		function addTagGraphs(form) {
-		if(tagNum < 5){
-			tag += 1;
-			tagNum += 1;
-			var string = '<div class="form-group" id= "tagSection'+tag+'"><div class="pull-left padding"><select id="prepositions" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true"><option selected>By</option><option>Is</option></select></div><div class="pull-left padding"><select id="property" class="selectpicker show-tick form-control padding" style="float:left;" data-live-search="true" onChange="tagSelected()">'
-			string += window.additionalTags;
-			string += '</select></div><div class="pull-left"><button type="button" id="addTagDet" class="close" onClick="addTagDetails(\'#tagSection'+tag+'\');">&#62;</button></div>';
-			string += '<div class="pull-left"><button type="button" id="removeTag" class="close" onClick="deleteTag(\'#tagSection'+tag+'\')">&#120;</button></div></div>';
-			
-			$('#tagGraph').append(string);
-			$('.selectpicker').selectpicker();
-		}
-		else
-			alert("Maximum number of tags reached!");
-		}
-
-		function deleteTag(form) {
-			if(tagNum != 1){
-				tagNum = tagNum - 1;
-				jQuery(form).remove();
-			}
-		}
 
 		/********************************************************
 					Custom JavaScript for the Menu Toggle 
