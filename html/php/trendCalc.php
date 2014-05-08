@@ -101,14 +101,23 @@ if(isset($_POST)){
 
 	$q_view = "CREATE VIEW V$hash_number AS SELECT * from Session WHERE hash_number=$hash_number";
 	$q_drop = "DROP VIEW V$hash_number;";
+
+	// 1. Filter By Hash
+	// 2. check for an _ALL tag# or event_id
+	// 3. setup count query
+	// 4. return data 
 	
 	if(isset($_POST['event_id'])){
 		$event_id = $_POST['event_id'];
 		$q_view .= " AND event_id=$event_id";
 	}else{
-		// if no event selected, die with error
-		errlog("EVENT_ERROR","no event received for hash",$hash_number);
-		sendback(-1);
+		$q_events = "SELECT event_id FROM Events WHERE hash_number=$hash_number";
+		if($result = $db_obj->query($q_events)){
+			// add result table elements to 
+		}
+		// if no event selected, get events count
+		// 1. Get Event List : hash -> prod -> events
+
 	}
 
 	$emptyTags = 0;

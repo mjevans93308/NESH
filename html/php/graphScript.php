@@ -142,16 +142,20 @@ if(isset($_POST)){
 	// If only event selected, prep for all tag lines
 	if($emptyTags==5){
 		$all_arr = array("tag0","tag1","tag2","tag3","tag4");
+	}else{
+		if(empty($all_arr)){
+			$all_arr[]="event_id";
+		}
 	}
 
 	foreach( $all_arr as $filter ){
 		$filter_arr[$filter] = array();
-		$q_count = "SELECT $filter AS TAG, DATE( c_timestamp ) AS DAY, COUNT( * ) AS CNT FROM V$hash_number GROUP BY $filter, DATE( c_timestamp );";
+		$q_count = "SELECT $filter AS FILTER, DATE( c_timestamp ) AS DAY, COUNT( * ) AS CNT FROM V$hash_number GROUP BY $filter, DATE( c_timestamp );";
 		if ( $result = $db_obj->query($q_count)){
 			if( $result->num_rows > 0 ){
 				//$row = $result->fetch_assoc();
 				while($row = $result->fetch_assoc()){
-					$tagstr = $row['TAG'];
+					$tagstr = $row['FILTER'];
 					if($debug == true){echo "filterarr[".$filter."][".$tagstr."]=";}
 					if(!isset($filter_arr[$filter][$tagstr])){
 						$filter_arr[$filter][$tagstr] = new line();
@@ -191,7 +195,8 @@ if(isset($_POST)){
 		sendback(-1);
 	}
 	sendback(0);
+}else{
+	errlog("POST_ERROR","no POST data received");
+	sendback(-1);
 }
-else
-	echo  "Didn't even get here";
 ?>
